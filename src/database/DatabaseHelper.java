@@ -17,35 +17,9 @@ public class DatabaseHelper implements DatabaseInfo{
             con = DriverManager.getConnection(DB_URL,USER,PASS);
         }
 
-    public Connection getCon() {
+        public Connection getCon() {
         return con;
     }
 
-    //        public void insertDay(String day) throws SQLException {
-//
-//            String sqlInsert = "Insert into Days(day) values (?)";
-//            PreparedStatement preparedStmt = connect().prepareStatement(sqlInsert);
-//            preparedStmt.setString(1,day);
-//            preparedStmt.execute();
-//            con.close();
-//
-//        }
-
-//        public static void main(String[] Args){
-//
-//            try{
-//            DatabaseHelper db = new DatabaseHelper();
-//            db.insertDay("Wednesday");
-//
-//
-//            }
-//            catch (ClassNotFoundException e){
-//                e.printStackTrace();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//
-//
-//        }
 
 }

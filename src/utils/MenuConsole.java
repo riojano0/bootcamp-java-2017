@@ -1,7 +1,12 @@
 package utils;
 
 import classes.*;
+import database.DatabaseHelper;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -13,7 +18,7 @@ public class MenuConsole {
     private MenuConsole() {
     }
 
-    private static void windConsole() throws ParseException {
+    private static void windConsole() throws ParseException, SQLException, ClassNotFoundException {
         System.out.println("\nWind");
         Wind w = new Wind();
         int speed = InputAdapter.InputScannerInteger("Insert the Speed: ", "Speed not valid");
@@ -24,7 +29,7 @@ public class MenuConsole {
         menu();
     }
 
-    private static void atmosphereConsole() throws ParseException {
+    private static void atmosphereConsole() throws ParseException, SQLException, ClassNotFoundException {
         System.out.println("\nAtmosphere");
         Atmosphere a = new Atmosphere();
         int humidity = InputAdapter.InputScannerInteger("Insert the Humidity: ","Humidity not valid");
@@ -39,7 +44,7 @@ public class MenuConsole {
         menu();
     }
 
-    private static void countryConsole() throws ParseException {
+    private static void countryConsole() throws ParseException, SQLException, ClassNotFoundException {
         System.out.println("\nCountry");
         Country c = new Country();
         String name = InputAdapter.InputScanner("Insert the Name: ", "Name no valid", 3, 80);
@@ -52,7 +57,7 @@ public class MenuConsole {
         menu();
     }
 
-    private static void stateConsole() throws ParseException {
+    private static void stateConsole() throws ParseException, SQLException, ClassNotFoundException {
         System.out.println("\nState");
         System.out.println("\nNote: this Console insert have a Dummy-country and you dont need insert it");
         Country c = new Country("Dummy-Country", "dc", "dmc");
@@ -82,7 +87,7 @@ public class MenuConsole {
         menu();
     }
 
-    private static void forecastTodayConsole() throws ParseException {
+    private static void forecastTodayConsole() throws ParseException, SQLException, ClassNotFoundException {
         System.out.println("\nForecast Today");
         System.out.println("\nNote: Only insert temp, because the date is this moment");
         ForecastToday fToday = new ForecastToday();
@@ -98,7 +103,7 @@ public class MenuConsole {
 
     }
 
-    private static void forecastExtendedConsole() throws ParseException {
+    private static void forecastExtendedConsole() throws ParseException, SQLException, ClassNotFoundException {
 
         System.out.println("\nForecast Extended");
 
@@ -126,7 +131,7 @@ public class MenuConsole {
         menu();
     }
 
-    private static void weatherConsole() throws ParseException {
+    private static void weatherConsole() throws ParseException, SQLException, ClassNotFoundException {
         System.out.println("\nWeather");
         System.out.println("Note: Weather is a big composition Class, that is why have a loot of dummy(the same of tests), only insert the description \n");
 
@@ -205,8 +210,24 @@ public class MenuConsole {
         menu();
     }
 
+    private static void databaseConsole() throws SQLException, ClassNotFoundException, ParseException {
 
-    public static void menu() throws ParseException {
+        System.out.println("\nDatabase Connection");
+        System.out.println("Note: This only check if work and try to do a -Select 'Works!' from Dual- \n");
+
+        DatabaseHelper dbHelper = new DatabaseHelper();
+        Connection con = dbHelper.getCon();
+        Statement stmt = con.createStatement();
+        String sqlQuery = "Select \"Works!\" from Dual";
+        ResultSet result = stmt.executeQuery(sqlQuery);
+        while(result.next()) {
+            System.out.println(result.getString(1)+"\n");
+        }
+
+        menu();
+    }
+
+    public static void menu() throws ParseException, SQLException, ClassNotFoundException {
         int selection;
 
         System.out.println("Choose a Class and check");
@@ -218,11 +239,10 @@ public class MenuConsole {
         System.out.println("5 - Insert Forecast Today by Console");
         System.out.println("6 - Insert Forecast Extended by Console");
         System.out.println("7 - Insert Weather by Console");
+        System.out.println("8 - Check if Database Conection Work");
         System.out.println("0 - Quit\n");
 
-        selection = InputAdapter.InputScannerInteger("Opcion: ", "Opcion incorrecta");
-
-
+        selection = InputAdapter.InputScannerInteger("Choice: ", "Choice not valid");
 
         switch (selection) {
             case 0:
@@ -241,6 +261,8 @@ public class MenuConsole {
                 forecastExtendedConsole();break;
             case 7:
                 weatherConsole();break;
+            case 8:
+                databaseConsole();break;
         }
     }
 }

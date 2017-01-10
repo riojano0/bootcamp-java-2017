@@ -40,7 +40,7 @@ CREATE TABLE Atmospheres (
 
 CREATE TABLE Days (
    id int NOT NULL AUTO_INCREMENT,
-   Day varchar(30) NOT NULL,
+   Day varchar(30) NOT NULL UNIQUE,
    CONSTRAINT Days_pk PRIMARY KEY (id)
 );
 
@@ -79,3 +79,12 @@ CREATE TABLE Weather (
    CONSTRAINT forecast_extended_fk FOREIGN KEY (forecast_extended_id)
    		REFERENCES forecast_extended(id)
 );
+
+/* Values for the Secondary Table Days */
+Insert into Days(day) values('Sunday')
+Insert into Days(day) values('Monday');
+Insert into Days(day) values('Tuesday');
+Insert into Days(day) values('Wednesday');
+Insert into Days(day) values('Thursday');
+Insert into Days(day) values('Friday');
+Insert into Days(day) values('Saturday');
