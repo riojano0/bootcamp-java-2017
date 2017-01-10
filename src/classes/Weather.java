@@ -3,7 +3,7 @@ package classes;
 /**
  * Created by Daniel on 09/01/2017.
  */
-public class Wheater {
+public class Weather {
 
     State state;
     ForecastToday today;
@@ -12,10 +12,10 @@ public class Wheater {
     Atmosphere atmosphere;
     String description;
 
-    public Wheater() {
+    public Weather() {
     }
 
-    public Wheater(State state, ForecastToday today, ForecastExtended[] week, Wind wind, Atmosphere atmosphere, String description) {
+    public Weather(State state, ForecastToday today, ForecastExtended[] week, Wind wind, Atmosphere atmosphere, String description) {
         this.state = state;
         this.today = today;
         this.week = week;

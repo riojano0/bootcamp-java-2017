@@ -1,25 +1,19 @@
 package classes;
 
-import com.intellij.ide.ui.AppearanceOptionsTopHitProvider;
-import com.intellij.refactoring.changeClassSignature.TypeParameterInfo;
 import org.junit.Test;
 import utils.DateAdapter;
 
-
-import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Logger;
 
 import static org.junit.Assert.*;
 
 /**
- * Created by Daniel on 09/01/2017.
+ * Created by Daniel on 10/01/2017.
  */
-public class WheaterTest {
-
+public class WeatherTest {
 
     @Test
-    public void testWheater() throws Exception{
+    public void testWeather() throws Exception{
 
         /* Country Dummy */
         Country dummyCountry = new Country("Dummmy-Country","dc","dmc");
@@ -66,35 +60,35 @@ public class WheaterTest {
         /* Case of Atmosphere */
         Atmosphere atmosphere = new Atmosphere(10,20.2,200,15);
 
-        /* Create and Test Wheater */
+        /* Create and Test Weather */
 
-        Wheater wheater = new Wheater(dummyState,today,weekExtended,wind,atmosphere,"The best Wheater");
+        Weather Weather = new Weather(dummyState,today,weekExtended,wind,atmosphere,"The best Weather");
 //        System.out.println(dummyState.getName());
-//        System.out.println(wheater.getState().getName());
-//        Logger l = Logger.getLogger(Wheater.class.getName());
-        System.out.println("State: "+wheater.getState().getName());
-        System.out.println(String.format("Wheater now: %s Temperature %s°C",wheater.getToday().getDate(),wheater.getToday().getTemp()));
-        System.out.println(String.format("Wind : Speed:%s Direction:%s",wheater.getWind().getSpeed(),wheater.getWind().getDirection()));
+//        System.out.println(Weather.getState().getName());
+//        Logger l = Logger.getLogger(Weather.class.getName());
+        System.out.println("State: "+Weather.getState().getName());
+        System.out.println(String.format("Weather now: %s Temperature %s°C",Weather.getToday().getDate(),Weather.getToday().getTemp()));
+        System.out.println(String.format("Wind : Speed:%s Direction:%s",Weather.getWind().getSpeed(),Weather.getWind().getDirection()));
         System.out.println(String.format("Atmosphere : Humidity:%s Pressure:%s Rising:%s Visibility:%s",
-                wheater.getAtmosphere().getHumidity(),
-                wheater.getAtmosphere().getPressure(),
-                wheater.getAtmosphere().getRising(),
-                wheater.getAtmosphere().getVisibility()));
+                Weather.getAtmosphere().getHumidity(),
+                Weather.getAtmosphere().getPressure(),
+                Weather.getAtmosphere().getRising(),
+                Weather.getAtmosphere().getVisibility()));
         for (int i = 0; i<=9;i++){
             System.out.println(String.format("Extended Forecast Date %s, Day %s, Min %s, Max %s, Description %s ",
-                    wheater.getWeek()[i].getDate(),
-                    wheater.getWeek()[i].dayToString(),
-                    wheater.getWeek()[i].getTempMix(),
-                    wheater.getWeek()[i].getTempMax(),
-                    wheater.getWeek()[i].getDescription()));
+                    Weather.getWeek()[i].getDate(),
+                    Weather.getWeek()[i].dayToString(),
+                    Weather.getWeek()[i].getTempMix(),
+                    Weather.getWeek()[i].getTempMax(),
+                    Weather.getWeek()[i].getDescription()));
         }
 
-        assertEquals(dummyState,wheater.getState());
-        assertEquals(today,wheater.getToday());
-        assertArrayEquals(weekExtended,wheater.getWeek());
-        assertEquals(wind,wheater.getWind());
-        assertEquals(atmosphere,wheater.getAtmosphere());
-        assertEquals("The best Wheater",wheater.getDescription());
+        assertEquals(dummyState,Weather.getState());
+        assertEquals(today,Weather.getToday());
+        assertArrayEquals(weekExtended,Weather.getWeek());
+        assertEquals(wind,Weather.getWind());
+        assertEquals(atmosphere,Weather.getAtmosphere());
+        assertEquals("The best Weather",Weather.getDescription());
 
     }
 
