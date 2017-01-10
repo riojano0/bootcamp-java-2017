@@ -14,6 +14,10 @@ public class ForecastToday {
         this.temp = temp;
     }
 
+    public String forecastTodayToString(){
+        return String.format("Date: %s \nTemp: %s", date,temp);
+    }
+
     public Date getDate() {
         return date;
     }

@@ -20,6 +20,14 @@ public class Atmosphere {
         this.rising = rising;
     }
 
+    public String atmosphereToString(){
+        return String.format("Humidity: %s \nPressure: %s \nVisibility: %s \nRising: %s",
+                humidity,
+                pressure,
+                visibility,
+                rising);
+    }
+
     public int getHumidity() {
         return humidity;
     }

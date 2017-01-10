@@ -25,7 +25,7 @@ public class Country {
     }
 
     public String getShort_name_2() {
-        return short_name_2;
+        return short_name_2.toUpperCase();
     }
 
     public void setShort_name_2(String short_name_2) {
@@ -33,7 +33,7 @@ public class Country {
     }
 
     public String getShort_name_3() {
-        return short_name_3;
+        return short_name_3.toUpperCase();
     }
 
     public void setShort_name_3(String short_name_3) {

@@ -1,6 +1,6 @@
 CREATE DATABASE Weather_db;
 
-USE Wheater_db;
+USE Weather_db;
 
 CREATE TABLE Countries (
    id int NOT NULL AUTO_INCREMENT,

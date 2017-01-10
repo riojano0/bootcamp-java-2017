@@ -1,24 +1,37 @@
 package classes;
 
+import utils.DateAdapter;
+
 import java.util.Date;
 
 public class ForecastExtended {
 
     Date date;
     int day;
-    int tempMix;
+    int tempMin;
     int tempMax;
     String description;
 
+    public ForecastExtended() {
+    }
 
-
-    public ForecastExtended(Date date, int day, int tempMix, int tempMax, String description) {
+    public ForecastExtended(Date date, int day, int tempMin, int tempMax, String description) {
 
         this.date = date;
         this.day = day;
-        this.tempMix = tempMix;
+        this.tempMin = tempMin;
         this.tempMax = tempMax;
         this.description = description;
+    }
+
+    public String forecastExtendedToString(){
+        return String.format("Date: %s Day: %s Temp Min: %s °C Temp Max: %s °C Description: %s",
+                DateAdapter.dateDeformat(date),
+                dayToString(),
+                tempMin,
+                tempMax,
+                description
+                );
     }
 
     public String dayToString(){
@@ -52,12 +65,12 @@ public class ForecastExtended {
         this.day = day;
     }
 
-    public int getTempMix() {
-        return tempMix;
+    public int getTempMin() {
+        return tempMin;
     }
 
-    public void setTempMix(int tempMix) {
-        this.tempMix = tempMix;
+    public void setTempMin(int tempMin) {
+        this.tempMin = tempMin;
     }
 
     public int getTempMax() {

@@ -78,7 +78,7 @@ public class WeatherTest {
             System.out.println(String.format("Extended Forecast Date %s, Day %s, Min %s, Max %s, Description %s ",
                     Weather.getWeek()[i].getDate(),
                     Weather.getWeek()[i].dayToString(),
-                    Weather.getWeek()[i].getTempMix(),
+                    Weather.getWeek()[i].getTempMin(),
                     Weather.getWeek()[i].getTempMax(),
                     Weather.getWeek()[i].getDescription()));
         }

@@ -19,8 +19,8 @@ public class CountryTest {
         System.out.println(String.format("State short name: %s",dummyCountry.getShort_name_3()));
 
         assertEquals("Dummmy-Country",dummyCountry.getName());
-        assertEquals("dc",dummyCountry.getShort_name_2());
-        assertEquals("dmc",dummyCountry.getShort_name_3());
+        assertEquals("DC",dummyCountry.getShort_name_2());
+        assertEquals("DMC",dummyCountry.getShort_name_3());
 
     }
 

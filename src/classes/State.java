@@ -36,7 +36,7 @@ public class State {
     }
 
     public String getShort_name() {
-        return short_name;
+        return short_name.toUpperCase();
     }
 
     public void setShort_name(String short_name) {

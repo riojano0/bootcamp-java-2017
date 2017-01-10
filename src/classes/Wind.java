@@ -17,6 +17,10 @@ public class Wind {
         this.direction = direction;
     }
 
+    public String windToString(){
+        return String.format("Speed: %s \nDirection: %s", speed,direction);
+    }
+
     public int getSpeed() {
         return speed;
     }

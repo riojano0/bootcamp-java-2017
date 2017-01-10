@@ -4,6 +4,7 @@ import com.intellij.psi.TypeAnnotationProvider;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -28,6 +29,13 @@ public class WindDataSource {
 //            con.close();
 
         }
+
+    public ResultSet getAllWinds() throws SQLException {
+        String sqlSelect = String.format("Select * from %s",TABLE_NAME);
+        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        ResultSet result = preparedStmt.executeQuery();
+        return result;
+    }
 
     public WindDataSource() throws SQLException, ClassNotFoundException {
     }

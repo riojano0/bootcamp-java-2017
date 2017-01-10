@@ -25,7 +25,7 @@ public class StateTest {
 
         assertEquals(dummyCountry,dummyState.getCountry());
         assertEquals("Dummy-State",dummyState.getName());
-        assertEquals("DumS",dummyState.getShort_name());
+        assertEquals("DUMS",dummyState.getShort_name());
         assertEquals(100.50,dummyState.getArea(),0);
         assertEquals("Dummy-Capital",dummyState.getCapital());
 
