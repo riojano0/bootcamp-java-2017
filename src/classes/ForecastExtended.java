@@ -3,6 +3,7 @@ package classes;
 import utils.DateAdapter;
 
 import java.util.Date;
+import java.util.HashMap;
 
 public class ForecastExtended {
 
@@ -11,6 +12,18 @@ public class ForecastExtended {
     int tempMin;
     int tempMax;
     String description;
+
+    private static final HashMap<Integer,String> days;
+    static {
+        days = new HashMap<>();
+        days.put(1,"Sunday");
+        days.put(2,"Monday");
+        days.put(3,"Tuesday");
+        days.put(4,"Wednesday");
+        days.put(5,"Thursday");
+        days.put(6,"Friday");
+        days.put(7,"Saturday");
+    }
 
     public ForecastExtended() {
     }
@@ -35,18 +48,7 @@ public class ForecastExtended {
     }
 
     public String dayToString(){
-        String dt = "";
-        switch(day){
-            case 1: dt ="Sunday"; break;
-            case 2: dt ="Monday"; break;
-            case 3: dt ="Tuesday"; break;
-            case 4: dt ="Wednesday"; break;
-            case 5: dt ="Thursday"; break;
-            case 6: dt ="Friday"; break;
-            case 7: dt ="Saturday"; break;
-        }
-
-        return dt;
+        return days.get(day);
     }
 
     public Date getDate() {

@@ -12,9 +12,10 @@ import java.sql.SQLException;
  */
 public class WindDataSource {
 
-    static final String TABLE_NAME = "Winds";
-    static final String COLUMN_SPEED = "Speed";
-    static final String COLUMN_DIRECTION = "Direction";
+    private static final String TABLE_NAME = "Winds";
+    private static final String COLUMN_ID = "id";
+    private static final String COLUMN_SPEED = "Speed";
+    private static final String COLUMN_DIRECTION = "Direction";
     private DatabaseHelper dbHelper= new DatabaseHelper();
     private Connection con = dbHelper.getCon();
 
@@ -35,6 +36,13 @@ public class WindDataSource {
         PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
         ResultSet result = preparedStmt.executeQuery();
         return result;
+    }
+
+    public ResultSet getWindById(int id) throws SQLException {
+        String sqlSelect = String.format("Select * from %s where %s = ?",TABLE_NAME,COLUMN_ID);
+        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        preparedStmt.setInt(1,id);
+        return preparedStmt.executeQuery();
     }
 
     public WindDataSource() throws SQLException, ClassNotFoundException {

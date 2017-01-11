@@ -1,4 +1,5 @@
 package utils;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,5 +22,16 @@ public class DateAdapter {
         SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
         String dateString = fmt.format(date);
         return dateString;
+    }
+
+    public static java.sql.Date dateSql(Date dateIn){
+        java.sql.Date dateOut = new java.sql.Date(dateIn.getTime());
+        return dateOut;
+    }
+
+    public static java.sql.Date dateSql(String dateIn) throws ParseException {
+        java.util.Date dateInOut = dateFormat(dateIn);
+        java.sql.Date dateOut = new java.sql.Date(dateInOut.getTime());
+        return dateOut;
     }
 }
