@@ -20,10 +20,12 @@ public class ForecastTodayTest {
         ForecastToday fToday = new ForecastToday(date,35);
         System.out.println("Date format: "+fToday.getDate());
         System.out.println("Date deformat: "+DateAdapter.dateDeformat(fToday.getDate()));
+        System.out.println("Date SqlFormat: "+DateAdapter.dateSql(fToday.getDate()));
         System.out.println("Temp: "+fToday.getTemp());
 
         assertEquals(DateAdapter.dateFormat("20/01/2000"),fToday.getDate());
         assertEquals("20/01/2000",DateAdapter.dateDeformat(fToday.getDate()));
+        assertEquals(DateAdapter.dateFormat("20/01/2000"),DateAdapter.dateSql(fToday.getDate()));
         assertEquals(35,fToday.getTemp());
 
     }
