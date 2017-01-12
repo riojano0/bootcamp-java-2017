@@ -81,7 +81,7 @@ CREATE TABLE Weather (
 );
 
 /* Values for the Secondary Table Days */
-Insert into Days(day) values('Sunday')
+Insert into Days(day) values('Sunday');
 Insert into Days(day) values('Monday');
 Insert into Days(day) values('Tuesday');
 Insert into Days(day) values('Wednesday');

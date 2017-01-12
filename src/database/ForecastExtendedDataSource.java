@@ -1,6 +1,5 @@
 package database;
 
-import com.intellij.openapi.vcs.history.VcsRevisionNumber;
 import utils.DateAdapter;
 
 import java.sql.Connection;
