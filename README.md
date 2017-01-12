@@ -4,9 +4,10 @@ Daniel Ezequiel Montivero
 
 ####WeatherApp
  
-    /src/main/Run
+    Test classes by console inputs
+    /src/main/java/app/Run
  
 ####WeatherDatabase
-
+    Database Script and diagram image
     /extra
 

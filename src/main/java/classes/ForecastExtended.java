@@ -15,7 +15,7 @@ public class ForecastExtended {
 
     private static final HashMap<Integer,String> days;
     static {
-        days = new HashMap<>();
+        days = new HashMap<Integer,String>();
         days.put(1,"Sunday");
         days.put(2,"Monday");
         days.put(3,"Tuesday");

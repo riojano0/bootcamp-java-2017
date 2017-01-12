@@ -1,6 +1,5 @@
 package database;
 
-import com.intellij.openapi.vcs.history.VcsRevisionNumber;
 import utils.DateAdapter;
 
 import java.sql.Connection;
@@ -9,9 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.Objects;
+
 
 /**
  * Created by Daniel on 11/01/2017.
@@ -26,7 +24,7 @@ public class ForecastExtendedDataSource {
     private static final String COLUMN_DESCRIPTION= "Description";
     private static final HashMap<String,Integer> days;
     static {
-        days = new HashMap<>();
+        days = new HashMap<String,Integer>();
         days.put("sunday",1);
         days.put("monday",2);
         days.put("tuesday",3);
@@ -43,7 +41,7 @@ public class ForecastExtendedDataSource {
         int dayId;
 
         dateSql = (date instanceof Date)? DateAdapter.dateSql((Date)date):DateAdapter.dateSql((String)date);
-        dayId = (day instanceof String)? days.get(((String) day).toLowerCase()):(int)day;
+        dayId = (day instanceof String)? days.get(((String) day).toLowerCase()):(Integer)day;
 
         String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s, %s) values (?, ?,?,?,?,?)",
                 TABLE_NAME,COLUMN_ID,COLUMN_DATE_DAY,COLUMN_DAYS_ID,COLUMN_TEMP_MIN,COLUMN_TEMP_MAX,COLUMN_DESCRIPTION);

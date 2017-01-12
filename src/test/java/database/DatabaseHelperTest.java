@@ -36,7 +36,7 @@ public class DatabaseHelperTest {
     }
 
     @Test
-    public void testSelect2() throws SQLException, ClassNotFoundException {
+    public void testSpecificTableCountries() throws SQLException, ClassNotFoundException {
 
         DatabaseHelper dbHelper = new DatabaseHelper();
         Connection con = dbHelper.getCon();

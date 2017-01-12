@@ -1,4 +1,4 @@
-package main;
+package app;
 
 import utils.MenuConsole;
 import java.sql.SQLException;
