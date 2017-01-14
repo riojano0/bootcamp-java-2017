@@ -1,17 +1,16 @@
 package com.montivero.bootcamp2017.Domains;
 
+import com.montivero.bootcamp2017.Builders.ForecastTodayBuilder;
+import com.montivero.bootcamp2017.utils.DateAdapter;
 import java.util.Date;
 
 public class ForecastToday {
-    Date date;
-    int temp;
+    private Date date;
+    private int temp;
 
-    public ForecastToday() {
-    }
-
-    public ForecastToday(Date date, int temp) {
-        this.date = date;
-        this.temp = temp;
+    public ForecastToday(ForecastTodayBuilder builder) {
+        this.date = builder.date;
+        this.temp = builder.temp;
     }
 
     public String forecastTodayToString(){
@@ -22,15 +21,12 @@ public class ForecastToday {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+    public java.sql.Date getSqlDate(){ return DateAdapter.dateSql(date);}
+
+    public String getStringDate(){ return DateAdapter.dateDeformat(date);}
 
     public int getTemp() {
         return temp;
     }
 
-    public void setTemp(int temp) {
-        this.temp = temp;
-    }
 }

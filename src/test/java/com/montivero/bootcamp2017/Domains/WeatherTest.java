@@ -1,5 +1,6 @@
 package com.montivero.bootcamp2017.Domains;
 
+import com.montivero.bootcamp2017.Builders.*;
 import org.junit.Test;
 import com.montivero.bootcamp2017.utils.DateAdapter;
 
@@ -16,16 +17,26 @@ public class WeatherTest {
     public void testWeather() throws Exception{
 
         /* Country Dummy */
-        Country dummyCountry = new Country("Dummmy-Country","dc","dmc");
+        Country dummyCountry = new CountryBuilder().name("Dummy-Country")
+                .shortName2("dc")
+                .shortName3("dmc")
+                .build();
 
         /* State Dummy */
-        State dummyState = new State(dummyCountry, "Dummy-State","DumS",100,"Dummy-Capital");
+        State dummyState = new StateBuilder()
+                .country(dummyCountry)
+                .name("Dummy-State")
+                .shortName("DumS")
+                .area(100)
+                .capital("Dummy-Capital")
+                .build();
+
 
         /* Date for ForecastToday */
         Date dateToday = new Date();
 
         /* Case of ForecastToday */
-        ForecastToday today = new ForecastToday(dateToday,45);
+        ForecastToday today = new ForecastTodayBuilder().date(dateToday).temp(45).build();
 
         /*  Dates for ForecastExtended */
         Date day01date = DateAdapter.dateFormat("21/06/2016");
@@ -55,17 +66,19 @@ public class WeatherTest {
         ForecastExtended[] weekExtended = {day01,day02,day03,day04,day05,day06,day07,day08,day09,day10};
 
         /* Case of Wind */
-        Wind wind = new Wind(20,15);
+        Wind wind = new WindBuilder().speed(20).direction(15).build();;
 
         /* Case of Atmosphere */
-        Atmosphere atmosphere = new Atmosphere(10,20.2,200,15);
+        Atmosphere atmosphere = new AtmosphereBuilder()
+                .humidity(10)
+                .pressure(20.2)
+                .visibility(200)
+                .rising(15)
+                .build();
 
         /* Create and Test Weather */
 
         Weather Weather = new Weather(dummyState,today,weekExtended,wind,atmosphere,"The best Weather");
-//        System.out.println(dummyState.getName());
-//        System.out.println(Weather.getState().getName());
-//        Logger l = Logger.getLogger(Weather.class.getName());
         System.out.println("State: "+Weather.getState().getName());
         System.out.println(String.format("Weather now: %s Temperature %s°C",Weather.getToday().getDate(),Weather.getToday().getTemp()));
         System.out.println(String.format("Wind : Speed:%s Direction:%s",Weather.getWind().getSpeed(),Weather.getWind().getDirection()));

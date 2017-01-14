@@ -1,16 +1,17 @@
 package com.montivero.bootcamp2017.Domains;
 
+import com.montivero.bootcamp2017.Builders.ForecastExtendedBuilder;
 import com.montivero.bootcamp2017.utils.DateAdapter;
 import java.util.Date;
 import java.util.HashMap;
 
 public class ForecastExtended {
 
-    Date date;
-    int day;
-    int tempMin;
-    int tempMax;
-    String description;
+    private Date date;
+    private int day;
+    private int tempMin;
+    private int tempMax;
+    private String description;
 
     private static final HashMap<Integer,String> days;
     static {
@@ -24,16 +25,13 @@ public class ForecastExtended {
         days.put(7,"Saturday");
     }
 
-    public ForecastExtended() {
-    }
+    public ForecastExtended(ForecastExtendedBuilder builder) {
 
-    public ForecastExtended(Date date, int day, int tempMin, int tempMax, String description) {
-
-        this.date = date;
-        this.day = day;
-        this.tempMin = tempMin;
-        this.tempMax = tempMax;
-        this.description = description;
+        this.date = builder.date;
+        this.day = builder.day;
+        this.tempMin = builder.tempMin;
+        this.tempMax = builder.tempMax;
+        this.description = builder.description;
     }
 
     public String forecastExtendedToString(){
@@ -54,39 +52,20 @@ public class ForecastExtended {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public int getDay() {
         return day;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
     }
 
     public int getTempMin() {
         return tempMin;
     }
 
-    public void setTempMin(int tempMin) {
-        this.tempMin = tempMin;
-    }
-
     public int getTempMax() {
         return tempMax;
-    }
-
-    public void setTempMax(int tempMax) {
-        this.tempMax = tempMax;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

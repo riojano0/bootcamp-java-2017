@@ -1,5 +1,6 @@
 package com.montivero.bootcamp2017.Domains;
 
+import com.montivero.bootcamp2017.Builders.ForecastTodayBuilder;
 import org.junit.Test;
 import com.montivero.bootcamp2017.utils.DateAdapter;
 
@@ -15,19 +16,54 @@ import static org.junit.Assert.*;
 public class ForecastTodayTest {
 
     @Test
-    public void testForecastTodayTest() throws ParseException {
-        Date date = DateAdapter.dateFormat("20/01/2000");
-        ForecastToday fToday = new ForecastToday(date,35);
+    public void testForecastTodayTestFromDate() throws ParseException {
+        Date dateDate = DateAdapter.dateFormat("20/01/2000");
+        ForecastToday fToday = new ForecastTodayBuilder()
+                .date(dateDate)
+                .temp(35)
+                .build();
         System.out.println("Date format: "+fToday.getDate());
         System.out.println("Date deformat: "+DateAdapter.dateDeformat(fToday.getDate()));
         System.out.println("Date SqlFormat: "+DateAdapter.dateSql(fToday.getDate()));
         System.out.println("Temp: "+fToday.getTemp());
 
         assertEquals(DateAdapter.dateFormat("20/01/2000"),fToday.getDate());
-        assertEquals("20/01/2000",DateAdapter.dateDeformat(fToday.getDate()));
-        assertEquals(DateAdapter.dateFormat("20/01/2000"),DateAdapter.dateSql(fToday.getDate()));
-        assertEquals(35,fToday.getTemp());
+        assertEquals("20/01/2000", fToday.getStringDate());
+        assertEquals("2000-01-20", fToday.getSqlDate().toString());
+        assertEquals(35, fToday.getTemp());
 
+    }
+
+    @Test
+    public void testForecastTodayTestFromSqlDate() throws ParseException{
+
+        Date date3 = DateAdapter.dateFormat("20/01/2000");
+        java.sql.Date dateSql = DateAdapter.dateSql(date3);
+        ForecastToday fToday = new ForecastTodayBuilder()
+                .date(dateSql)
+                .temp(35)
+                .build();
+
+        assertEquals(DateAdapter.dateFormat("20/01/2000"),fToday.getDate());
+        assertEquals("20/01/2000", fToday.getStringDate());
+        assertEquals("2000-01-20", fToday.getSqlDate().toString());
+        assertEquals(35, fToday.getTemp());
+    }
+
+
+    @Test
+    public void testForecastTodayTestFromString() throws ParseException{
+
+        String dateString = "20/01/2000";
+        ForecastToday fToday = new ForecastTodayBuilder()
+                .date(dateString)
+                .temp(35)
+                .build();
+
+        assertEquals(DateAdapter.dateFormat("20/01/2000"),fToday.getDate());
+        assertEquals("20/01/2000", fToday.getStringDate());
+        assertEquals("2000-01-20", fToday.getSqlDate().toString());
+        assertEquals(35, fToday.getTemp());
     }
 
 }

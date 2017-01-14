@@ -1,5 +1,6 @@
 package com.montivero.bootcamp2017.Domains;
 
+import com.montivero.bootcamp2017.Builders.ForecastExtendedBuilder;
 import org.junit.Test;
 import com.montivero.bootcamp2017.utils.DateAdapter;
 
@@ -16,7 +17,15 @@ public class ForecastExtendedTest {
     @Test
     public void testForecastExtended() throws ParseException {
         Date date = DateAdapter.dateFormat("20/01/2000");
-        ForecastExtended fExtended = new ForecastExtended(date,1,20,30,"Cloudy");
+
+        ForecastExtended fExtended = new ForecastExtendedBuilder()
+                .date(date)
+                .day(1)
+                .tempMin(20)
+                .tempMax(30)
+                .description("Cloudy")
+                .build();
+
         System.out.println("Date format: "+fExtended.getDate());
         System.out.println("Date deformat: "+DateAdapter.dateDeformat(fExtended.getDate()));
         System.out.println("Date SqlFormat: "+DateAdapter.dateSql(fExtended.getDate()));

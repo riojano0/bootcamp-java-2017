@@ -1,5 +1,6 @@
 package com.montivero.bootcamp2017.utils;
 
+import com.montivero.bootcamp2017.Builders.*;
 import com.montivero.bootcamp2017.Config.DatabaseHelper;
 import com.montivero.bootcamp2017.Domains.*;
 
@@ -20,39 +21,47 @@ public class MenuConsole {
 
     private static void windConsole() throws ParseException, SQLException, ClassNotFoundException {
         System.out.println("\nWind");
-        Wind w = new Wind();
+
         int speed = InputAdapter.InputScannerInteger("Insert the Speed: ", "Speed not valid");
         int direction = InputAdapter.InputScannerInteger("Insert the Direction: ", "Direction not valid");
-        w.setSpeed(speed);
-        w.setDirection(direction);
+//        Wind w = new Wind();
+//        w.setSpeed(speed);
+//        w.setDirection(direction);
+
+        Wind w = new WindBuilder().speed(speed).direction(direction).build();
+
         System.out.println(String.format("Wind Speed: %s Direction: %s \n", w.getSpeed(), w.getDirection()));
         menu();
     }
 
     private static void atmosphereConsole() throws ParseException, SQLException, ClassNotFoundException {
         System.out.println("\nAtmosphere");
-        Atmosphere a = new Atmosphere();
         int humidity = InputAdapter.InputScannerInteger("Insert the Humidity: ","Humidity not valid");
         double pressure = InputAdapter.InputScannerDouble("Insert the Pressure: ", "Pressure not valid");
         int rising = InputAdapter.InputScannerInteger("Insert the Rising: ", "Rising not valid");
         double visibility = InputAdapter.InputScannerDouble("Insert the Visibility: ","Visibility not valid");
-        a.setHumidity(humidity);
-        a.setPressure(pressure);
-        a.setRising(rising);
-        a.setVisibility(visibility);
+        Atmosphere a = new AtmosphereBuilder()
+                .humidity(humidity)
+                .pressure(pressure)
+                .visibility(visibility)
+                .rising(rising)
+                .build();
+
         System.out.println(String.format("Atmosphere Humidity: %s Pressure: %s Rising: %s Visibility: %s \n", a.getHumidity(),a.getPressure(),a.getRising(),a.getVisibility()));
         menu();
     }
 
     private static void countryConsole() throws ParseException, SQLException, ClassNotFoundException {
         System.out.println("\nCountry");
-        Country c = new Country();
         String name = InputAdapter.InputScanner("Insert the Name: ", "Name no valid", 3, 80);
-        String name_short2 = InputAdapter.InputScanner("Insert short name (2 char):", "Not valid input", 2, 2);
-        String name_short3 = InputAdapter.InputScanner("Insert short name (3 char):", "Not valid input", 3, 3);
-        c.setName(name);
-        c.setShort_name_2(name_short2);
-        c.setShort_name_3(name_short3);
+        String nameShort2 = InputAdapter.InputScanner("Insert short name (2 char):", "Not valid input", 2, 2);
+        String nameShort3 = InputAdapter.InputScanner("Insert short name (3 char):", "Not valid input", 3, 3);
+
+        Country c = new CountryBuilder().name(name)
+                .shortName2(nameShort2)
+                .shortName3(nameShort3)
+                .build();
+
         System.out.println(String.format("Country Name: %s Alpha2: %s Alpha3: %s \n", c.getName(), c.getShort_name_2(), c.getShort_name_3()));
         menu();
     }
@@ -60,22 +69,29 @@ public class MenuConsole {
     private static void stateConsole() throws ParseException, SQLException, ClassNotFoundException {
         System.out.println("\nState");
         System.out.println("\nNote: this Console insert have a Dummy-country and you dont need insert it");
-        Country c = new Country("Dummy-Country", "dc", "dmc");
 
-        State s = new State();
-        s.setCountry(c);
+        Country c = new CountryBuilder().name("Dummy-Country")
+                .shortName2("dc")
+                .shortName3("dmc")
+                .build();
+
+//        State s = new State();
+
         String name = InputAdapter.InputScanner("Insert the Name: ",
                 "Name no valid", 3, 80);
-        String name_short2 = InputAdapter.InputScanner("Insert short name (2 char):",
+        String nameShort2 = InputAdapter.InputScanner("Insert short name (2 char):",
                 "Not valid input", 2, 2);
         double area = InputAdapter.InputScannerDouble("Insert the Area: ",
                 "Area not valid");
         String capital = InputAdapter.InputScanner("Insert the capital: ",
                 "Capital not valid", 3, 80);
-        s.setName(name);
-        s.setShort_name(name_short2);
-        s.setArea(area);
-        s.setCapital(capital);
+
+        State s = new StateBuilder().country(c)
+                .name(name)
+                .shortName(nameShort2)
+                .area(area)
+                .capital(capital)
+                .build();
 
         System.out.println(String.format("State Name: %s Country: %s ShortName: %s Area: %s KMS Capital: %s  \n",
                 s.getName(),
@@ -90,12 +106,11 @@ public class MenuConsole {
     private static void forecastTodayConsole() throws ParseException, SQLException, ClassNotFoundException {
         System.out.println("\nForecast Today");
         System.out.println("\nNote: Only insert temp, because the date is this moment");
-        ForecastToday fToday = new ForecastToday();
-        Date today = new Date();
+
         int temp = InputAdapter.InputScannerInteger("Insert the Temp: ","Temp not valid");
 
-        fToday.setDate(today);
-        fToday.setTemp(temp);
+        Date today = new Date();
+        ForecastToday fToday = new ForecastTodayBuilder().date(today).temp(temp).build();
 
         System.out.println(String.format("Forecast Today Date: %s Temp: %s °C",DateAdapter.dateDeformat(fToday.getDate()),fToday.getTemp()));
 
@@ -107,19 +122,19 @@ public class MenuConsole {
 
         System.out.println("\nForecast Extended");
 
-        ForecastExtended fExtended = new ForecastExtended();
-
         Date date = InputAdapter.InputScannerDate("Insert the Date (ex: dd/mm/yyyy): ", "Date not valid");
         int day = InputAdapter.InputScannerInteger("Insert day number (ex 1-7) :", "Day not valid", 1, 7);
         int tempMin = InputAdapter.InputScannerInteger("Insert MIN temp (Only positive values): ", "Not valid temp");
         int tempMax = InputAdapter.InputScannerInteger("Insert MAX temp (Only positive values): ", "Not valid temp");
         String description = InputAdapter.InputScanner("Insert description of the Forecast: ","Description not valid");
 
-        fExtended.setDate(date);
-        fExtended.setDay(day);
-        fExtended.setTempMin(tempMin);
-        fExtended.setTempMax(tempMax);
-        fExtended.setDescription(description);
+        ForecastExtended fExtended = new ForecastExtendedBuilder()
+                .date(date)
+                .day(day)
+                .tempMin(tempMin)
+                .tempMax(tempMax)
+                .description(description)
+                .build();
 
         System.out.println(String.format("Forecast Extended Date: %s Day: %s TempMin: %s °C TempMax: %s °C Description: %s",
                 DateAdapter.dateDeformat(fExtended.getDate()),
@@ -136,49 +151,63 @@ public class MenuConsole {
         System.out.println("Note: Weather is a big composition Class, that is why have a loot of dummy(the same of tests), only insert the description \n");
 
         /* Country Dummy */
-        Country dummyCountry = new Country("Dummmy-Country","dc","dmc");
+        Country dummyCountry = new CountryBuilder().name("Dummy-Country")
+                .shortName2("dc")
+                .shortName3("dmc")
+                .build();
 
         /* State Dummy */
-        State dummyState = new State(dummyCountry, "Dummy-State","DumS",100,"Dummy-Capital");
+        State dummyState = new StateBuilder()
+                .country(dummyCountry)
+                .name("Dummy-State")
+                .shortName("DumS")
+                .area(100)
+                .capital("Dummy-Capital")
+                .build();
 
         /* Date for ForecastToday */
         Date dateToday = new Date();
 
         /* Case of ForecastToday */
-        ForecastToday today = new ForecastToday(dateToday,45);
-
-        /*  Dates for ForecastExtended */
-        Date day01date = DateAdapter.dateFormat("21/06/2016");
-        Date day02date = DateAdapter.dateFormat("21/06/2016");
-        Date day03date = DateAdapter.dateFormat("21/06/2016");
-        Date day04date = DateAdapter.dateFormat("21/06/2016");
-        Date day05date = DateAdapter.dateFormat("21/06/2016");
-        Date day06date = DateAdapter.dateFormat("21/06/2016");
-        Date day07date = DateAdapter.dateFormat("21/06/2016");
-        Date day08date = DateAdapter.dateFormat("21/06/2016");
-        Date day09date = DateAdapter.dateFormat("21/06/2016");
-        Date day10date = DateAdapter.dateFormat("21/06/2016");
+        ForecastToday today = new ForecastTodayBuilder().date(dateToday).temp(45).build();
 
         /*  Cases of ForecastExtended */
-        ForecastExtended day01 = new ForecastExtended(day01date, 1, 20, 30, "Cloudy");
-        ForecastExtended day02 = new ForecastExtended(day02date, 2, 20, 30, "Cloudy");
-        ForecastExtended day03 = new ForecastExtended(day03date, 3, 20, 30, "Cloudy");
-        ForecastExtended day04 = new ForecastExtended(day04date, 4, 20, 30, "Cloudy");
-        ForecastExtended day05 = new ForecastExtended(day05date, 5, 20, 30, "Cloudy");
-        ForecastExtended day06 = new ForecastExtended(day06date, 6, 20, 30, "Cloudy");
-        ForecastExtended day07 = new ForecastExtended(day07date, 7, 20, 30, "Cloudy");
-        ForecastExtended day08 = new ForecastExtended(day08date, 1, 20, 30, "Cloudy");
-        ForecastExtended day09 = new ForecastExtended(day09date, 2, 20, 30, "Cloudy");
-        ForecastExtended day10 = new ForecastExtended(day10date, 3, 20, 30, "Cloudy");
+        ForecastExtended fExtendedDay01 = new ForecastExtendedBuilder()
+                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+        ForecastExtended fExtendedDay02 = new ForecastExtendedBuilder()
+                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+        ForecastExtended fExtendedDay03 = new ForecastExtendedBuilder()
+                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+        ForecastExtended fExtendedDay04 = new ForecastExtendedBuilder()
+                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+        ForecastExtended fExtendedDay05 = new ForecastExtendedBuilder()
+                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+        ForecastExtended fExtendedDay06 = new ForecastExtendedBuilder()
+                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+        ForecastExtended fExtendedDay07 = new ForecastExtendedBuilder()
+                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+        ForecastExtended fExtendedDay08 = new ForecastExtendedBuilder()
+                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+        ForecastExtended fExtendedDay09 = new ForecastExtendedBuilder()
+                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+        ForecastExtended fExtendedDay10 = new ForecastExtendedBuilder()
+                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
 
         /* Array of ForecastExtendes */
-        ForecastExtended[] weekExtended = {day01,day02,day03,day04,day05,day06,day07,day08,day09,day10};
+        ForecastExtended[] weekExtended = {fExtendedDay01,fExtendedDay02,fExtendedDay03,fExtendedDay04,
+                fExtendedDay05,fExtendedDay06,fExtendedDay07,fExtendedDay08,fExtendedDay09,fExtendedDay10};
 
         /* Case of Wind */
-        Wind wind = new Wind(20,15);
+//        Wind wind = new Wind(20,15);
+        Wind wind = new WindBuilder().speed(20).direction(15).build();
 
         /* Case of Atmosphere */
-        Atmosphere atmosphere = new Atmosphere(10,20.2,200,15);
+        Atmosphere atmosphere = new AtmosphereBuilder()
+                .humidity(10)
+                .pressure(20.2)
+                .visibility(200)
+                .rising(15)
+                .build();
 
         /* Create and Test Weather */
         Weather w = new Weather();

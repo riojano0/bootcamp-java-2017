@@ -1,5 +1,7 @@
 package com.montivero.bootcamp2017.Domains;
 
+import com.montivero.bootcamp2017.Builders.CountryBuilder;
+import com.montivero.bootcamp2017.Builders.StateBuilder;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -12,10 +14,19 @@ public class StateTest {
     @Test
     public void testState(){
         /* Country Dummy */
-        Country dummyCountry = new Country("Dummmy-Country","dc","dmc");
+        Country dummyCountry = new CountryBuilder().name("Dummy-Country")
+                .shortName2("dc")
+                .shortName3("dmc")
+                .build();
 
         /* State Dummy */
-        State dummyState = new State(dummyCountry, "Dummy-State","DumS",100.50,"Dummy-Capital");
+        State dummyState = new StateBuilder()
+                .country(dummyCountry)
+                .name("Dummy-State")
+                .shortName("DumS")
+                .area(100.50)
+                .capital("Dummy-Capital")
+                .build();
 
         System.out.println(String.format("State: %s",dummyState.getName()));
         System.out.println(String.format("Country: %s",dummyState.getCountry().getName()));

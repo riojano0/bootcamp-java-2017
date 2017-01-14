@@ -18,10 +18,15 @@ public class DateAdapter {
         return date;
     }
 
+    public static Date dateFormat(java.sql.Date dateSql) throws ParseException {
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = fmt.parse(dateSql.toString());
+        return date;
+    }
+
     public static String dateDeformat(Date date){
         SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
-        String dateString = fmt.format(date);
-        return dateString;
+        return fmt.format(date);
     }
 
     public static java.sql.Date dateSql(Date dateIn){

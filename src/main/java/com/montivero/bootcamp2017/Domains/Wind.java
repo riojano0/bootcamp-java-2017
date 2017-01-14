@@ -1,20 +1,23 @@
 package com.montivero.bootcamp2017.Domains;
 
+import com.montivero.bootcamp2017.Builders.WindBuilder;
+
 /**
  * Created by Daniel on 09/01/2017.
  */
 public class Wind {
 
-    int speed;
-    int direction;
+    private int speed;
+    private int direction;
 
-    public Wind(){
-
+    public Wind(int s, int d){
+        this.speed=s;
+        this.direction=d;
     }
 
-    public Wind(int speed, int direction) {
-        this.speed = speed;
-        this.direction = direction;
+    public Wind(WindBuilder builder){
+        this.speed=builder.speed;
+        this.direction=builder.direction;
     }
 
     public String windToString(){
@@ -25,15 +28,9 @@ public class Wind {
         return speed;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
     public int getDirection() {
         return direction;
     }
 
-    public void setDirection(int direction) {
-        this.direction = direction;
-    }
+
 }

@@ -9,8 +9,20 @@ import java.util.Scanner;
  */
 public class InputAdapter {
 
+    private static Scanner sc;
+
+    private static Scanner getScanner(){
+        if(sc!=null){
+            return sc;
+        }
+        else{
+            sc = new Scanner(System.in);
+            return sc;
+        }
+    }
+
     public static Date InputScannerDate(String message, String errorMessage){
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = getScanner();
         while (true) {
             System.out.print(message+" ");
             try {
@@ -25,7 +37,7 @@ public class InputAdapter {
     }
 
     public static int InputScannerInteger(String message, String errorMessage){
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = getScanner();
         while (true) {
             System.out.print(message+" ");
             try {
@@ -38,7 +50,7 @@ public class InputAdapter {
     }
 
     public static int InputScannerInteger(String message, String errorMessage,int firstValue,int endValue){
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = getScanner();
 
         while (true) {
             System.out.print(message+" ");
@@ -58,7 +70,7 @@ public class InputAdapter {
     }
 
     public static double InputScannerDouble(String message, String errorMessage){
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = getScanner();
         while (true) {
             System.out.print(message+" ");
             try {
@@ -71,7 +83,7 @@ public class InputAdapter {
     }
 
     public static String InputScanner(String message, String errorMessage){
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = getScanner();
               while (true) {
                 System.out.print(message+" ");
                 String input = sc.nextLine();
@@ -85,7 +97,7 @@ public class InputAdapter {
     }
 
     public static String InputScanner(String message, String errorMessage, int firstValue, int endValue){
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = getScanner();
         while (true) {
             System.out.print(message+" ");
             String input = sc.nextLine();
@@ -97,5 +109,6 @@ public class InputAdapter {
             }
         }
     }
+
 
 }
