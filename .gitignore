@@ -30,6 +30,7 @@
 /out/
 /target/
 .idea/
+.idea/*
 bootcamp-java-2017.iml
 my-Wheater-app.iml
 my-Weather-app.iml
