@@ -23,6 +23,22 @@ public class Weather {
         this.description = builder.description;
     }
 
+    public String weatherToString(){
+        String forecastExtendedOut = "";
+        for (int i = 0; week.length > i; i++){
+            forecastExtendedOut+=week[i].forecastExtendedToString()+"\n";
+        }
+        return String.format("Weather State:\n%s \n\n%s \n\n%s \n\n%s"+
+                        "\n\nDescription: %s \n\n%s ",
+                state.getName(),
+                today.forecastTodayToString(),
+                atmosphere.atmosphereToString(),
+                wind.windToString(),
+                description,
+                forecastExtendedOut
+        );
+    }
+
     public State getState() {
         return state;
     }

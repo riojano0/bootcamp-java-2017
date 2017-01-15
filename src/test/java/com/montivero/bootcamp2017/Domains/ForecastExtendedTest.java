@@ -1,13 +1,13 @@
 package com.montivero.bootcamp2017.Domains;
 
 import com.montivero.bootcamp2017.Builders.ForecastExtendedBuilder;
-import org.junit.Test;
 import com.montivero.bootcamp2017.utils.DateAdapter;
+import org.junit.Test;
 
 import java.text.ParseException;
 import java.util.Date;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Daniel on 10/01/2017.

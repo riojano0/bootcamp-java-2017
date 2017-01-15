@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.util.logging.Logger;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Daniel on 13/01/2017.

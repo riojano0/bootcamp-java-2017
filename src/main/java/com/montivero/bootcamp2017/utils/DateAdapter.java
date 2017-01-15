@@ -1,5 +1,5 @@
 package com.montivero.bootcamp2017.utils;
-import java.text.DateFormat;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,7 +9,6 @@ import java.util.Date;
  */
 public class DateAdapter {
     /* class create only for no use Calendar */
-
     private DateAdapter(){}
 
     public static Date dateFormat(String dateString) throws ParseException {

@@ -2,11 +2,11 @@ package com.montivero.bootcamp2017.Domains;
 
 import com.montivero.bootcamp2017.Builders.*;
 import org.junit.Test;
-import com.montivero.bootcamp2017.utils.DateAdapter;
 
 import java.util.Date;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Daniel on 10/01/2017.
@@ -17,7 +17,7 @@ public class WeatherTest {
     public void testWeather() throws Exception{
 
         /* Country Dummy */
-        Country dummyCountry = new CountryBuilder().name("Dummy-Country")
+        Country dummyCountry = new CountryBuilder().name("Dummy country")
                 .shortName2("dc")
                 .shortName3("dmc")
                 .build();
@@ -25,10 +25,10 @@ public class WeatherTest {
         /* State Dummy */
         State dummyState = new StateBuilder()
                 .country(dummyCountry)
-                .name("Dummy-State")
+                .name("Dummy State")
                 .shortName("DumS")
                 .area(100)
-                .capital("Dummy-Capital")
+                .capital("Dummy Capital")
                 .build();
 
         /* Date for ForecastToday */
@@ -41,23 +41,23 @@ public class WeatherTest {
         ForecastExtended fExtendedDay01 = new ForecastExtendedBuilder()
                 .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
         ForecastExtended fExtendedDay02 = new ForecastExtendedBuilder()
-                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+                .date("22/06/2016").day(2).tempMin(20).tempMax(35).description("Not Cloudy").build();
         ForecastExtended fExtendedDay03 = new ForecastExtendedBuilder()
-                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+                .date("23/06/2016").day(3).tempMin(20).tempMax(40).description("Cloudy").build();
         ForecastExtended fExtendedDay04 = new ForecastExtendedBuilder()
-                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+                .date("24/06/2016").day(4).tempMin(20).tempMax(41).description("Cloudy").build();
         ForecastExtended fExtendedDay05 = new ForecastExtendedBuilder()
-                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+                .date("25/06/2016").day(5).tempMin(20).tempMax(42).description("Cloudy").build();
         ForecastExtended fExtendedDay06 = new ForecastExtendedBuilder()
-                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+                .date("26/06/2016").day(6).tempMin(20).tempMax(43).description("Cloudy").build();
         ForecastExtended fExtendedDay07 = new ForecastExtendedBuilder()
-                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+                .date("27/06/2016").day(7).tempMin(20).tempMax(44).description("Cloudy").build();
         ForecastExtended fExtendedDay08 = new ForecastExtendedBuilder()
-                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+                .date("28/06/2016").day(1).tempMin(20).tempMax(45).description("Cloudy").build();
         ForecastExtended fExtendedDay09 = new ForecastExtendedBuilder()
-                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+                .date("29/06/2016").day(2).tempMin(20).tempMax(46).description("Cloudy").build();
         ForecastExtended fExtendedDay10 = new ForecastExtendedBuilder()
-                .date("21/06/2016").day(1).tempMin(20).tempMax(30).description("Cloudy").build();
+                .date("30/06/2016").day(3).tempMin(20).tempMax(47).description("The hell").build();
 
         /* Array of ForecastExtendes */
         ForecastExtended[] weekExtended = {fExtendedDay01,fExtendedDay02,fExtendedDay03,fExtendedDay04,
@@ -84,22 +84,7 @@ public class WeatherTest {
                 .atmosphere(atmosphere)
                 .build();
 
-        System.out.println("State: "+weather.getState().getName());
-        System.out.println(String.format("Weather now: %s Temperature %s°C",weather.getToday().getDate(),weather .getToday().getTemp()));
-        System.out.println(String.format("Wind : Speed:%s Direction:%s",weather.getWind().getSpeed(),weather .getWind().getDirection()));
-        System.out.println(String.format("Atmosphere : Humidity:%s Pressure:%s Rising:%s Visibility:%s",
-                weather.getAtmosphere().getHumidity(),
-                weather.getAtmosphere().getPressure(),
-                weather.getAtmosphere().getRising(),
-                weather.getAtmosphere().getVisibility()));
-        for (int i = 0; i<=9;i++){
-            System.out.println(String.format("Extended Forecast Date %s, Day %s, Min %s, Max %s, Description %s ",
-                    weather.getWeek()[i].getDate(),
-                    weather.getWeek()[i].dayToString(),
-                    weather.getWeek()[i].getTempMin(),
-                    weather.getWeek()[i].getTempMax(),
-                    weather.getWeek()[i].getDescription()));
-        }
+        System.out.println(weather.weatherToString());
 
         assertEquals(dummyState,weather.getState());
         assertEquals(today,weather.getToday());

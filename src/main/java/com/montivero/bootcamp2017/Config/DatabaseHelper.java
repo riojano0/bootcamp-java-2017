@@ -2,7 +2,6 @@ package com.montivero.bootcamp2017.Config;
 
 import java.sql.*;
 
-
 /**
  * Created by Daniel on 10/01/2017.
  */

@@ -1,6 +1,7 @@
 package com.montivero.bootcamp2017.Builders;
 
 import com.montivero.bootcamp2017.Domains.*;
+import org.apache.commons.lang3.text.WordUtils;
 
 /**
  * Created by Daniel on 14/01/2017.
@@ -41,7 +42,7 @@ public class WeatherBuilder {
     }
 
     public WeatherBuilder description(String description){
-        this.description=description;
+        this.description= description;
         return this;
     }
 

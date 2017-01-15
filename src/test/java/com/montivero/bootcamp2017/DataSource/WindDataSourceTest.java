@@ -3,15 +3,14 @@ package com.montivero.bootcamp2017.DataSource;
 import com.montivero.bootcamp2017.Builders.WindBuilder;
 import com.montivero.bootcamp2017.Config.DatabaseHelper;
 import com.montivero.bootcamp2017.Domains.Wind;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Daniel on 14/01/2017.

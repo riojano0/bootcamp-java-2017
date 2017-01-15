@@ -10,18 +10,13 @@ public class Wind {
     private int speed;
     private int direction;
 
-    public Wind(int s, int d){
-        this.speed=s;
-        this.direction=d;
-    }
-
     public Wind(WindBuilder builder){
         this.speed=builder.speed;
         this.direction=builder.direction;
     }
 
     public String windToString(){
-        return String.format("Speed: %s \nDirection: %s", speed,direction);
+        return String.format("Wind - Speed: %s  Direction: %s", speed,direction);
     }
 
     public int getSpeed() {

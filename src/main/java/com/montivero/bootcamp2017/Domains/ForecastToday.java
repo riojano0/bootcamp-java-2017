@@ -2,6 +2,7 @@ package com.montivero.bootcamp2017.Domains;
 
 import com.montivero.bootcamp2017.Builders.ForecastTodayBuilder;
 import com.montivero.bootcamp2017.utils.DateAdapter;
+
 import java.util.Date;
 
 public class ForecastToday {
@@ -14,7 +15,7 @@ public class ForecastToday {
     }
 
     public String forecastTodayToString(){
-        return String.format("Date: %s \nTemp: %s", date,temp);
+        return String.format("Forecast Today: \nDate: %s \nTemp: %s°C", DateAdapter.dateDeformat(date),temp);
     }
 
     public Date getDate() {

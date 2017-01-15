@@ -2,6 +2,7 @@ package com.montivero.bootcamp2017.Builders;
 
 import com.montivero.bootcamp2017.Domains.Country;
 import com.montivero.bootcamp2017.Domains.State;
+import org.apache.commons.lang3.text.WordUtils;
 
 /**
  * Created by Daniel on 14/01/2017.
@@ -19,12 +20,12 @@ public class StateBuilder {
     }
 
     public StateBuilder name(String name){
-        this.name=name;
+        this.name= WordUtils.capitalizeFully(name);
         return this;
     }
 
     public StateBuilder shortName(String shortName){
-        this.shortName=shortName;
+        this.shortName=shortName.toUpperCase();
         return this;
     }
 
@@ -34,7 +35,7 @@ public class StateBuilder {
     }
 
     public StateBuilder capital(String capital){
-        this.capital=capital;
+        this.capital=WordUtils.capitalizeFully(capital);
         return this;
     }
 

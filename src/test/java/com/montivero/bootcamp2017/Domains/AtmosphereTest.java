@@ -3,7 +3,7 @@ package com.montivero.bootcamp2017.Domains;
 import com.montivero.bootcamp2017.Builders.AtmosphereBuilder;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Daniel on 09/01/2017.

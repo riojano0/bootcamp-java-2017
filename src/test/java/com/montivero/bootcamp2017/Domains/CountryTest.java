@@ -3,7 +3,8 @@ package com.montivero.bootcamp2017.Domains;
 import com.montivero.bootcamp2017.Builders.CountryBuilder;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Created by Daniel on 09/01/2017.
@@ -13,7 +14,7 @@ public class CountryTest {
     @Test
     public void testCountry(){
         /* Country Dummy */
-        Country dummyCountry = new CountryBuilder().name("Dummy-Country")
+        Country dummyCountry = new CountryBuilder().name("dummy country")
                                                     .shortName2("dc")
                                                     .shortName3("dmc")
                                                     .build();
@@ -22,7 +23,7 @@ public class CountryTest {
         System.out.println(String.format("Country: %s",dummyCountry.getShortName2()));
         System.out.println(String.format("State short name: %s",dummyCountry.getShortName3()));
 
-        assertEquals("Dummy-Country",dummyCountry.getName());
+        assertEquals("Dummy Country",dummyCountry.getName());
         assertEquals("DC",dummyCountry.getShortName2());
         assertEquals("DMC",dummyCountry.getShortName3());
 
@@ -31,10 +32,10 @@ public class CountryTest {
     @Test
     public void getName(){
         Country dummyCountry = new CountryBuilder()
-                .name("Dummy-Country")
+                .name("dummy country")
                 .build();
 
-        assertEquals("Dummy-Country",dummyCountry.getName());
+        assertEquals("Dummy Country",dummyCountry.getName());
         assertNull(dummyCountry.getShortName2());
         assertNull(dummyCountry.getShortName3());
 

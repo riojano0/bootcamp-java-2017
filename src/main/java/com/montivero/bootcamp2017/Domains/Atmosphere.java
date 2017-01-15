@@ -20,7 +20,7 @@ public class Atmosphere {
     }
 
     public String atmosphereToString(){
-        return String.format("Humidity: %s \nPressure: %s \nVisibility: %s \nRising: %s",
+        return String.format("Atmosphere: \nHumidity: %s \nPressure: %s \nVisibility: %s \nRising: %s",
                 humidity,
                 pressure,
                 visibility,

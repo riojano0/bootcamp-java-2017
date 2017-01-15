@@ -18,6 +18,11 @@ public class State {
         this.capital = builder.capital;
     }
 
+    public String stateToString(){
+        return String.format("State: %s  ShortName: %s  Country: %s  Area: %sKM  Capital: %s",
+                name,shortName,country.getName(),area,capital);
+    }
+
     public Country getCountry() {
         return country;
     }
@@ -27,7 +32,7 @@ public class State {
     }
 
     public String getShort_name() {
-        return shortName.toUpperCase();
+        return shortName;
     }
 
     public double getArea() {

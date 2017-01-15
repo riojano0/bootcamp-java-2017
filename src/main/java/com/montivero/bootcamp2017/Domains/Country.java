@@ -14,13 +14,17 @@ public class Country {
         this.shortName3 =  builder.shortName3;
     }
 
-    public String getName() {
+    public String countryToString(){
+        return String.format("Country: %s  Alpha2: %s  Alpha3: %s",name,shortName2,shortName3);
+    }
+
+    public String getName(){
         return name;
     }
 
     public String getShortName2() {
         if(shortName2!=null) {
-            return shortName2.toUpperCase();
+            return shortName2;
         }
         else{
             return null;
@@ -29,7 +33,7 @@ public class Country {
 
     public String getShortName3() {
         if(shortName3!=null) {
-            return shortName3.toUpperCase();
+            return shortName3;
         }
         else{
             return null;

@@ -2,6 +2,7 @@ package com.montivero.bootcamp2017.Domains;
 
 import com.montivero.bootcamp2017.Builders.ForecastExtendedBuilder;
 import com.montivero.bootcamp2017.utils.DateAdapter;
+
 import java.util.Date;
 import java.util.HashMap;
 
@@ -35,7 +36,7 @@ public class ForecastExtended {
     }
 
     public String forecastExtendedToString(){
-        return String.format("Date: %s Day: %s Temp Min: %s °C Temp Max: %s °C Description: %s",
+        return String.format("Forecast Extended: \nDate: %s Day: %s Temp Min: %s°C Temp Max: %s°C Description: %s",
                 DateAdapter.dateDeformat(date),
                 dayToString(),
                 tempMin,

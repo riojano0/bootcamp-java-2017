@@ -4,7 +4,7 @@ USE Weather_db;
 
 CREATE TABLE Countries (
    id int NOT NULL AUTO_INCREMENT,
-   Country varchar(80) NOT NULL,
+   Country varchar(80) UNIQUE NOT NULL,
    Country_code_2 varchar(2) NOT NULL,
    Country_code_3 varchar(3) NOT NULL,
    CONSTRAINT Countries_pk PRIMARY KEY (id)
