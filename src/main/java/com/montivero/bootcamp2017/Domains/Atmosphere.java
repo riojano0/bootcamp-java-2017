@@ -12,9 +12,6 @@ public class Atmosphere {
     private double visibility;
     private int rising;
 
-    public Atmosphere() {
-    }
-
     public Atmosphere(AtmosphereBuilder builder) {
         this.humidity = builder.humidity;
         this.pressure = builder.pressure;

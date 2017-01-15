@@ -62,7 +62,7 @@ public class MenuConsole {
                 .shortName3(nameShort3)
                 .build();
 
-        System.out.println(String.format("Country Name: %s Alpha2: %s Alpha3: %s \n", c.getName(), c.getShort_name_2(), c.getShort_name_3()));
+        System.out.println(String.format("Country Name: %s Alpha2: %s Alpha3: %s \n", c.getName(), c.getShortName2(), c.getShortName3()));
         menu();
     }
 
@@ -210,14 +210,15 @@ public class MenuConsole {
                 .build();
 
         /* Create and Test Weather */
-        Weather w = new Weather();
         String description = InputAdapter.InputScanner("Insert description: ","Error in description");
-        w.setState(dummyState);
-        w.setToday(today);
-        w.setWeek(weekExtended);
-        w.setAtmosphere(atmosphere);
-        w.setWind(wind);
-        w.setDescription(description);
+        Weather w = new WeatherBuilder()
+                .state(dummyState)
+                .today(today)
+                .week(weekExtended)
+                .wind(wind)
+                .atmosphere(atmosphere)
+                .description(description)
+                .build();
 
         String forecastExtendedOut = "";
         for (int i = 0; w.getWeek().length > i; i++){
@@ -240,7 +241,7 @@ public class MenuConsole {
     }
 
     private static void databaseConsole() throws SQLException, ClassNotFoundException, ParseException {
-
+        try{
         System.out.println("\nDatabase Connection");
         System.out.println("Note: This only check if work and try to do a -Select 'Works!' from Dual- \n");
 
@@ -254,6 +255,13 @@ public class MenuConsole {
         }
 
         menu();
+        }catch (com.mysql.jdbc.exceptions.jdbc4.CommunicationsException E){
+            System.out.println("Database is OFFLINE");
+            menu();
+
+        }
+
+
     }
 
     public static void menu() throws ParseException, SQLException, ClassNotFoundException {
@@ -261,13 +269,13 @@ public class MenuConsole {
 
         System.out.println("Choose a Class and check");
         System.out.println("-------------------------\n");
-        System.out.println("1 - Insert Country by Console");
-        System.out.println("2 - Insert State by Console ");
-        System.out.println("3 - Insert Wind by Console");
-        System.out.println("4 - Insert Atmosphere by Console");
-        System.out.println("5 - Insert Forecast Today by Console");
-        System.out.println("6 - Insert Forecast Extended by Console");
-        System.out.println("7 - Insert Weather by Console");
+        System.out.println("1 - Country by Console");
+        System.out.println("2 - State by Console ");
+        System.out.println("3 - Wind by Console");
+        System.out.println("4 - Atmosphere by Console");
+        System.out.println("5 - Forecast Today by Console");
+        System.out.println("6 - Forecast Extended by Console");
+        System.out.println("7 - Weather by Console");
         System.out.println("8 - Check if Database Conection Work");
         System.out.println("0 - Quit\n");
 
@@ -290,8 +298,8 @@ public class MenuConsole {
                 forecastExtendedConsole();break;
             case 7:
                 weatherConsole();break;
-//            case 8:
-//                databaseConsole();break;
+            case 8:
+                databaseConsole();break;
         }
     }
 }

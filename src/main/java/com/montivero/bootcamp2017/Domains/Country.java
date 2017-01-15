@@ -18,12 +18,22 @@ public class Country {
         return name;
     }
 
-    public String getShort_name_2() {
-        return shortName2.toUpperCase();
+    public String getShortName2() {
+        if(shortName2!=null) {
+            return shortName2.toUpperCase();
+        }
+        else{
+            return null;
+        }
     }
 
-    public String getShort_name_3() {
-        return shortName3.toUpperCase();
+    public String getShortName3() {
+        if(shortName3!=null) {
+            return shortName3.toUpperCase();
+        }
+        else{
+            return null;
+        }
     }
 
 }

@@ -19,12 +19,48 @@ public class CountryTest {
                                                     .build();
 
         System.out.println(String.format("Country Name: %s",dummyCountry.getName()));
-        System.out.println(String.format("Country: %s",dummyCountry.getShort_name_2()));
-        System.out.println(String.format("State short name: %s",dummyCountry.getShort_name_3()));
+        System.out.println(String.format("Country: %s",dummyCountry.getShortName2()));
+        System.out.println(String.format("State short name: %s",dummyCountry.getShortName3()));
 
         assertEquals("Dummy-Country",dummyCountry.getName());
-        assertEquals("DC",dummyCountry.getShort_name_2());
-        assertEquals("DMC",dummyCountry.getShort_name_3());
+        assertEquals("DC",dummyCountry.getShortName2());
+        assertEquals("DMC",dummyCountry.getShortName3());
+
+    }
+
+    @Test
+    public void getName(){
+        Country dummyCountry = new CountryBuilder()
+                .name("Dummy-Country")
+                .build();
+
+        assertEquals("Dummy-Country",dummyCountry.getName());
+        assertNull(dummyCountry.getShortName2());
+        assertNull(dummyCountry.getShortName3());
+
+    }
+
+    @Test
+    public void getShortName2(){
+        Country dummyCountry = new CountryBuilder()
+                .shortName2("dc")
+                .build();
+
+        assertEquals("DC",dummyCountry.getShortName2());
+        assertNull(dummyCountry.getName());
+        assertNull(dummyCountry.getShortName3());
+
+    }
+
+    @Test
+    public void getShortName3(){
+        Country dummyCountry = new CountryBuilder()
+                .shortName3("dmc")
+                .build();
+
+        assertEquals("DMC",dummyCountry.getShortName3());
+        assertNull(dummyCountry.getName());
+        assertNull(dummyCountry.getShortName2());
 
     }
 
