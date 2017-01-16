@@ -2,16 +2,105 @@ package com.montivero.bootcamp2017.Domains;
 
 import com.montivero.bootcamp2017.Builders.*;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.util.Date;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by Daniel on 10/01/2017.
  */
 public class WeatherTest {
+    private Weather weather;
+
+    @Test
+    public void getState(){
+        State mockState = Mockito.mock(State.class);
+
+        when(mockState.getName()).thenReturn("Mock State");
+
+        weather = new WeatherBuilder().state(mockState).build();
+
+        assertEquals(mockState,weather.getState());
+        assertEquals("Mock State",weather.getState().getName());
+
+    }
+
+    @Test
+    public void getWeatherToday(){
+        ForecastToday mockToday = Mockito.mock(ForecastToday.class);
+
+        when(mockToday.getTemp()).thenReturn(35);
+
+        weather = new WeatherBuilder().today(mockToday).build();
+
+        assertEquals(mockToday,weather.getToday());
+        assertEquals(35,weather.getToday().getTemp());
+
+    }
+
+//    @Test
+//    public void getWeatherExtended(){
+//        ForecastExtended[] mockExtended = Mockito.mock(ForecastExtended[].class);
+//        weather = new WeatherBuilder().week(mockExtended).build();
+//
+//        assertArrayEquals(mockExtended,weather.getWeek());
+//    }
+
+    @Test
+    public void getWind(){
+        Wind mockWind = Mockito.mock(Wind.class);
+        weather = new WeatherBuilder().wind(mockWind).build();
+
+        assertEquals(mockWind,weather.getWind());
+
+    }
+
+    @Test
+    public void getAtmosphere(){
+        Atmosphere mockAtmosphere = Mockito.mock(Atmosphere.class);
+
+        weather = new WeatherBuilder().atmosphere(mockAtmosphere).build();
+        assertEquals(mockAtmosphere,weather.getAtmosphere());
+    }
+
+    @Test
+    public void getDescription(){
+        weather = new WeatherBuilder().description("The best description").build();
+
+        assertEquals("The best description",weather.getDescription());
+
+    }
+
+    @Test
+    public void getToString(){
+        State mockState = Mockito.mock(State.class);
+        ForecastToday mockToday = Mockito.mock(ForecastToday.class);
+        Atmosphere mockAtmosphere = Mockito.mock(Atmosphere.class);
+        Wind mockWind = Mockito.mock(Wind.class);
+
+        when(mockState.getName()).thenReturn("String of State Name");
+        when(mockToday.forecastTodayToString()).thenReturn("String of Today");
+        when(mockAtmosphere.atmosphereToString()).thenReturn("String Atmosphere");
+        when(mockWind.windToString()).thenReturn("String Wind");
+
+        weather = new WeatherBuilder()
+                .state(mockState)
+                .today(mockToday)
+                .atmosphere(mockAtmosphere)
+                .wind(mockWind)
+                .description("The description String")
+                .build();
+
+        assertEquals("Weather State:\nString of State Name \n\nString of Today \n\nString Atmosphere \n\nString Wind"+
+                "\n\nDescription: The description String \n\n ", weather.weatherToString());
+
+    }
+
+    /* Dummy Approach */
 
     @Test
     public void testWeather() throws Exception{
@@ -84,8 +173,7 @@ public class WeatherTest {
                 .atmosphere(atmosphere)
                 .build();
 
-        System.out.println(weather.weatherToString());
-
+//        System.out.println(weather.weatherToString());
         assertEquals(dummyState,weather.getState());
         assertEquals(today,weather.getToday());
         assertArrayEquals(weekExtended,weather.getWeek());

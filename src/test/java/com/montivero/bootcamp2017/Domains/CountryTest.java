@@ -1,6 +1,7 @@
 package com.montivero.bootcamp2017.Domains;
 
 import com.montivero.bootcamp2017.Builders.CountryBuilder;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -11,17 +12,20 @@ import static org.junit.Assert.assertNull;
  */
 public class CountryTest {
 
+    private Country dummyCountry;
+
+    @Before
+    public void initialize(){
+        dummyCountry=null;
+    }
+
     @Test
     public void testCountry(){
         /* Country Dummy */
-        Country dummyCountry = new CountryBuilder().name("dummy country")
+        dummyCountry = new CountryBuilder().name("dummy country")
                                                     .shortName2("dc")
                                                     .shortName3("dmc")
                                                     .build();
-
-        System.out.println(String.format("Country Name: %s",dummyCountry.getName()));
-        System.out.println(String.format("Country: %s",dummyCountry.getShortName2()));
-        System.out.println(String.format("State short name: %s",dummyCountry.getShortName3()));
 
         assertEquals("Dummy Country",dummyCountry.getName());
         assertEquals("DC",dummyCountry.getShortName2());
@@ -30,20 +34,29 @@ public class CountryTest {
     }
 
     @Test
+    public void countryToString(){
+        dummyCountry = new CountryBuilder().name("dummy country")
+                .shortName2("dc")
+                .shortName3("dmc")
+                .build();
+
+        assertEquals("Country: Dummy Country  Alpha2: DC  Alpha3: DMC",dummyCountry.countryToString());
+    }
+
+    @Test
     public void getName(){
-        Country dummyCountry = new CountryBuilder()
+        dummyCountry = new CountryBuilder()
                 .name("dummy country")
                 .build();
 
         assertEquals("Dummy Country",dummyCountry.getName());
         assertNull(dummyCountry.getShortName2());
         assertNull(dummyCountry.getShortName3());
-
     }
 
     @Test
     public void getShortName2(){
-        Country dummyCountry = new CountryBuilder()
+        dummyCountry = new CountryBuilder()
                 .shortName2("dc")
                 .build();
 
@@ -55,7 +68,7 @@ public class CountryTest {
 
     @Test
     public void getShortName3(){
-        Country dummyCountry = new CountryBuilder()
+        dummyCountry = new CountryBuilder()
                 .shortName3("dmc")
                 .build();
 

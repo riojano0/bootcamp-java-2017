@@ -25,8 +25,10 @@ public class Weather {
 
     public String weatherToString(){
         String forecastExtendedOut = "";
-        for (int i = 0; week.length > i; i++){
-            forecastExtendedOut+=week[i].forecastExtendedToString()+"\n";
+        if(week !=null) {
+            for (ForecastExtended aWeek : week) {
+                forecastExtendedOut += aWeek.forecastExtendedToString() + "\n";
+            }
         }
         return String.format("Weather State:\n%s \n\n%s \n\n%s \n\n%s"+
                         "\n\nDescription: %s \n\n%s ",

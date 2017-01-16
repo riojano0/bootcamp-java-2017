@@ -53,6 +53,10 @@ public class ForecastExtended {
         return date;
     }
 
+    public java.sql.Date getSqlDate(){ return DateAdapter.dateSql(date);}
+
+    public String getStringDate(){ return DateAdapter.dateDeformat(date);}
+
     public int getDay() {
         return day;
     }
