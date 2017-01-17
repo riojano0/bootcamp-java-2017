@@ -17,13 +17,18 @@ public class ForecastExtendedBuilder {
     public int tempMax;
     public String description;
 
-    public ForecastExtendedBuilder date(Object date) throws ParseException {
-        if (date instanceof String)
-            date = DateAdapter.dateFormat((String) date);
-        if (date instanceof java.sql.Date)
-            date = DateAdapter.dateFormat((java.sql.Date) date);
-        this.date = (Date) date;
-        return this;
+    public ForecastExtendedBuilder date(Object date) {
+        try {
+            if (date instanceof String)
+                date = DateAdapter.dateFormat((String) date);
+            if (date instanceof java.sql.Date)
+                date = DateAdapter.dateFormat((java.sql.Date) date);
+            this.date = (Date) date;
+            return this;
+        }catch (ParseException E){
+            System.out.println(E.toString());
+            return this;
+        }
     }
 
     public ForecastExtendedBuilder day(int day){

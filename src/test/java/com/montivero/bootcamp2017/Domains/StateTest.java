@@ -34,7 +34,7 @@ public class StateTest {
     @Test
     public void getShortName(){
         dummyState = new StateBuilder().shortName("dums").build();
-        assertEquals("DUMS",dummyState.getShort_name());
+        assertEquals("DUMS",dummyState.getShortName());
     }
 
     @Test
@@ -66,7 +66,7 @@ public class StateTest {
 
         assertEquals(mockCountry,dummyState.getCountry());
         assertEquals("Dummy State",dummyState.getName());
-        assertEquals("DUMS",dummyState.getShort_name());
+        assertEquals("DUMS",dummyState.getShortName());
         assertEquals(100.50,dummyState.getArea(),0);
         assertEquals("Dummy Capital",dummyState.getCapital());
 

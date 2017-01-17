@@ -78,6 +78,10 @@ CREATE TABLE Weather (
    		REFERENCES forecast_today(id),
    CONSTRAINT forecast_extended_fk FOREIGN KEY (forecast_extended_id)
    		REFERENCES forecast_extended(id)
+   CONSTRAINT Winds_fk FOREIGN KEY (Winds_id)
+   		REFERENCES Winds(id)
+   CONSTRAINT Atmospheres_fk FOREIGN KEY (Atmospheres_id)
+   		REFERENCES Atmospheres(id)
 );
 
 /* Values for the Secondary Table Days */

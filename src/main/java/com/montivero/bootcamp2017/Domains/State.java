@@ -31,7 +31,7 @@ public class State {
         return name;
     }
 
-    public String getShort_name() {
+    public String getShortName() {
         return shortName;
     }
 

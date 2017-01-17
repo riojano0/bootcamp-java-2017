@@ -27,6 +27,7 @@ public class Weather {
         String forecastExtendedOut = "";
         if(week !=null) {
             for (ForecastExtended aWeek : week) {
+                if (aWeek!=null)
                 forecastExtendedOut += aWeek.forecastExtendedToString() + "\n";
             }
         }

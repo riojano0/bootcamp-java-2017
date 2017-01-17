@@ -3,6 +3,7 @@ package com.montivero.bootcamp2017.DataSource;
 import com.montivero.bootcamp2017.Builders.CountryBuilder;
 import com.montivero.bootcamp2017.Config.DatabaseHelper;
 import com.montivero.bootcamp2017.Domains.Country;
+import com.montivero.bootcamp2017.utils.DataSourceUtils;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import java.sql.Connection;
@@ -25,7 +26,6 @@ public class CountryDataSource {
     private Connection con = dbHelper.getCon();
 
     public void insertCountry(Country country) throws SQLException {
-
         try {
             String sqlInsert = String.format("Insert into %s(%s,%s, %s) values (?,?,?)",
                     TABLE_NAME, COLUMN_COUNTRY, COLUMN_COUNTRY_CODE_2, COLUMN_COUNTRY_CODE_3);
@@ -40,16 +40,103 @@ public class CountryDataSource {
         catch (MySQLIntegrityConstraintViolationException E){
             System.out.println("Already exists this Country in the Database");
         }
-
     }
 
-    public ArrayList<Country> getAllCountries() throws SQLException {
+    public  void insertCountry(String Country, String short_name2, String short_name3) throws SQLException {
+        String sqlInsert = String.format("Insert into %s(%s,%s, %s) values (?,?,?)", TABLE_NAME, COLUMN_COUNTRY, COLUMN_COUNTRY_CODE_2, COLUMN_COUNTRY_CODE_3);
+        PreparedStatement preparedStmt = con.prepareStatement(sqlInsert);
+        preparedStmt.setString(1, Country);
+        preparedStmt.setString(2, short_name2);
+        preparedStmt.setString(3, short_name3);
+        preparedStmt.execute();
+    }
 
-        ArrayList<Country> aCountries = new ArrayList<Country>();
+    public ArrayList<Country> getAllCountriesObjects() throws SQLException {
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
         PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
         ResultSet result = preparedStmt.executeQuery();
+        return fillCountries(result);
+    }
 
+    public int getIdbyCountry(Country country) throws SQLException, ClassNotFoundException {
+        ResultSet result = getCountryByName(country.getName());
+        int id;
+        if(result.next()){
+            id = result.getInt(1);
+        }else{
+            id=0;
+        }
+        return id;
+    }
+
+    public ResultSet getAllCountries() throws SQLException {
+        String sqlSelect = String.format("Select * from %s",TABLE_NAME);
+        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        return preparedStmt.executeQuery();
+    }
+
+    public ResultSet getCountryByName(String name) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_COUNTRY);
+        preparedStmt.setString(1,name);
+        return preparedStmt.executeQuery();
+    }
+
+    public Country getCountryByNameObject(String name) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_COUNTRY);
+        preparedStmt.setString(1,name);
+        ResultSet result = preparedStmt.executeQuery();
+        return fillCountry(result);
+    }
+
+    public ResultSet getCountryByShortName2(String name) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_COUNTRY_CODE_2);
+        preparedStmt.setString(1, name);
+        return preparedStmt.executeQuery();
+    }
+
+    public Country getCountryByShortName2Object(String name) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_COUNTRY_CODE_2);
+        preparedStmt.setString(1, name);
+        return fillCountry(preparedStmt.executeQuery());
+    }
+
+    public ResultSet getCountryByShortName3(String name) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_COUNTRY_CODE_3);
+        preparedStmt.setString(1, name);
+        return preparedStmt.executeQuery();
+    }
+
+    public ResultSet getCountryById(int id) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_ID);
+        preparedStmt.setInt(1,id);
+        return preparedStmt.executeQuery();
+    }
+
+    public Country getCountryByIdObject(int id) throws SQLException, ClassNotFoundException {
+        Country c;
+        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_ID);
+        preparedStmt.setInt(1,id);
+        ResultSet result = preparedStmt.executeQuery();
+        c = fillCountry(result);
+        return c;
+    }
+
+    private Country fillCountry(ResultSet result) throws SQLException {
+        Country c;
+        if(result.next()){
+            c = new CountryBuilder()
+                    .name(result.getString(COLUMN_COUNTRY))
+                    .shortName2(result.getString(COLUMN_COUNTRY_CODE_2))
+                    .shortName3(result.getString(COLUMN_COUNTRY_CODE_3))
+                    .build();
+        }else{
+            c=null;
+        }
+        return c;
+    }
+
+    private ArrayList<Country> fillCountries(ResultSet result) throws SQLException{
+        ArrayList<Country> aCountries = new ArrayList<Country>();
         while(result.next()){
             Country w = new CountryBuilder()
                     .name(result.getString(COLUMN_COUNTRY))
@@ -60,53 +147,6 @@ public class CountryDataSource {
         }
         return aCountries;
     }
-
-
-
-//
-//    public  void insertCountry(String Country, String short_name2, String short_name3) throws SQLException {
-//        String sqlInsert = String.format("Insert into %s(%s,%s, %s) values (?,?,?)", TABLE_NAME, COLUMN_COUNTRY, COLUMN_COUNTRY_CODE_2, COLUMN_COUNTRY_CODE_3);
-//        PreparedStatement preparedStmt = con.prepareStatement(sqlInsert);
-//        preparedStmt.setString(1, Country);
-//        preparedStmt.setString(2, short_name2);
-//        preparedStmt.setString(3, short_name3);
-//        preparedStmt.execute();
-//    }
-
-    public ResultSet getCountryByName(String name) throws SQLException {
-        String sqlSelect = String.format("Select * from %s where %s is like ?",TABLE_NAME,COLUMN_COUNTRY);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
-        preparedStmt.setString(1,name);
-        return preparedStmt.executeQuery();
-    }
-
-    public ResultSet getCountryByShort_name2(String name) throws SQLException {
-        String sqlSelect = String.format("Select * from %s where %s is like ?",TABLE_NAME,COLUMN_COUNTRY_CODE_2);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
-        preparedStmt.setString(1, name);
-        return preparedStmt.executeQuery();
-    }
-
-    public ResultSet getCountryByShort_name3(String name) throws SQLException {
-        String sqlSelect = String.format("Select * from %s where %s is like ?",TABLE_NAME,COLUMN_COUNTRY_CODE_3);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
-        preparedStmt.setString(1, name);
-        return preparedStmt.executeQuery();
-    }
-
-    public ResultSet getCountryById(int id) throws SQLException {
-        String sqlSelect = String.format("Select * from %s where %s = ?",TABLE_NAME,COLUMN_ID);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
-        preparedStmt.setInt(1,id);
-        return preparedStmt.executeQuery();
-    }
-
-//    public ResultSet getAllCountries() throws SQLException {
-//        String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-//        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
-//        ResultSet result = preparedStmt.executeQuery();
-//        return result;
-//    }
 
     public CountryDataSource() throws SQLException, ClassNotFoundException {
     }

@@ -13,16 +13,19 @@ public class ForecastTodayBuilder {
     public Date date;
     public int temp;
 
-    public ForecastTodayBuilder date(Object date) throws ParseException {
+    public ForecastTodayBuilder date(Object date) {
+        try{
+            if (date instanceof String)
+                date = DateAdapter.dateFormat((String) date);
+            if (date instanceof java.sql.Date)
+                date = DateAdapter.dateFormat((java.sql.Date) date);
 
-        if (date instanceof String)
-            date = DateAdapter.dateFormat((String) date);
-        if (date instanceof java.sql.Date)
-            date = DateAdapter.dateFormat((java.sql.Date) date);
-
-        this.date = (Date) date;
-        return this;
-
+            this.date = (Date) date;
+            return this;
+        }catch (ParseException E){
+            System.out.println(E.toString());
+            return this;
+        }
     }
 
     public ForecastTodayBuilder temp(int temp){
