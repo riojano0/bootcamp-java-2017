@@ -1,6 +1,8 @@
 package com.montivero.bootcamp2017.Config;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * Created by Daniel on 10/01/2017.
