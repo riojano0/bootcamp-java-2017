@@ -2,7 +2,7 @@ package com.montivero.bootcamp2017.utils;
 
 import com.montivero.bootcamp2017.Builders.*;
 import com.montivero.bootcamp2017.Config.DatabaseHelper;
-import com.montivero.bootcamp2017.DataSource.CountryDataSource;
+import com.montivero.bootcamp2017.DataSource.*;
 import com.montivero.bootcamp2017.Domains.*;
 import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 
@@ -86,7 +86,7 @@ public class MenuConsole {
                 "Capital not valid", 3, 80);
 
         State s = new StateBuilder()
-                .country(Dummy.dummyCountry)
+                .country(Dummy.DUMMY_COUNTRY)
                 .name(name)
                 .shortName(nameShort2)
                 .area(area)
@@ -146,14 +146,13 @@ public class MenuConsole {
         System.out.println("\nWeather");
         System.out.println("Note: Weather is a big composition Class, that is why have a loot of dummy(the same of tests), only insert the description \n");
 
-        /* Create and Test Weather */
         String description = InputAdapter.InputScanner("Insert description: ","Error in description");
         Weather w = new WeatherBuilder()
-                .state(Dummy.dummyState)
-                .today(Dummy.dummyForecastToday)
-                .week(Dummy.dummyForecastExtendedArray)
-                .wind(Dummy.dummyWind)
-                .atmosphere(Dummy.dummyAtmosphere)
+                .state(Dummy.DUMMY_STATE)
+                .today(Dummy.DUMMY_FORECAST_TODAY)
+                .week(Dummy.DUMMY_FORECAST_EXTENDED_ARRAY)
+                .wind(Dummy.DUMMY_WIND)
+                .atmosphere(Dummy.DUMMY_ATMOSPHERE)
                 .description(description)
                 .build();
 
@@ -225,21 +224,200 @@ public class MenuConsole {
         }
     }
 
+    private static void InsertStateByConsole() throws SQLException, ClassNotFoundException, ParseException {
+        try{
+            System.out.println("\nState");
+            System.out.println("\nNote: this Console insert have a Dummy country and you dont need insert it");
+
+            CountryDataSource countryData = new CountryDataSource();
+            if(countryData.getIdbyCountry(Dummy.DUMMY_COUNTRY)==0){
+                countryData.insertCountry(Dummy.DUMMY_COUNTRY);
+            }
+
+            String name = InputAdapter.InputScanner("Insert the Name: ",
+                    "Name no valid", 3, 80);
+            String nameShort2 = InputAdapter.InputScanner("Insert short name (2 char):",
+                    "Not valid input", 2, 2);
+            double area = InputAdapter.InputScannerDouble("Insert the Area: ",
+                    "Area not valid");
+            String capital = InputAdapter.InputScanner("Insert the capital: ",
+                    "Capital not valid", 3, 80);
+
+            StateDataSource sData = new StateDataSource();
+            State s = new StateBuilder()
+                    .country(Dummy.DUMMY_COUNTRY)
+                    .name(name)
+                    .shortName(nameShort2)
+                    .area(area)
+                    .capital(capital)
+                    .build();
+
+            sData.insertState(s);
+            System.out.println("");
+            System.out.println("Insert State in Database");
+            System.out.println("");
+            menu();
+
+        }catch (CommunicationsException E){
+            System.out.println("Database is OFFLINE\n");
+            menu();
+        }
+    }
+
+    private static void getAllStatesByConsole() throws ParseException, SQLException, ClassNotFoundException {
+        try{
+            System.out.println("\nAll Weathers in Database:");
+
+            StateDataSource sData = new StateDataSource();
+
+            ArrayList<State> aStates = sData.getAllStatesObjects();
+            for (State aState:aStates){
+                System.out.println(aState.stateToString());
+            }
+
+            System.out.println("");
+            menu();
+        }catch (CommunicationsException E) {
+            System.out.println("Database is OFFLINE\n");
+            menu();
+        }
+    }
+
+    private static void insertForecastTodayByConsole() throws SQLException, ClassNotFoundException, ParseException {
+        try{
+        System.out.println("\nForecast Today");
+        System.out.println("\nNote: Only insert temp, because the date is this moment");
+
+        int temp = InputAdapter.InputScannerInteger("Insert the Temp: ","Temp not valid");
+
+        Date today = new Date();
+        ForecastToday fToday = new ForecastTodayBuilder().date(today).temp(temp).build();
+
+        ForecastTodayDataSource fData = new ForecastTodayDataSource();
+        fData.insertForecastToday(fToday);
+
+
+        System.out.println("");
+        System.out.println(fToday.forecastTodayToString());
+        System.out.println("");
+        menu();
+        }catch (CommunicationsException E) {
+            System.out.println("Database is OFFLINE\n");
+            menu();
+        }
+    }
+
+    private static void getAllForecastTodayByConsole() throws ParseException, SQLException, ClassNotFoundException {
+        try{
+            System.out.println("\nAll Weathers in Database:");
+
+            ForecastTodayDataSource fData = new ForecastTodayDataSource();
+
+            ArrayList<ForecastToday> aForecastTodayArray = fData.getAllForecastTodayObjects();
+            for (ForecastToday aForecastToday:aForecastTodayArray){
+                System.out.println(aForecastToday.forecastTodayToString());
+            }
+            System.out.println("");
+            menu();
+        }catch (CommunicationsException E) {
+            System.out.println("Database is OFFLINE\n");
+            menu();
+        }
+    }
+
+
+    private static void insertWeatherByConsole() throws SQLException, ClassNotFoundException, ParseException{
+        try{
+        System.out.println("\nWeather");
+        System.out.println("Note: Weather is a big composition Class, that is why have a loot of dummy(the same of tests), only insert the description \n");
+        CountryDataSource countryData = new CountryDataSource();
+        if(countryData.getIdbyCountry(Dummy.DUMMY_COUNTRY)==0){
+            countryData.insertCountry(Dummy.DUMMY_COUNTRY);
+        }
+        StateDataSource stateData = new StateDataSource();
+        if(stateData.getIdbyState(Dummy.DUMMY_STATE)==0){
+            stateData.insertState(Dummy.DUMMY_STATE);
+        }
+        ForecastTodayDataSource fTodayData = new ForecastTodayDataSource();
+        if(fTodayData.getIdByForecastToday(Dummy.DUMMY_FORECAST_TODAY)==0){
+            fTodayData.insertForecastToday(Dummy.DUMMY_FORECAST_TODAY);
+        }
+        ForecastExtendedDataSource fExtendedData = new ForecastExtendedDataSource();
+        if(fExtendedData.getIdByForecastExtendedArray(Dummy.DUMMY_FORECAST_EXTENDED_ARRAY)==0){
+            for(ForecastExtended fExtended:Dummy.DUMMY_FORECAST_EXTENDED_ARRAY) {
+                fExtendedData.insertForecastExtended(999,fExtended.getSqlDate(), fExtended.getDay(),
+                        fExtended.getTempMin(),fExtended.getTempMax(),fExtended.getDescription());
+            }
+        }
+        WindDataSource windData= new WindDataSource();
+        if(windData.getIdByWind(Dummy.DUMMY_WIND)==0){
+            windData.insertWind(Dummy.DUMMY_WIND);
+        }
+        AtmosphereDataSource atmosphereData= new AtmosphereDataSource();
+        if(atmosphereData.getIdByAtmosphere(Dummy.DUMMY_ATMOSPHERE)==0){
+            atmosphereData.insertAtmosphere(Dummy.DUMMY_ATMOSPHERE);
+        }
+
+        String description = InputAdapter.InputScanner("Insert description: ","Error in description");
+        Weather weather = new WeatherBuilder()
+                .state(Dummy.DUMMY_STATE)
+                .today(Dummy.DUMMY_FORECAST_TODAY)
+                .week(Dummy.DUMMY_FORECAST_EXTENDED_ARRAY)
+                .wind(Dummy.DUMMY_WIND)
+                .atmosphere(Dummy.DUMMY_ATMOSPHERE)
+                .description(description)
+                .build();
+
+        WeatherDataSource weatherData = new WeatherDataSource();
+        weatherData.insertWeather(weather);
+
+        System.out.println("");
+        System.out.println("Insert a Weather in Database");
+        System.out.println("");
+            menu();
+        }catch (CommunicationsException E){
+        System.out.println("Database is OFFLINE\n");
+        menu();
+    }
+
+    }
+
+    private static void getAllWeathersByConsole() throws SQLException, ClassNotFoundException, ParseException {
+        try{
+            System.out.println("\nAll Weathers in Database:");
+
+            WeatherDataSource weatherData = new WeatherDataSource();
+
+            ArrayList<Weather> aWeathers = weatherData.getAllWeathersObjects();
+            for (Weather aWeather:aWeathers){
+                System.out.println(aWeather.weatherToString());
+                System.out.println("--------");
+            }
+
+            System.out.println("");
+            menu();
+        }catch (CommunicationsException E){
+            System.out.println("Database is OFFLINE\n");
+            menu();
+        }
+    }
+
+
     public static void menu() throws ParseException, SQLException, ClassNotFoundException {
         int selection;
 
         System.out.println("Choose a Class and check");
         System.out.println("-------------------------\n");
-        System.out.println("1 - Country by Console");
-        System.out.println("2 - State by Console ");
-        System.out.println("3 - Wind by Console");
-        System.out.println("4 - Atmosphere by Console");
-        System.out.println("5 - Forecast Today by Console");
-        System.out.println("6 - Forecast Extended by Console");
-        System.out.println("7 - Weather by Console");
-        System.out.println("8 - Check if Database Connection Work");
-        System.out.println("9 - Insert to Database a Country");
-        System.out.println("10 - Show all Countries in Database");
+        System.out.println("1 - Country by Console                 | 9  - Insert to Database a Country");
+        System.out.println("2 - State by Console                   | 10 - Show all Countries in Database");
+        System.out.println("3 - Wind by Console                    | 11 - Insert to Database a State");
+        System.out.println("4 - Atmosphere by Console              | 12 - Show all States in Database");
+        System.out.println("5 - Forecast Today by Console          | 13 - Insert to Database a Forecast Today");
+        System.out.println("6 - Forecast Extended by Console       | 14 - Show all F.Today in Database");
+        System.out.println("7 - Weather by Console                 | 15 - Insert a Weather in Database");
+        System.out.println("8 - Check if Database Connection Work  | 16 - Show All Weathers in Database");
+//        System.out.println("9 - Insert to Database a Country");
+//        System.out.println("10 - Show all Countries in Database");
         System.out.println("0 - Quit\n");
 
         selection = InputAdapter.InputScannerInteger("Choice: ", "Choice not valid");
@@ -267,6 +445,19 @@ public class MenuConsole {
                 insertCountryByConsole();break;
             case 10:
                 getAllCountriesByConsole();break;
+            case 11:
+                InsertStateByConsole();break;
+            case 12:
+                getAllStatesByConsole();break;
+            case 13:
+                insertForecastTodayByConsole();break;
+            case 14:
+                getAllForecastTodayByConsole();break;
+            case 15:
+                insertWeatherByConsole();break;
+            case 16:
+                getAllWeathersByConsole();break;
+
         }
     }
 }

@@ -106,6 +106,40 @@ public class WeatherDataSource {
         return weather;
     }
 
+    public ArrayList<Weather> getAllWeathersObjects() throws SQLException, ClassNotFoundException, ParseException{
+        String sqlSelect = String.format("Select * from %s",TABLE_NAME);
+        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        ResultSet result = preparedStmt.executeQuery();
+
+        StateDataSource stateData = new StateDataSource();
+        ForecastTodayDataSource fTodayData = new ForecastTodayDataSource();
+        ForecastExtendedDataSource fExtendedData = new ForecastExtendedDataSource();
+        WindDataSource windData = new WindDataSource();
+        AtmosphereDataSource atmosphereData = new AtmosphereDataSource();
+
+        ArrayList<Weather> aWeathers= new ArrayList<Weather>();
+        while(result.next()){
+            State state = stateData.getStateByIdObject(result.getInt(COLUMN_STATES_ID));
+            ForecastToday fToday = fTodayData.getForecastTodayByIdObject(result.getInt(COLUMN_FORECAST_TODAY_ID));
+            ForecastExtended[] fExtended = fExtendedData.getForecastExtendedByIdObjects(result.getInt(COLUMN_FORECAST_EXTENDED_ID));
+            Wind wind = windData.getWindByIdObject(result.getInt(COLUMN_WINDS_ID)) ;
+            Atmosphere atmosphere = atmosphereData.getAtmosphereByIdObject(result.getInt(COLUMN_ATMOSPHERES_ID));
+
+            Weather weather = new WeatherBuilder()
+                    .state(state)
+                    .today(fToday)
+                    .week(fExtended)
+                    .wind(wind)
+                    .atmosphere(atmosphere)
+                    .description(result.getString(COLUMN_DESCRIPTION))
+                    .build();
+
+            aWeathers.add(weather);
+
+        }
+        return aWeathers;
+    }
+
     public ResultSet getWeatherByStateName(String stateName) throws SQLException {
         String tableForeign = "states";
         String valueForeign = "State";

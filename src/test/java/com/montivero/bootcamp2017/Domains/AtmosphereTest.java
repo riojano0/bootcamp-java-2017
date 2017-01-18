@@ -56,10 +56,6 @@ public class AtmosphereTest {
                 .visibility(200)
                 .rising(15)
                 .build();
-//        System.out.println(String.format("Humidity: %s", atmosphere.getHumidity()));
-//        System.out.println(String.format("Pressure: %s", atmosphere.getPressure()));
-//        System.out.println(String.format("Rising: %s", atmosphere.getRising()));
-//        System.out.println(String.format("Visibility: %s", atmosphere.getVisibility()));
 
         assertEquals(10, atmosphere.getHumidity());
         assertEquals(20.2, atmosphere.getPressure(),2);

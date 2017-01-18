@@ -34,7 +34,6 @@ public class WindDataSource {
     }
 
     public  void insertWind(int speed, int direction) throws SQLException {
-
         String sqlInsert = String.format("Insert into %s(%s,%s) values (?,?)",TABLE_NAME,COLUMN_SPEED,COLUMN_DIRECTION);
         PreparedStatement preparedStmt = con.prepareStatement(sqlInsert);
         preparedStmt.setInt(1,speed);

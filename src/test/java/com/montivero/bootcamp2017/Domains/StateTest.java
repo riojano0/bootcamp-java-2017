@@ -13,40 +13,40 @@ import static org.junit.Assert.assertNotEquals;
 public class StateTest {
 
     private Country mockCountry;
-    private State dummyState;
+    private State testState;
 
     @Test
     public void getCountry(){
         mockCountry = Mockito.mock(Country.class);
         Mockito.when(mockCountry.getName()).thenReturn("Dummy Country");
 
-        dummyState = new StateBuilder().country(mockCountry).build();
-        assertEquals("Dummy Country",dummyState.getCountry().getName());
+        testState = new StateBuilder().country(mockCountry).build();
+        assertEquals("Dummy Country", testState.getCountry().getName());
     }
 
     @Test
     public void getName(){
-        dummyState = new StateBuilder().name("dummy state").build();
-        assertEquals("Dummy State",dummyState.getName());
-        assertNotEquals("dummy state",dummyState.getName());
+        testState = new StateBuilder().name("dummy state").build();
+        assertEquals("Dummy State", testState.getName());
+        assertNotEquals("dummy state", testState.getName());
     }
 
     @Test
     public void getShortName(){
-        dummyState = new StateBuilder().shortName("dums").build();
-        assertEquals("DUMS",dummyState.getShortName());
+        testState = new StateBuilder().shortName("dums").build();
+        assertEquals("DUMS", testState.getShortName());
     }
 
     @Test
     public void getArea(){
-        dummyState = new StateBuilder().area(100.50).build();
-        assertEquals(100.50,dummyState.getArea(),0);
+        testState = new StateBuilder().area(100.50).build();
+        assertEquals(100.50, testState.getArea(),0);
     }
 
     @Test
     public void getCapital(){
-        dummyState = new StateBuilder().capital("dummy caPitAl").build();
-        assertEquals("Dummy Capital",dummyState.getCapital());
+        testState = new StateBuilder().capital("dummy caPitAl").build();
+        assertEquals("Dummy Capital", testState.getCapital());
     }
 
     @Test

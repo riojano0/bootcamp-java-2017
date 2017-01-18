@@ -47,7 +47,7 @@ public class ForecastExtendedDataSource {
         dateSql = (date instanceof Date)? DateAdapter.dateSql((Date)date):DateAdapter.dateSql((String)date);
         dayId = (day instanceof String)? days.get(((String) day).toLowerCase()):(Integer)day;
 
-        String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s, %s) values (?, ?,?,?,?,?)",
+        String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s, %s, %s) values (?, ?,?,?,?,?)",
                 TABLE_NAME,COLUMN_ID,COLUMN_DATE_DAY,COLUMN_DAYS_ID,COLUMN_TEMP_MIN,COLUMN_TEMP_MAX,COLUMN_DESCRIPTION);
         PreparedStatement preparedStmt = con.prepareStatement(sqlInsert);
         preparedStmt.setInt(1,id);

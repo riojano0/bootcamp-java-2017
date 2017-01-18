@@ -42,7 +42,7 @@ public class AtmosphereDataSource {
         preparedStmt.setInt(1, atmosphere.getHumidity());
         preparedStmt.setDouble(2, atmosphere.getPressure());
         preparedStmt.setDouble(3, atmosphere.getVisibility());
-        preparedStmt.setInt(3, atmosphere.getRising());
+        preparedStmt.setInt(4, atmosphere.getRising());
         preparedStmt.execute();
     }
 
@@ -66,7 +66,7 @@ public class AtmosphereDataSource {
                 TABLE_NAME, COLUMN_HUMIDITY, COLUMN_PRESSURE, COLUMN_RISING, COLUMN_VISIBILITY);
         PreparedStatement preparedStmt = con.prepareStatement(sqlScript);
         preparedStmt.setInt(1, humidity);
-        preparedStmt.setDouble(2, pressure);
+        preparedStmt.setDouble(2,pressure);
         preparedStmt.setInt(3, rising);
         preparedStmt.setDouble(4, visibility);
         return preparedStmt.executeQuery();
