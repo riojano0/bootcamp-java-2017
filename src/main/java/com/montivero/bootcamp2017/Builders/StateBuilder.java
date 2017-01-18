@@ -8,11 +8,11 @@ import org.apache.commons.lang3.text.WordUtils;
  * Created by Daniel on 14/01/2017.
  */
 public class StateBuilder {
-    public Country country;
-    public String name;
-    public String shortName;
-    public double area;
-    public String capital;
+    public Country country = new CountryBuilder().build();
+    public String name = "Dummy State";
+    public String shortName = "DUMS";
+    public double area = 100;
+    public String capital = "Dummy Capital";
 
     public StateBuilder country(Country country){
         this.country=country;

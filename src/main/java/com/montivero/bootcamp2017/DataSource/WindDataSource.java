@@ -102,7 +102,6 @@ public class WindDataSource {
 
 
     public ResultSet getWindById(int id) throws SQLException, ClassNotFoundException {
-//        String sqlSelect = String.format("Select * from %s where %s = ?",TABLE_NAME,COLUMN_ID);
         PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_ID);
         preparedStmt.setInt(1,id);
         return preparedStmt.executeQuery();
@@ -121,6 +120,4 @@ public class WindDataSource {
         return w;
     }
 
-    public WindDataSource() throws SQLException, ClassNotFoundException {
-    }
 }

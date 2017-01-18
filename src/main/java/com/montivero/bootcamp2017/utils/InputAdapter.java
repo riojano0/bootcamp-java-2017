@@ -1,6 +1,5 @@
 package com.montivero.bootcamp2017.utils;
 
-import java.text.ParseException;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -24,14 +23,11 @@ public class InputAdapter {
     public static Date InputScannerDate(String message, String errorMessage){
         Scanner sc = getScanner();
         while (true) {
-            System.out.print(message+" ");
+            System.out.print(message + " ");
             try {
                 return DateAdapter.dateFormat(sc.nextLine());
-            }
-            catch (NumberFormatException e){
-                System.out.print(errorMessage+"\n");
-            } catch (ParseException e) {
-                e.printStackTrace();
+            } catch (NumberFormatException e) {
+                System.out.print(errorMessage + "\n");
             }
         }
     }

@@ -25,14 +25,21 @@ public class DatabaseHelper implements DatabaseInfo{
         }
 
 
-        public Connection getCon() throws ClassNotFoundException, SQLException {
-            if (con != null){
-                return con;
-            }
-            else{
-            Class.forName(JDBC_DRIVER);
-            con = DriverManager.getConnection(DB_URL,USER,PASS);
-            return con;
+        public Connection getCon(){
+            try {
+                if (con != null) {
+                    return con;
+                } else {
+                    Class.forName(JDBC_DRIVER);
+                    con = DriverManager.getConnection(DB_URL, USER, PASS);
+                    return con;
+                }
+            }catch (ClassNotFoundException E){
+                System.out.println(E.toString());
+                return null;
+            }catch (SQLException E){
+                System.out.println(E.toString());
+                return null;
             }
         }
 

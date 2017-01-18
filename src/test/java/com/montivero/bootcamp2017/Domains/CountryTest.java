@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 /**
  * Created by Daniel on 09/01/2017.
@@ -21,11 +20,7 @@ public class CountryTest {
 
     @Test
     public void testCountry(){
-        /* Country Dummy */
-        dummyCountry = new CountryBuilder().name("dummy country")
-                                                    .shortName2("dc")
-                                                    .shortName3("dmc")
-                                                    .build();
+        dummyCountry = new CountryBuilder().build();
 
         assertEquals("Dummy Country",dummyCountry.getName());
         assertEquals("DC",dummyCountry.getShortName2());
@@ -46,12 +41,10 @@ public class CountryTest {
     @Test
     public void getName(){
         dummyCountry = new CountryBuilder()
-                .name("dummy country")
+                .name("other country")
                 .build();
 
-        assertEquals("Dummy Country",dummyCountry.getName());
-        assertNull(dummyCountry.getShortName2());
-        assertNull(dummyCountry.getShortName3());
+        assertEquals("Other Country",dummyCountry.getName());
     }
 
     @Test
@@ -61,8 +54,6 @@ public class CountryTest {
                 .build();
 
         assertEquals("DC",dummyCountry.getShortName2());
-        assertNull(dummyCountry.getName());
-        assertNull(dummyCountry.getShortName3());
 
     }
 
@@ -73,8 +64,7 @@ public class CountryTest {
                 .build();
 
         assertEquals("DMC",dummyCountry.getShortName3());
-        assertNull(dummyCountry.getName());
-        assertNull(dummyCountry.getShortName2());
+
 
     }
 

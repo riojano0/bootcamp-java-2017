@@ -6,10 +6,10 @@ import com.montivero.bootcamp2017.Domains.Atmosphere;
  * Created by Daniel on 14/01/2017.
  */
 public class AtmosphereBuilder {
-    public int humidity;
-    public double pressure;
-    public double visibility;
-    public int rising;
+    public int humidity = 10;
+    public double pressure = 20.2;
+    public double visibility = 200;
+    public int rising = 15;
 
     public AtmosphereBuilder humidity(int humidity){
         this.humidity=humidity;

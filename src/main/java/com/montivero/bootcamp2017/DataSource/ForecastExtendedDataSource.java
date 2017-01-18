@@ -61,7 +61,11 @@ public class ForecastExtendedDataSource {
     public int getIdByForecastExtendedArray(ForecastExtended[] fExtendedArray) throws SQLException {
         ResultSet result = getResultForecastExtendedByArray(fExtendedArray);
         int id;
-        if(result.next()){
+        int rowCount;
+        result.last();
+        rowCount = result.getRow();
+        result.beforeFirst();
+        if(result.next() && rowCount >= fExtendedArray.length){
             id=result.getInt(1);
         }else{
             id=0;
@@ -103,7 +107,9 @@ public class ForecastExtendedDataSource {
                                         COLUMN_TEMP_MAX,tempMaxList,
                                         COLUMN_DESCRIPTION,descriptionList);
 
+
         PreparedStatement preparetSmtm = con.prepareStatement(sqlScript);
+
         return preparetSmtm.executeQuery();
 
         }
@@ -199,6 +205,4 @@ public class ForecastExtendedDataSource {
         return aForecastExtended;
     }
 
-    public ForecastExtendedDataSource() throws SQLException, ClassNotFoundException {
-    }
 }

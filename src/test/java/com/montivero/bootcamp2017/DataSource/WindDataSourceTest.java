@@ -1,16 +1,13 @@
 package com.montivero.bootcamp2017.DataSource;
 
-import com.montivero.bootcamp2017.Config.DatabaseHelper;
 import com.montivero.bootcamp2017.Domains.Wind;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Daniel on 18/01/2017.

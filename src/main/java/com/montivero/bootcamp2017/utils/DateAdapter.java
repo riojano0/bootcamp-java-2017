@@ -11,16 +11,26 @@ public class DateAdapter {
     /* class create only for no use Calendar */
     private DateAdapter(){}
 
-    public static Date dateFormat(String dateString) throws ParseException {
-        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = fmt.parse(dateString);
-        return date;
+    public static Date dateFormat(String dateString){
+        try{
+            SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+
+            return fmt.parse(dateString);
+        }catch (ParseException E){
+            System.out.println(E.toString());
+
+            return null;
+        }
     }
 
-    public static Date dateFormat(java.sql.Date dateSql) throws ParseException {
+    public static Date dateFormat(java.sql.Date dateSql)  {
+        try{
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = fmt.parse(dateSql.toString());
-        return date;
+            return fmt.parse(dateSql.toString());
+        }catch (ParseException E){
+            System.out.println(E.toString());
+            return null;
+        }
     }
 
     public static String dateDeformat(Date date){

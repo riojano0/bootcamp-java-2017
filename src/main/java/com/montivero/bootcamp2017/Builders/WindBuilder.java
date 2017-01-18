@@ -7,8 +7,8 @@ import com.montivero.bootcamp2017.Domains.Wind;
  */
 public class WindBuilder {
 
-    public int speed;
-    public int direction;
+    public int speed = 20;
+    public int direction = 15;
 
     public WindBuilder speed(int speed){
         this.speed=speed;

@@ -85,8 +85,9 @@ public class MenuConsole {
         String capital = InputAdapter.InputScanner("Insert the capital: ",
                 "Capital not valid", 3, 80);
 
+        Country dummyCountry= new CountryBuilder().build();
         State s = new StateBuilder()
-                .country(Dummy.DUMMY_COUNTRY)
+                .country(dummyCountry)
                 .name(name)
                 .shortName(nameShort2)
                 .area(area)
@@ -147,12 +148,26 @@ public class MenuConsole {
         System.out.println("Note: Weather is a big composition Class, that is why have a loot of dummy(the same of tests), only insert the description \n");
 
         String description = InputAdapter.InputScanner("Insert description: ","Error in description");
+
+        ForecastExtended[] dummyForecastExtendedArray = {
+                new ForecastExtendedBuilder().build(),
+                new ForecastExtendedBuilder().date("22/06/2016").build(),
+                new ForecastExtendedBuilder().date("23/06/2016").build(),
+                new ForecastExtendedBuilder().date("24/06/2016").build(),
+                new ForecastExtendedBuilder().date("25/06/2016").build(),
+                new ForecastExtendedBuilder().date("26/06/2016").build(),
+                new ForecastExtendedBuilder().date("27/06/2016").build(),
+                new ForecastExtendedBuilder().date("28/06/2016").build(),
+                new ForecastExtendedBuilder().date("29/06/2016").build(),
+                new ForecastExtendedBuilder().date("30/06/2016").build(),
+        };
+
         Weather w = new WeatherBuilder()
-                .state(Dummy.DUMMY_STATE)
-                .today(Dummy.DUMMY_FORECAST_TODAY)
-                .week(Dummy.DUMMY_FORECAST_EXTENDED_ARRAY)
-                .wind(Dummy.DUMMY_WIND)
-                .atmosphere(Dummy.DUMMY_ATMOSPHERE)
+                .state(new StateBuilder().build())
+                .today(new ForecastTodayBuilder().build())
+                .week(dummyForecastExtendedArray)
+                .wind(new WindBuilder().build())
+                .atmosphere(new AtmosphereBuilder().build())
                 .description(description)
                 .build();
 
@@ -200,6 +215,8 @@ public class MenuConsole {
             CountryDataSource cData = new CountryDataSource();
             cData.insertCountry(c);
 
+            System.out.println("Inserted country to Database");
+
             menu();
         }catch (CommunicationsException E){
             System.out.println("Database is OFFLINE\n");
@@ -230,8 +247,9 @@ public class MenuConsole {
             System.out.println("\nNote: this Console insert have a Dummy country and you dont need insert it");
 
             CountryDataSource countryData = new CountryDataSource();
-            if(countryData.getIdbyCountry(Dummy.DUMMY_COUNTRY)==0){
-                countryData.insertCountry(Dummy.DUMMY_COUNTRY);
+            Country dummyCountry = new CountryBuilder().build();
+            if(countryData.getIdbyCountry(dummyCountry)==0){
+                countryData.insertCountry(dummyCountry);
             }
 
             String name = InputAdapter.InputScanner("Insert the Name: ",
@@ -245,7 +263,7 @@ public class MenuConsole {
 
             StateDataSource sData = new StateDataSource();
             State s = new StateBuilder()
-                    .country(Dummy.DUMMY_COUNTRY)
+                    .country(dummyCountry)
                     .name(name)
                     .shortName(nameShort2)
                     .area(area)
@@ -254,7 +272,7 @@ public class MenuConsole {
 
             sData.insertState(s);
             System.out.println("");
-            System.out.println("Insert State in Database");
+            System.out.println("Inserted State in Database");
             System.out.println("");
             menu();
 
@@ -330,41 +348,63 @@ public class MenuConsole {
         try{
         System.out.println("\nWeather");
         System.out.println("Note: Weather is a big composition Class, that is why have a loot of dummy(the same of tests), only insert the description \n");
+
         CountryDataSource countryData = new CountryDataSource();
-        if(countryData.getIdbyCountry(Dummy.DUMMY_COUNTRY)==0){
-            countryData.insertCountry(Dummy.DUMMY_COUNTRY);
+        Country dummyCountry = new CountryBuilder().build();
+        if(countryData.getIdbyCountry(dummyCountry)==0){
+            countryData.insertCountry(dummyCountry);
         }
+
         StateDataSource stateData = new StateDataSource();
-        if(stateData.getIdbyState(Dummy.DUMMY_STATE)==0){
-            stateData.insertState(Dummy.DUMMY_STATE);
+        State dummyState = new StateBuilder().build();
+        if(stateData.getIdbyState(dummyState)==0){
+            stateData.insertState(dummyState);
         }
+
         ForecastTodayDataSource fTodayData = new ForecastTodayDataSource();
-        if(fTodayData.getIdByForecastToday(Dummy.DUMMY_FORECAST_TODAY)==0){
-            fTodayData.insertForecastToday(Dummy.DUMMY_FORECAST_TODAY);
+        ForecastToday dummyForecastToday = new ForecastTodayBuilder().build();
+        if(fTodayData.getIdByForecastToday(dummyForecastToday)==0){
+            fTodayData.insertForecastToday(dummyForecastToday);
         }
         ForecastExtendedDataSource fExtendedData = new ForecastExtendedDataSource();
-        if(fExtendedData.getIdByForecastExtendedArray(Dummy.DUMMY_FORECAST_EXTENDED_ARRAY)==0){
-            for(ForecastExtended fExtended:Dummy.DUMMY_FORECAST_EXTENDED_ARRAY) {
+        ForecastExtended[] dummyForecastExtendedArray = {
+                new ForecastExtendedBuilder().build(),
+                new ForecastExtendedBuilder().date("22/06/2016").build(),
+                new ForecastExtendedBuilder().date("23/06/2016").build(),
+                new ForecastExtendedBuilder().date("24/06/2016").build(),
+                new ForecastExtendedBuilder().date("25/06/2016").build(),
+                new ForecastExtendedBuilder().date("26/06/2016").build(),
+                new ForecastExtendedBuilder().date("27/06/2016").build(),
+                new ForecastExtendedBuilder().date("28/06/2016").build(),
+                new ForecastExtendedBuilder().date("29/06/2016").build(),
+                new ForecastExtendedBuilder().date("30/06/2016").build(),
+        };
+        if(fExtendedData.getIdByForecastExtendedArray(dummyForecastExtendedArray)==0){
+            for(ForecastExtended fExtended:dummyForecastExtendedArray) {
                 fExtendedData.insertForecastExtended(999,fExtended.getSqlDate(), fExtended.getDay(),
                         fExtended.getTempMin(),fExtended.getTempMax(),fExtended.getDescription());
             }
         }
-        WindDataSource windData= new WindDataSource();
-        if(windData.getIdByWind(Dummy.DUMMY_WIND)==0){
-            windData.insertWind(Dummy.DUMMY_WIND);
+
+        WindDataSource windData = new WindDataSource();
+        Wind dummyWind = new WindBuilder().build();
+        if(windData.getIdByWind(dummyWind)==0){
+            windData.insertWind(dummyWind);
         }
+
         AtmosphereDataSource atmosphereData= new AtmosphereDataSource();
-        if(atmosphereData.getIdByAtmosphere(Dummy.DUMMY_ATMOSPHERE)==0){
-            atmosphereData.insertAtmosphere(Dummy.DUMMY_ATMOSPHERE);
+        Atmosphere dummyAtmosphere = new AtmosphereBuilder().build();
+        if(atmosphereData.getIdByAtmosphere(dummyAtmosphere)==0){
+            atmosphereData.insertAtmosphere(dummyAtmosphere);
         }
 
         String description = InputAdapter.InputScanner("Insert description: ","Error in description");
         Weather weather = new WeatherBuilder()
-                .state(Dummy.DUMMY_STATE)
-                .today(Dummy.DUMMY_FORECAST_TODAY)
-                .week(Dummy.DUMMY_FORECAST_EXTENDED_ARRAY)
-                .wind(Dummy.DUMMY_WIND)
-                .atmosphere(Dummy.DUMMY_ATMOSPHERE)
+                .state(dummyState)
+                .today(dummyForecastToday)
+                .week(dummyForecastExtendedArray)
+                .wind(dummyWind)
+                .atmosphere(dummyAtmosphere)
                 .description(description)
                 .build();
 
@@ -372,15 +412,36 @@ public class MenuConsole {
         weatherData.insertWeather(weather);
 
         System.out.println("");
-        System.out.println("Insert a Weather in Database");
+        System.out.println("Inserted a Weather in Database");
         System.out.println("");
             menu();
         }catch (CommunicationsException E){
         System.out.println("Database is OFFLINE\n");
         menu();
-    }
+     }
 
     }
+
+//    public static void main(String[] args) throws SQLException, ClassNotFoundException, ParseException {
+//        ForecastExtendedDataSource fExtendedData = new ForecastExtendedDataSource();
+//        ForecastExtended[] dummyForecastExtendedArray = {
+//                new ForecastExtendedBuilder().build(),
+//                new ForecastExtendedBuilder().date("22/06/2016").build(),
+//                new ForecastExtendedBuilder().date("23/06/2016").build(),
+//                new ForecastExtendedBuilder().date("24/06/2016").build(),
+//                new ForecastExtendedBuilder().date("25/06/2016").build(),
+//                new ForecastExtendedBuilder().date("26/06/2016").build(),
+//
+//        };
+//
+//        System.out.println(fExtendedData.getIdByForecastExtendedArray(dummyForecastExtendedArray));
+////        if(fExtendedData.getIdByForecastExtendedArray(dummyForecastExtendedArray)==0){
+////            for(ForecastExtended fExtended:dummyForecastExtendedArray) {
+////                fExtendedData.insertForecastExtended(998,fExtended.getSqlDate(), fExtended.getDay(),
+////                        fExtended.getTempMin(),fExtended.getTempMax(),fExtended.getDescription());
+////            }
+////        }
+//    }
 
     private static void getAllWeathersByConsole() throws SQLException, ClassNotFoundException, ParseException {
         try{

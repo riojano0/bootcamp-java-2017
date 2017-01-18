@@ -1,10 +1,8 @@
 package com.montivero.bootcamp2017.Domains;
 
-import com.montivero.bootcamp2017.Builders.*;
+import com.montivero.bootcamp2017.Builders.WeatherBuilder;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import java.util.Date;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;

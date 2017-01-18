@@ -8,9 +8,9 @@ import org.apache.commons.lang3.text.WordUtils;
  */
 public class CountryBuilder {
 
-    public String name;
-    public String shortName2;
-    public String shortName3;
+    public String name="Dummy Country";
+    public String shortName2="DC";
+    public String shortName3="DMC";
 
     public CountryBuilder name(String name){
         this.name=WordUtils.capitalizeFully(name);
