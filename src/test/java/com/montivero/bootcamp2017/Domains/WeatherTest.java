@@ -74,9 +74,9 @@ public class WeatherTest {
         Wind mockWind = Mockito.mock(Wind.class);
 
         when(mockState.getName()).thenReturn("String of State Name");
-        when(mockToday.forecastTodayToString()).thenReturn("String of Today");
-        when(mockAtmosphere.atmosphereToString()).thenReturn("String Atmosphere");
-        when(mockWind.windToString()).thenReturn("String Wind");
+        when(mockToday.toString()).thenReturn("String of Today");
+        when(mockAtmosphere.toString()).thenReturn("String Atmosphere");
+        when(mockWind.toString()).thenReturn("String Wind");
 
         weather = new WeatherBuilder()
                 .state(mockState)
@@ -87,7 +87,7 @@ public class WeatherTest {
                 .build();
 
         assertEquals("Weather State:\nString of State Name \n\nString of Today \n\nString Atmosphere \n\nString Wind"+
-                "\n\nDescription: The description String \n\n ", weather.weatherToString());
+                "\n\nDescription: The description String \n\n ", weather.toString());
 
     }
 

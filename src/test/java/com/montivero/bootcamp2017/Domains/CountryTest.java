@@ -35,7 +35,7 @@ public class CountryTest {
                 .shortName3("dmc")
                 .build();
 
-        assertEquals("Country: Dummy Country  Alpha2: DC  Alpha3: DMC",dummyCountry.countryToString());
+        assertEquals("Country: Dummy Country  Alpha2: DC  Alpha3: DMC",dummyCountry.toString());
     }
 
     @Test

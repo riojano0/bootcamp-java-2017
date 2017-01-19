@@ -58,4 +58,13 @@ public class ForecastTodayTest {
         assertEquals("2000-01-20", fToday.getSqlDate().toString());
     }
 
+    @Test
+    public void ForecastTodayToString() throws ParseException{
+        fToday = new ForecastTodayBuilder().build();
+
+        String expect = "Forecast Today: \nDate: 17/06/2017 \nTemp: 45°C";
+
+        assertEquals(expect,fToday.toString());
+    }
+
 }

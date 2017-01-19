@@ -30,7 +30,7 @@ public class MenuConsole {
         Wind w = new WindBuilder().speed(speed).direction(direction).build();
 
         System.out.println("");
-        System.out.println(w.windToString());
+        System.out.println(w.toString());
         System.out.println("");
         menu();
     }
@@ -41,7 +41,7 @@ public class MenuConsole {
         double pressure = InputAdapter.InputScannerDouble("Insert the Pressure: ", "Pressure not valid");
         int rising = InputAdapter.InputScannerInteger("Insert the Rising: ", "Rising not valid");
         double visibility = InputAdapter.InputScannerDouble("Insert the Visibility: ","Visibility not valid");
-        Atmosphere a = new AtmosphereBuilder()
+        Atmosphere atmosphere = new AtmosphereBuilder()
                 .humidity(humidity)
                 .pressure(pressure)
                 .visibility(visibility)
@@ -49,7 +49,7 @@ public class MenuConsole {
                 .build();
 
         System.out.println("");
-        System.out.println(a.atmosphereToString());
+        System.out.println(atmosphere.toString());
         System.out.println("");
         menu();
     }
@@ -67,7 +67,7 @@ public class MenuConsole {
                 .build();
 
         System.out.println("");
-        System.out.println(c.countryToString());
+        System.out.println(c.toString());
         System.out.println("");
         menu();
     }
@@ -95,7 +95,7 @@ public class MenuConsole {
                 .build();
 
         System.out.println("");
-        System.out.println(s.stateToString());
+        System.out.println(s.toString());
         System.out.println("");
 
         menu();
@@ -111,7 +111,7 @@ public class MenuConsole {
         ForecastToday fToday = new ForecastTodayBuilder().date(today).temp(temp).build();
 
         System.out.println("");
-        System.out.println(fToday.forecastTodayToString());
+        System.out.println(fToday.toString());
         System.out.println("");
 
         menu();
@@ -137,7 +137,7 @@ public class MenuConsole {
                 .build();
 
         System.out.println("");
-        System.out.println(fExtended.forecastExtendedToString());
+        System.out.println(fExtended.toString());
         System.out.println("");
 
         menu();
@@ -145,7 +145,7 @@ public class MenuConsole {
 
     private static void weatherConsole() throws ParseException, SQLException, ClassNotFoundException {
         System.out.println("\nWeather");
-        System.out.println("Note: Weather is a big composition Class, that is why have a loot of dummy(the same of tests), only insert the description \n");
+        System.out.println("Note: Weather is a big composition Class, that is why have a loot of dummies only insert the description \n");
 
         String description = InputAdapter.InputScanner("Insert description: ","Error in description");
 
@@ -172,7 +172,7 @@ public class MenuConsole {
                 .build();
 
         System.out.println("");
-        System.out.println(w.weatherToString());
+        System.out.println(w.toString());
         System.out.println("");
 
         menu();
@@ -231,7 +231,7 @@ public class MenuConsole {
             CountryDataSource cData = new CountryDataSource();
             ArrayList<Country> aCountries= cData.getAllCountriesObjects();
             for (Country aCountry : aCountries) {
-                System.out.println(aCountry.countryToString());
+                System.out.println(aCountry.toString());
             }
             System.out.println("");
             menu();
@@ -244,7 +244,7 @@ public class MenuConsole {
     private static void InsertStateByConsole() throws SQLException, ClassNotFoundException, ParseException {
         try{
             System.out.println("\nState");
-            System.out.println("\nNote: this Console insert have a Dummy country and you dont need insert it");
+            System.out.println("\nNote: this Console insert have a Dummy country and you don't need insert it");
 
             CountryDataSource countryData = new CountryDataSource();
             Country dummyCountry = new CountryBuilder().build();
@@ -290,7 +290,7 @@ public class MenuConsole {
 
             ArrayList<State> aStates = sData.getAllStatesObjects();
             for (State aState:aStates){
-                System.out.println(aState.stateToString());
+                System.out.println(aState.toString());
             }
 
             System.out.println("");
@@ -316,7 +316,7 @@ public class MenuConsole {
 
 
         System.out.println("");
-        System.out.println(fToday.forecastTodayToString());
+        System.out.println(fToday.toString());
         System.out.println("");
         menu();
         }catch (CommunicationsException E) {
@@ -333,7 +333,7 @@ public class MenuConsole {
 
             ArrayList<ForecastToday> aForecastTodayArray = fData.getAllForecastTodayObjects();
             for (ForecastToday aForecastToday:aForecastTodayArray){
-                System.out.println(aForecastToday.forecastTodayToString());
+                System.out.println(aForecastToday.toString());
             }
             System.out.println("");
             menu();
@@ -347,7 +347,7 @@ public class MenuConsole {
     private static void insertWeatherByConsole() throws SQLException, ClassNotFoundException, ParseException{
         try{
         System.out.println("\nWeather");
-        System.out.println("Note: Weather is a big composition Class, that is why have a loot of dummy(the same of tests), only insert the description \n");
+        System.out.println("Note: Weather is a big composition Class, that is why have a loot of dummies, only insert the description \n");
 
         CountryDataSource countryData = new CountryDataSource();
         Country dummyCountry = new CountryBuilder().build();
@@ -422,27 +422,6 @@ public class MenuConsole {
 
     }
 
-//    public static void main(String[] args) throws SQLException, ClassNotFoundException, ParseException {
-//        ForecastExtendedDataSource fExtendedData = new ForecastExtendedDataSource();
-//        ForecastExtended[] dummyForecastExtendedArray = {
-//                new ForecastExtendedBuilder().build(),
-//                new ForecastExtendedBuilder().date("22/06/2016").build(),
-//                new ForecastExtendedBuilder().date("23/06/2016").build(),
-//                new ForecastExtendedBuilder().date("24/06/2016").build(),
-//                new ForecastExtendedBuilder().date("25/06/2016").build(),
-//                new ForecastExtendedBuilder().date("26/06/2016").build(),
-//
-//        };
-//
-//        System.out.println(fExtendedData.getIdByForecastExtendedArray(dummyForecastExtendedArray));
-////        if(fExtendedData.getIdByForecastExtendedArray(dummyForecastExtendedArray)==0){
-////            for(ForecastExtended fExtended:dummyForecastExtendedArray) {
-////                fExtendedData.insertForecastExtended(998,fExtended.getSqlDate(), fExtended.getDay(),
-////                        fExtended.getTempMin(),fExtended.getTempMax(),fExtended.getDescription());
-////            }
-////        }
-//    }
-
     private static void getAllWeathersByConsole() throws SQLException, ClassNotFoundException, ParseException {
         try{
             System.out.println("\nAll Weathers in Database:");
@@ -451,7 +430,7 @@ public class MenuConsole {
 
             ArrayList<Weather> aWeathers = weatherData.getAllWeathersObjects();
             for (Weather aWeather:aWeathers){
-                System.out.println(aWeather.weatherToString());
+                System.out.println(aWeather.toString());
                 System.out.println("--------");
             }
 
@@ -477,8 +456,6 @@ public class MenuConsole {
         System.out.println("6 - Forecast Extended by Console       | 14 - Show all F.Today in Database");
         System.out.println("7 - Weather by Console                 | 15 - Insert a Weather in Database");
         System.out.println("8 - Check if Database Connection Work  | 16 - Show All Weathers in Database");
-//        System.out.println("9 - Insert to Database a Country");
-//        System.out.println("10 - Show all Countries in Database");
         System.out.println("0 - Quit\n");
 
         selection = InputAdapter.InputScannerInteger("Choice: ", "Choice not valid");

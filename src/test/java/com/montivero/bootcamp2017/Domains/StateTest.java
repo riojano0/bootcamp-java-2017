@@ -16,6 +16,17 @@ public class StateTest {
     private State testState;
 
     @Test
+    public void stateToString(){
+        mockCountry = Mockito.mock(Country.class);
+        Mockito.when(mockCountry.getName()).thenReturn("Dummy Country");
+        testState = new StateBuilder().build();
+
+        String expect = "State: Dummy State  ShortName: DUMS  Country: Dummy Country  Area: 100.0KM  Capital: Dummy Capital";
+
+        assertEquals(expect,testState.toString());
+    }
+
+    @Test
     public void getCountry(){
         mockCountry = Mockito.mock(Country.class);
         Mockito.when(mockCountry.getName()).thenReturn("Dummy Country");

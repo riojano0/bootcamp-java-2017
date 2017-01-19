@@ -14,7 +14,8 @@ public class Country {
         this.shortName3 =  builder.shortName3;
     }
 
-    public String countryToString(){
+    @Override
+    public String toString(){
         return String.format("Country: %s  Alpha2: %s  Alpha3: %s",name,shortName2,shortName3);
     }
 

@@ -18,7 +18,8 @@ public class State {
         this.capital = builder.capital;
     }
 
-    public String stateToString(){
+    @Override
+    public String toString(){
         return String.format("State: %s  ShortName: %s  Country: %s  Area: %sKM  Capital: %s",
                 name,shortName,country.getName(),area,capital);
     }

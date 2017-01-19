@@ -44,7 +44,7 @@ public class AtmosphereTest {
                 .build();
 
         assertEquals("Atmosphere: \nHumidity: 10 \nPressure: 20.2 \nVisibility: 200.0 \nRising: 15",
-                atmosphere.atmosphereToString());
+                atmosphere.toString());
     }
 
     @Test

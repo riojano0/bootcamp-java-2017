@@ -23,20 +23,21 @@ public class Weather {
         this.description = builder.description;
     }
 
-    public String weatherToString(){
+    @Override
+    public String toString(){
         String forecastExtendedOut = "";
         if(week !=null) {
             for (ForecastExtended aWeek : week) {
                 if (aWeek!=null)
-                forecastExtendedOut += aWeek.forecastExtendedToString() + "\n";
+                forecastExtendedOut += aWeek.toString() + "\n";
             }
         }
         return String.format("Weather State:\n%s \n\n%s \n\n%s \n\n%s"+
                         "\n\nDescription: %s \n\n%s ",
                 state.getName(),
-                today.forecastTodayToString(),
-                atmosphere.atmosphereToString(),
-                wind.windToString(),
+                today.toString(),
+                atmosphere.toString(),
+                wind.toString(),
                 description,
                 forecastExtendedOut
         );

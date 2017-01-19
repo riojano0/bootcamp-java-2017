@@ -1,6 +1,11 @@
 package com.montivero.bootcamp2017.Config;
 
+import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
+import javafx.scene.chart.PieChart;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -56,5 +61,25 @@ public class DatabaseHelperTest {
         }
         assertEquals("Test Database",resultOut);
     }
+
+    /* Test with Mockito
+    @Mock
+    DatabaseHelper dbHelper;
+
+    @Before
+    public void setUp(){
+        dbHelper = Mockito.mock(DatabaseHelper.class);
+        Connection con = Mockito.mock(Connection.class);
+
+        Mockito.when(dbHelper.getCon()).thenReturn(con);
+    }
+
+    @Test
+    public void getCon() throws Exception {
+        Connection con = dbHelper.getCon();
+        assertEquals(true,con != null);
+    }
+
+    */
 
 }

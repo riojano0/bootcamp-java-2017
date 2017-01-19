@@ -14,7 +14,8 @@ public class ForecastToday {
         this.temp = builder.temp;
     }
 
-    public String forecastTodayToString(){
+    @Override
+    public String toString(){
         return String.format("Forecast Today: \nDate: %s \nTemp: %s°C", DateAdapter.dateDeformat(date),temp);
     }
 

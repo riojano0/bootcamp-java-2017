@@ -19,7 +19,8 @@ public class Atmosphere {
         this.rising = builder.rising;
     }
 
-    public String atmosphereToString(){
+    @Override
+    public String toString(){
         return String.format("Atmosphere: \nHumidity: %s \nPressure: %s \nVisibility: %s \nRising: %s",
                 humidity,
                 pressure,

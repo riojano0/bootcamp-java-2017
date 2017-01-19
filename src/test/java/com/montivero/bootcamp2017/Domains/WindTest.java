@@ -41,7 +41,7 @@ public class WindTest {
                 .speed(20)
                 .build();
 
-        assertEquals("Wind - Speed: 20  Direction: 25",wind.windToString());
+        assertEquals("Wind - Speed: 20  Direction: 25",wind.toString());
     }
 
 

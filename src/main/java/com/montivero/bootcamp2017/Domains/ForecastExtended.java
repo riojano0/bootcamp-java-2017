@@ -35,7 +35,8 @@ public class ForecastExtended {
         this.description = builder.description;
     }
 
-    public String forecastExtendedToString(){
+    @Override
+    public String toString(){
         return String.format("Forecast Extended: \nDate: %s Day: %s Temp Min: %s°C Temp Max: %s°C Description: %s",
                 DateAdapter.dateDeformat(date),
                 dayToString(),

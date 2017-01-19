@@ -68,7 +68,7 @@ public class ForecastExtendedTest {
                 .build();
 
         assertEquals("Forecast Extended: \nDate: 20/01/2018 Day: Sunday Temp Min: 20°C Temp Max: 30°C Description: Cloudy",
-                fExtended.forecastExtendedToString());
+                fExtended.toString());
     }
 
     @Test
