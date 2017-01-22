@@ -3,6 +3,7 @@ package com.montivero.bootcamp2017.DataSource;
 import com.montivero.bootcamp2017.Builders.AtmosphereBuilder;
 import com.montivero.bootcamp2017.Config.DatabaseHelper;
 import com.montivero.bootcamp2017.Domains.Atmosphere;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,13 +22,14 @@ public class AtmosphereDataSource {
     private static final String COLUMN_PRESSURE = "Pressure";
     private static final String COLUMN_VISIBILITY = "Visibility";
     private static final String COLUMN_RISING = "rising";
-    private DatabaseHelper dbHelper= DatabaseHelper.getInstance();
-    private Connection con = dbHelper.getCon();
+
+    @Autowired
+    private DatabaseHelper dbHelper;
 
     public void insertAtmosphere(int humidity,double pressure, double visibility, int rising) throws SQLException {
         String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s) values (?,?,?,?)",
                 TABLE_NAME, COLUMN_HUMIDITY, COLUMN_PRESSURE, COLUMN_VISIBILITY, COLUMN_RISING);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlInsert);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
         preparedStmt.setInt(1, humidity);
         preparedStmt.setDouble(2, pressure);
         preparedStmt.setDouble(3, visibility);
@@ -38,7 +40,7 @@ public class AtmosphereDataSource {
     public void insertAtmosphere(Atmosphere atmosphere) throws SQLException {
         String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s) values (?,?,?,?)",
                 TABLE_NAME, COLUMN_HUMIDITY, COLUMN_PRESSURE, COLUMN_VISIBILITY, COLUMN_RISING);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlInsert);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
         preparedStmt.setInt(1, atmosphere.getHumidity());
         preparedStmt.setDouble(2, atmosphere.getPressure());
         preparedStmt.setDouble(3, atmosphere.getVisibility());
@@ -64,7 +66,7 @@ public class AtmosphereDataSource {
     private ResultSet getAtmosphereByValues(int humidity, double pressure, int rising, double visibility) throws SQLException {
         String sqlScript = String.format("Select * from %s where %s = ? and %s = ? and %s = ? and %s = ?",
                 TABLE_NAME, COLUMN_HUMIDITY, COLUMN_PRESSURE, COLUMN_RISING, COLUMN_VISIBILITY);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlScript);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlScript);
         preparedStmt.setInt(1, humidity);
         preparedStmt.setDouble(2,pressure);
         preparedStmt.setInt(3, rising);
@@ -74,14 +76,15 @@ public class AtmosphereDataSource {
 
     public ResultSet getAtmosphereById(int id) throws SQLException {
         String sqlSelect = String.format("Select * from %s where %s = ?",TABLE_NAME,COLUMN_ID);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
         preparedStmt.setInt(1,id);
         return preparedStmt.executeQuery();
     }
 
     public Atmosphere getAtmosphereByIdObject(int id) throws SQLException{
         String sqlSelect = String.format("Select * from %s where %s = ?",TABLE_NAME,COLUMN_ID);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        System.out.println(dbHelper.getCon());
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
         preparedStmt.setInt(1,id);
         ResultSet result = preparedStmt.executeQuery();
         return fillAtmosphere(result);
@@ -89,13 +92,13 @@ public class AtmosphereDataSource {
 
     public ResultSet getAllAtmospheres() throws SQLException {
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
         return preparedStmt.executeQuery();
     }
 
     public ArrayList<Atmosphere> getAllAtmospheresObjects() throws SQLException{
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
         ResultSet result = preparedStmt.executeQuery();
         return fillAtmospheres(result);
     }

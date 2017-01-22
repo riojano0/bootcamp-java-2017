@@ -1,5 +1,8 @@
 package com.montivero.bootcamp2017.Config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,21 +12,7 @@ import java.sql.SQLException;
  */
 public class DatabaseHelper implements DatabaseInfo{
 
-        private static DatabaseHelper instance;
-        private static Connection con;
-
-        private DatabaseHelper() {}
-
-        public static DatabaseHelper getInstance(){
-            if (instance != null) {
-                return instance;
-            }
-            else{
-              instance = new DatabaseHelper();
-              return instance;
-            }
-        }
-
+        private Connection con;
 
         public Connection getCon(){
             try {

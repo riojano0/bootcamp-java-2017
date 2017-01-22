@@ -5,6 +5,7 @@ import com.montivero.bootcamp2017.Config.DatabaseHelper;
 import com.montivero.bootcamp2017.Domains.ForecastExtended;
 import com.montivero.bootcamp2017.utils.DataSourceUtils;
 import com.montivero.bootcamp2017.utils.DateAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,8 +38,10 @@ public class ForecastExtendedDataSource {
         days.put("friday",6);
         days.put("saturday",7);
     }
-    private DatabaseHelper dbHelper= DatabaseHelper.getInstance();
-    private Connection con = dbHelper.getCon();
+    @Autowired
+    private DatabaseHelper dbHelper;
+    @Autowired
+    private DataSourceUtils dataSourceUtils;
 
     public void insertForecastExtended(int id, Object date, Object day, int tempMin, int tempMax, String description) throws SQLException, ParseException {
         java.sql.Date dateSql;
@@ -48,7 +51,7 @@ public class ForecastExtendedDataSource {
 
         String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s, %s, %s) values (?, ?,?,?,?,?)",
                 TABLE_NAME,COLUMN_ID,COLUMN_DATE_DAY,COLUMN_DAYS_ID,COLUMN_TEMP_MIN,COLUMN_TEMP_MAX,COLUMN_DESCRIPTION);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlInsert);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
         preparedStmt.setInt(1,id);
         preparedStmt.setDate(2,dateSql);
         preparedStmt.setInt(3,dayId);
@@ -108,14 +111,14 @@ public class ForecastExtendedDataSource {
                                         COLUMN_DESCRIPTION,descriptionList);
 
 
-        PreparedStatement preparetSmtm = con.prepareStatement(sqlScript);
+        PreparedStatement preparetSmtm = dbHelper.getCon().prepareStatement(sqlScript);
 
         return preparetSmtm.executeQuery();
 
         }
 
     public ResultSet getForecastExtendedById(int id) throws SQLException, ClassNotFoundException {
-        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_ID);
+        PreparedStatement preparedStmt = dataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_ID);
         preparedStmt.setInt(1,id);
         return preparedStmt.executeQuery();
     }
@@ -123,7 +126,7 @@ public class ForecastExtendedDataSource {
     public ForecastExtended[] getForecastExtendedByIdObjects(int id) throws SQLException,
             ClassNotFoundException, ParseException {
 
-        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_ID);
+        PreparedStatement preparedStmt = dataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_ID);
         preparedStmt.setInt(1,id);
         ResultSet result = preparedStmt.executeQuery();
         return fillForecastExtendedArray(result);
@@ -131,14 +134,14 @@ public class ForecastExtendedDataSource {
     }
 
     public ResultSet getForecastExtendedByDaysId(int id) throws SQLException, ClassNotFoundException {
-        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_DAYS_ID);
+        PreparedStatement preparedStmt = dataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_DAYS_ID);
         preparedStmt.setInt(1,id);
 
         return preparedStmt.executeQuery();
     }
 
     public ResultSet getForecastExtendedByDaysName(String day) throws SQLException, ClassNotFoundException {
-        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_DAYS_ID);
+        PreparedStatement preparedStmt = dataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_DAYS_ID);
         preparedStmt.setInt(1,days.get(day.toLowerCase()));
 
         return preparedStmt.executeQuery();
@@ -148,7 +151,7 @@ public class ForecastExtendedDataSource {
         String dateFormat = "%Y-%m-%d";
         java.sql.Date dateSql = DateAdapter.dateSql(date);
         String sqlSelect = String.format("Select * from %s where Date_format(%s, ?)=?",TABLE_NAME,COLUMN_DATE_DAY);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
         preparedStmt.setString(1,dateFormat);
         preparedStmt.setDate(2,dateSql);
 
@@ -160,7 +163,7 @@ public class ForecastExtendedDataSource {
         java.sql.Date dateSqlBeg = DateAdapter.dateSql(dateBeg);
         java.sql.Date dateSqlEnd = DateAdapter.dateSql(dateEnd);
         String sqlSelect = String.format("Select * from %s where Date_format(%s, ?) between ? and ?",TABLE_NAME,COLUMN_DATE_DAY);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
         preparedStmt.setString(1,dateFormat);
         preparedStmt.setDate(2,dateSqlBeg);
         preparedStmt.setDate(3,dateSqlEnd);
@@ -172,7 +175,7 @@ public class ForecastExtendedDataSource {
         java.sql.Date dateSqlBeg = DateAdapter.dateSql(dateBeg);
         java.sql.Date dateSqlEnd = DateAdapter.dateSql(dateEnd);
         String sqlSelect = String.format("Select * from %s where Date_format(%s, ?) between ? and ?",TABLE_NAME,COLUMN_DATE_DAY);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
         preparedStmt.setString(1,dateFormat);
         preparedStmt.setDate(2,dateSqlBeg);
         preparedStmt.setDate(3,dateSqlEnd);
@@ -182,7 +185,7 @@ public class ForecastExtendedDataSource {
 
     public ResultSet getAllForecastExtended() throws SQLException {
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
         return preparedStmt.executeQuery();
     }
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <context:component-scan base-package="com.montivero.bootcamp2017.Config" />
+    <context:annotation-config/>
+
+    <!-- Database Conection Bean  -->
+    <bean id="databaseHelper"  class="com.montivero.bootcamp2017.Config.DatabaseHelper"/>
+
+    <!-- Database Tables Bean  -->
+    <bean id="windData" class="com.montivero.bootcamp2017.DataSource.WindDataSource"/>
+    <bean id="countryData" class="com.montivero.bootcamp2017.DataSource.CountryDataSource"/>
+    <bean id="stateData" class="com.montivero.bootcamp2017.DataSource.StateDataSource"/>
+    <bean id="atmosphereData" class="com.montivero.bootcamp2017.DataSource.AtmosphereDataSource"/>
+    <bean id="forecastTodayData" class="com.montivero.bootcamp2017.DataSource.ForecastTodayDataSource"/>
+    <bean id="forecastExtendedData" class="com.montivero.bootcamp2017.DataSource.ForecastExtendedDataSource"/>
+    <bean id="weatherData" class="com.montivero.bootcamp2017.DataSource.WeatherDataSource"/>
+
+    <!-- Utils Bean -->
+    <bean id="dataSourceUtil" class="com.montivero.bootcamp2017.utils.DataSourceUtils"/>
+
+</beans>

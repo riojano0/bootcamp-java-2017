@@ -5,6 +5,7 @@ import com.montivero.bootcamp2017.Config.DatabaseHelper;
 import com.montivero.bootcamp2017.Domains.Country;
 import com.montivero.bootcamp2017.utils.DataSourceUtils;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,14 +23,14 @@ public class CountryDataSource {
     private static final String COLUMN_COUNTRY = "Country";
     private static final String COLUMN_COUNTRY_CODE_2 = "Country_code_2";
     private static final String COLUMN_COUNTRY_CODE_3 = "Country_code_3";
-    private DatabaseHelper dbHelper= DatabaseHelper.getInstance();
-    private Connection con = dbHelper.getCon();
+    @Autowired
+    private DatabaseHelper dbHelper;
 
     public void insertCountry(Country country) throws SQLException {
         try {
             String sqlInsert = String.format("Insert into %s(%s,%s, %s) values (?,?,?)",
                     TABLE_NAME, COLUMN_COUNTRY, COLUMN_COUNTRY_CODE_2, COLUMN_COUNTRY_CODE_3);
-            PreparedStatement preparedStmt = con.prepareStatement(sqlInsert);
+            PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
             preparedStmt.setString(1, country.getName());
             preparedStmt.setString(2, country.getShortName2());
             preparedStmt.setString(3, country.getShortName3());
@@ -44,7 +45,7 @@ public class CountryDataSource {
 
     public  void insertCountry(String Country, String short_name2, String short_name3) throws SQLException {
         String sqlInsert = String.format("Insert into %s(%s,%s, %s) values (?,?,?)", TABLE_NAME, COLUMN_COUNTRY, COLUMN_COUNTRY_CODE_2, COLUMN_COUNTRY_CODE_3);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlInsert);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
         preparedStmt.setString(1, Country);
         preparedStmt.setString(2, short_name2);
         preparedStmt.setString(3, short_name3);
@@ -53,7 +54,7 @@ public class CountryDataSource {
 
     public ArrayList<Country> getAllCountriesObjects() throws SQLException {
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
         ResultSet result = preparedStmt.executeQuery();
         return fillCountries(result);
     }
@@ -71,7 +72,7 @@ public class CountryDataSource {
 
     public ResultSet getAllCountries() throws SQLException {
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
         return preparedStmt.executeQuery();
     }
 

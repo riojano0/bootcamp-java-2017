@@ -6,6 +6,7 @@ import com.montivero.bootcamp2017.Domains.Country;
 import com.montivero.bootcamp2017.Domains.State;
 import com.montivero.bootcamp2017.utils.DataSourceUtils;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,14 +26,16 @@ public class StateDataSource {
     private static final String COLUMN_STATE_SHORT = "State_short";
     private static final String COLUMN_STATE_AREA = "State_area";
     private static final String COLUMN_CAPITAL = "Capital";
-    private DatabaseHelper dbHelper = DatabaseHelper.getInstance();
-    private Connection con = dbHelper.getCon();
+    @Autowired
+    private DatabaseHelper dbHelper;
+    @Autowired
+    private DataSourceUtils dataSourceUtil;
 
     public void insertState(State state) throws SQLException {
         try {
             String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s, %s) values (?,?,?,?,?)",
                     TABLE_NAME, COLUMN_COUNTRIES_ID, COLUMN_STATE, COLUMN_STATE_SHORT, COLUMN_STATE_AREA, COLUMN_CAPITAL);
-            PreparedStatement preparedStmt = con.prepareStatement(sqlInsert);
+            PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
 
             CountryDataSource cData = new CountryDataSource();
             preparedStmt.setInt(1,cData.getIdbyCountry(state.getCountry()));
@@ -53,7 +56,7 @@ public class StateDataSource {
         try {
             String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s, %s) values (?,?,?,?,?)",
                     TABLE_NAME, COLUMN_COUNTRIES_ID, COLUMN_STATE, COLUMN_STATE_SHORT, COLUMN_STATE_AREA, COLUMN_CAPITAL);
-            PreparedStatement preparedStmt = con.prepareStatement(sqlInsert);
+            PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
             preparedStmt.setInt(1, Country_id);
             preparedStmt.setString(2, nameState);
             preparedStmt.setString(3, shortName);
@@ -67,7 +70,7 @@ public class StateDataSource {
     }
 
     public ResultSet getStateById(int id) throws SQLException, ClassNotFoundException {
-        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME, COLUMN_ID);
+        PreparedStatement preparedStmt = dataSourceUtil.prepareStatementCreator(TABLE_NAME, COLUMN_ID);
         preparedStmt.setInt(1, id);
         return preparedStmt.executeQuery();
     }
@@ -84,20 +87,20 @@ public class StateDataSource {
     }
 
     public State getStateByIdObject(int id) throws SQLException, ClassNotFoundException {
-        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME, COLUMN_ID);
+        PreparedStatement preparedStmt = dataSourceUtil.prepareStatementCreator(TABLE_NAME, COLUMN_ID);
         preparedStmt.setInt(1, id);
         ResultSet result = preparedStmt.executeQuery();
         return fillState(result);
     }
 
     public ResultSet getStatesByCountryId(int countryId) throws SQLException, ClassNotFoundException {
-        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME, COLUMN_COUNTRIES_ID);
+        PreparedStatement preparedStmt = dataSourceUtil.prepareStatementCreator(TABLE_NAME, COLUMN_COUNTRIES_ID);
         preparedStmt.setInt(1, countryId);
         return preparedStmt.executeQuery();
     }
 
     public ArrayList<State> getStatesByCountryIdObjects(int countryId) throws SQLException, ClassNotFoundException {
-        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME, COLUMN_COUNTRIES_ID);
+        PreparedStatement preparedStmt = dataSourceUtil.prepareStatementCreator(TABLE_NAME, COLUMN_COUNTRIES_ID);
         preparedStmt.setInt(1, countryId);
         ResultSet result = preparedStmt.executeQuery();
         return fillStates(result);
@@ -105,13 +108,13 @@ public class StateDataSource {
     }
 
     public ResultSet getStateByName(String name) throws SQLException, ClassNotFoundException {
-        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_STATE);
+        PreparedStatement preparedStmt = dataSourceUtil.prepareStatementCreator(TABLE_NAME,COLUMN_STATE);
         preparedStmt.setString(1, name);
         return preparedStmt.executeQuery();
     }
 
     public State getStateByNameObject(String name) throws SQLException, ClassNotFoundException {
-        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_STATE);
+        PreparedStatement preparedStmt = dataSourceUtil.prepareStatementCreator(TABLE_NAME,COLUMN_STATE);
         preparedStmt.setString(1, name);
         ResultSet result = preparedStmt.executeQuery();
         System.out.println(name);
@@ -119,7 +122,7 @@ public class StateDataSource {
     }
 
     public ResultSet getStateByNameShort(String nameShort) throws SQLException, ClassNotFoundException {
-        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_STATE_SHORT);
+        PreparedStatement preparedStmt = dataSourceUtil.prepareStatementCreator(TABLE_NAME,COLUMN_STATE_SHORT);
         preparedStmt.setString(1, nameShort);
         return preparedStmt.executeQuery();
     }
@@ -151,13 +154,13 @@ public class StateDataSource {
 
     public ResultSet getAllStates() throws SQLException {
         String sqlSelect = String.format("Select * from %s", TABLE_NAME);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
         return preparedStmt.executeQuery();
     }
 
     public ArrayList<State> getAllStatesObjects() throws SQLException, ClassNotFoundException {
         String sqlSelect = String.format("Select * from %s", TABLE_NAME);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
         ResultSet result = preparedStmt.executeQuery();
         return fillStates(result);
     }

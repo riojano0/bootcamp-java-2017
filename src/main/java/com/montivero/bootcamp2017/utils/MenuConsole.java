@@ -5,6 +5,7 @@ import com.montivero.bootcamp2017.Config.DatabaseHelper;
 import com.montivero.bootcamp2017.DataSource.*;
 import com.montivero.bootcamp2017.Domains.*;
 import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,6 +19,10 @@ import java.util.Date;
  * Created by Daniel on 10/01/2017.
  */
 public class MenuConsole {
+
+//    private static DatabaseHelper dbHelper;
+    @Autowired
+    private static DatabaseHelper databaseHelper;
 
     private MenuConsole() {
     }
@@ -183,8 +188,10 @@ public class MenuConsole {
         System.out.println("\nDatabase Connection");
         System.out.println("Note: This only check if work and try to do a -Select 'Works!' from Dual- \n");
 
-        DatabaseHelper dbHelper = DatabaseHelper.getInstance();
-        Connection con = dbHelper.getCon();
+//        DatabaseHelper dbHelper = DatabaseHelper.getInstance();
+
+
+        Connection con = databaseHelper.getCon();
         Statement stmt = con.createStatement();
         String sqlQuery = "Select \"Works!\" from Dual";
         ResultSet result = stmt.executeQuery(sqlQuery);

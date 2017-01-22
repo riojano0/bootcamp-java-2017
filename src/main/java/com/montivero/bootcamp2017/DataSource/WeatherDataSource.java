@@ -4,6 +4,7 @@ import com.montivero.bootcamp2017.Builders.WeatherBuilder;
 import com.montivero.bootcamp2017.Config.DatabaseHelper;
 import com.montivero.bootcamp2017.Domains.*;
 import com.montivero.bootcamp2017.utils.DataSourceUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,8 +25,22 @@ public class WeatherDataSource {
     private static final String COLUMN_WINDS_ID = "Winds_id";
     private static final String COLUMN_ATMOSPHERES_ID = "Atmospheres_id";
     private static final String COLUMN_DESCRIPTION = "Description";
-    private DatabaseHelper dbHelper= DatabaseHelper.getInstance();
-    private Connection con = dbHelper.getCon();
+    @Autowired
+    private DatabaseHelper dbHelper;
+    @Autowired
+    private AtmosphereDataSource atmosphereData;
+    @Autowired
+    private StateDataSource stateData;
+    @Autowired
+    private ForecastTodayDataSource forecastTodayData;
+    @Autowired
+    private ForecastExtendedDataSource forecastExtendedData;
+    @Autowired
+    private WindDataSource windData;
+
+    @Autowired
+    private DataSourceUtils dataSourceUtil;
+
 
     public void insertWeather(int stateId,int forecastTodayId, int forecastExtendedId, int windId, int atmId,
                               String description) throws SQLException {
@@ -33,7 +48,7 @@ public class WeatherDataSource {
         String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s, %s, %s) values (?,?,?,?,?,?)",
                 TABLE_NAME,COLUMN_STATES_ID,COLUMN_FORECAST_TODAY_ID,COLUMN_FORECAST_EXTENDED_ID,COLUMN_WINDS_ID,
                 COLUMN_ATMOSPHERES_ID, COLUMN_DESCRIPTION);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlInsert);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
         preparedStmt.setInt(1,stateId);
         preparedStmt.setInt(2,forecastTodayId);
         preparedStmt.setInt(3,forecastExtendedId);
@@ -55,7 +70,7 @@ public class WeatherDataSource {
         String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s, %s, %s) values (?,?,?,?,?,?)",
                 TABLE_NAME,COLUMN_STATES_ID,COLUMN_FORECAST_TODAY_ID,COLUMN_FORECAST_EXTENDED_ID,
                 COLUMN_WINDS_ID, COLUMN_ATMOSPHERES_ID, COLUMN_DESCRIPTION);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlInsert);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
         preparedStmt.setInt(1,stateData.getIdbyState(weather.getState()));
         preparedStmt.setInt(2,fTodayData.getIdByForecastToday(weather.getToday()));
         preparedStmt.setInt(3,fExtendedData.getIdByForecastExtendedArray(weather.getWeek()));
@@ -68,13 +83,13 @@ public class WeatherDataSource {
     }
 
     public ResultSet getWeatherById(int id) throws SQLException, ClassNotFoundException {
-        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_ID);
+        PreparedStatement preparedStmt = dataSourceUtil.prepareStatementCreator(TABLE_NAME,COLUMN_ID);
         preparedStmt.setInt(1,id);
         return preparedStmt.executeQuery();
     }
 
     public Weather getWeatherByIdObject(int id) throws SQLException, ClassNotFoundException, ParseException {
-        PreparedStatement preparedStmt = DataSourceUtils.prepareStatementCreator(TABLE_NAME,COLUMN_ID);
+        PreparedStatement preparedStmt = dataSourceUtil.prepareStatementCreator(TABLE_NAME,COLUMN_ID);
         preparedStmt.setInt(1,id);
         ResultSet result = preparedStmt.executeQuery();
 
@@ -108,20 +123,14 @@ public class WeatherDataSource {
 
     public ArrayList<Weather> getAllWeathersObjects() throws SQLException, ClassNotFoundException, ParseException{
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
         ResultSet result = preparedStmt.executeQuery();
-
-        StateDataSource stateData = new StateDataSource();
-        ForecastTodayDataSource fTodayData = new ForecastTodayDataSource();
-        ForecastExtendedDataSource fExtendedData = new ForecastExtendedDataSource();
-        WindDataSource windData = new WindDataSource();
-        AtmosphereDataSource atmosphereData = new AtmosphereDataSource();
 
         ArrayList<Weather> aWeathers= new ArrayList<Weather>();
         while(result.next()){
             State state = stateData.getStateByIdObject(result.getInt(COLUMN_STATES_ID));
-            ForecastToday fToday = fTodayData.getForecastTodayByIdObject(result.getInt(COLUMN_FORECAST_TODAY_ID));
-            ForecastExtended[] fExtended = fExtendedData.getForecastExtendedByIdObjects(result.getInt(COLUMN_FORECAST_EXTENDED_ID));
+            ForecastToday fToday = forecastTodayData.getForecastTodayByIdObject(result.getInt(COLUMN_FORECAST_TODAY_ID));
+            ForecastExtended[] fExtended = forecastExtendedData.getForecastExtendedByIdObjects(result.getInt(COLUMN_FORECAST_EXTENDED_ID));
             Wind wind = windData.getWindByIdObject(result.getInt(COLUMN_WINDS_ID)) ;
             Atmosphere atmosphere = atmosphereData.getAtmosphereByIdObject(result.getInt(COLUMN_ATMOSPHERES_ID));
 
@@ -145,21 +154,21 @@ public class WeatherDataSource {
         String valueForeign = "State";
         String sqlSelect = String.format("Select W.* from %s W join %s W.%s on S.id where S.%s like ?",
                 TABLE_NAME,tableForeign,COLUMN_STATES_ID, valueForeign);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
         preparedStmt.setString(1,stateName);
         return preparedStmt.executeQuery();
     }
 
     public ResultSet getWeatherByStateId(int stateId) throws SQLException {
         String sqlSelect = String.format("Select * from %s where %s = ?",TABLE_NAME,COLUMN_STATES_ID);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
         preparedStmt.setInt(1,stateId);
         return preparedStmt.executeQuery();
     }
 
     public ResultSet getAllWeathers() throws SQLException {
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-        PreparedStatement preparedStmt = con.prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
         return preparedStmt.executeQuery();
     }
 
