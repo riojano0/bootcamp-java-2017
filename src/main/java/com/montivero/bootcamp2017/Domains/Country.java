@@ -4,9 +4,11 @@ import com.montivero.bootcamp2017.Builders.CountryBuilder;
 
 public class Country {
 
-    final private String name;
-    final private String shortName2;
-    final private String shortName3;
+    private String name;
+    private String shortName2;
+    private String shortName3;
+
+    public Country(){};
 
     public Country(CountryBuilder builder){
         this.name = builder.name;
@@ -25,7 +27,7 @@ public class Country {
 
     public String getShortName2() {
         if(shortName2!=null) {
-            return shortName2;
+            return shortName2.toUpperCase();
         }
         else{
             return null;
@@ -34,7 +36,7 @@ public class Country {
 
     public String getShortName3() {
         if(shortName3!=null) {
-            return shortName3;
+            return shortName3.toUpperCase();
         }
         else{
             return null;

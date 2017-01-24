@@ -7,7 +7,6 @@ import com.montivero.bootcamp2017.utils.DataSourceUtils;
 import com.montivero.bootcamp2017.utils.DateAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,7 +45,7 @@ public class ForecastExtendedDataSource {
     public void insertForecastExtended(int id, Object date, Object day, int tempMin, int tempMax, String description) throws SQLException, ParseException {
         java.sql.Date dateSql;
         int dayId;
-        dateSql = (date instanceof Date)? DateAdapter.dateSql((Date)date):DateAdapter.dateSql((String)date);
+        dateSql = (date instanceof Date)? DateAdapter.dateSql((Date)date): DateAdapter.dateSql((String)date);
         dayId = (day instanceof String)? days.get(((String) day).toLowerCase()):(Integer)day;
 
         String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s, %s, %s) values (?, ?,?,?,?,?)",

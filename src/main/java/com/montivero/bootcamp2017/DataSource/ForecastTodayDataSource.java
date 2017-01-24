@@ -7,7 +7,6 @@ import com.montivero.bootcamp2017.utils.DataSourceUtils;
 import com.montivero.bootcamp2017.utils.DateAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

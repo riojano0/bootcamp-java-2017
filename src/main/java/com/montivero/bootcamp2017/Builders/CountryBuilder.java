@@ -2,10 +2,13 @@ package com.montivero.bootcamp2017.Builders;
 
 import com.montivero.bootcamp2017.Domains.Country;
 import org.apache.commons.lang3.text.WordUtils;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by Daniel on 14/01/2017.
  */
+
+@Repository
 public class CountryBuilder {
 
     public String name="Dummy Country";

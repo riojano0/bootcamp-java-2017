@@ -5,7 +5,6 @@ import com.montivero.bootcamp2017.Config.DatabaseHelper;
 import com.montivero.bootcamp2017.Domains.Atmosphere;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

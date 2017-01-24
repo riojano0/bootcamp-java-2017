@@ -2,11 +2,8 @@ package com.montivero.bootcamp2017.utils;
 
 import com.montivero.bootcamp2017.Config.DatabaseHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.annotation.PostConstruct;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 

@@ -48,14 +48,6 @@ public class WindDataSourceTest {
     }
 
     @Test
-    public void getAllWindsObjects() throws  Exception{
-        ArrayList aWinds = Mockito.mock(ArrayList.class);
-        Mockito.when(mockWindData.getAllWindsObjects()).thenReturn(aWinds);
-
-        assertEquals(aWinds,mockWindData.getAllWindsObjects());
-    }
-
-    @Test
     public void getAllWinds() throws Exception{
         ResultSet mockResult = Mockito.mock(ResultSet.class);
         Mockito.when(mockWindData.getAllWinds()).thenReturn(mockResult);

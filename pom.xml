@@ -1,123 +1,110 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
-
   <groupId>com.montivero.bootcamp2017</groupId>
   <artifactId>my-Weather-app</artifactId>
-  <packaging>jar</packaging>
-
-  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <version>2.0-SNAPSHOT</version>
   <name>my-Weather-app</name>
   <url>http://maven.apache.org</url>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.0.2</version>
-        <configuration>
-          <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <mainClass>com.montivero.bootcamp2017.app.Run</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-
-      </plugin>
-    </plugins>
-  </build>
-
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.4.3.RELEASE</version>
-  </parent>
-
+  <properties>
+    <jdk.version>1.8</jdk.version>
+    <spring.version>4.1.1.RELEASE</spring.version>
+    <jstl.version>1.2</jstl.version>
+    <junit.version>4.12</junit.version>
+    <logback.version>1.0.13</logback.version>
+    <jcl-over-slf4j.version>1.7.5</jcl-over-slf4j.version>
+    <common-lang3.version>3.0</common-lang3.version>
+    <mysql-connector.version>5.1.6</mysql-connector.version>
+    <mockito.version>1.9.5</mockito.version>
+  </properties>
 
 
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+    <!-- //////////////ME//////////////////// -->
+    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+    <dependency> <groupId>org.apache.commons</groupId> <artifactId>commons-lang3</artifactId>
+      <version>${common-lang3.version}</version> </dependency>
+
+    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+    <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql-connector.version}</version>  </dependency>
+
+    <!-- Unit Test -->
+    <dependency> <groupId>junit</groupId> <artifactId>junit</artifactId>
+      <version>${junit.version}</version> </dependency>
+
+    <!-- Mockito -->
+    <dependency> <groupId>org.mockito</groupId> <artifactId>mockito-all</artifactId>
+      <version>${mockito.version}</version> </dependency>
+
+
+    <!-- //////////////ARQUETYPE//////////////////// -->
+    <!-- Spring Core -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
-      <version>4.3.5.RELEASE</version>
+      <version>${spring.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${jcl-over-slf4j.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>4.3.5.RELEASE</version>
+      <artifactId>spring-web</artifactId>
+      <version>${spring.version}</version>
     </dependency>
 
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${spring.version}</version>
     </dependency>
 
     <dependency>
-      <groupId>com.jayway.jsonpath</groupId>
-      <artifactId>json-path</artifactId>
-      <scope>test</scope>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>${jstl.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-
-
-
-
-    <!-- https://mvnrepository.com/artifact/junit/junit -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.6</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-core -->
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-core</artifactId>
-      <version>1.3</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-    <dependency>
-          <groupId>org.apache.commons</groupId>
-          <artifactId>commons-lang3</artifactId>
-          <version>3.0</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <version>1.9.5</version>
-    </dependency>
   </dependencies>
 
+
+
   <build>
+    <finalName>my-weather-app</finalName>
+
     <plugins>
+      <!-- For Maven Tomcat Plugin -->
       <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <path>/CounterWebApp</path>
+        </configuration>
       </plugin>
     </plugins>
+
   </build>
+
+
 
 </project>
