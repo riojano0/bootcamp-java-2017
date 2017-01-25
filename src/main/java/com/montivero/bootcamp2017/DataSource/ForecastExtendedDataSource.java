@@ -42,22 +42,28 @@ public class ForecastExtendedDataSource {
     @Autowired
     private DataSourceUtils dataSourceUtils;
 
-    public void insertForecastExtended(int id, Object date, Object day, int tempMin, int tempMax, String description) throws SQLException, ParseException {
-        java.sql.Date dateSql;
-        int dayId;
-        dateSql = (date instanceof Date)? DateAdapter.dateSql((Date)date): DateAdapter.dateSql((String)date);
-        dayId = (day instanceof String)? days.get(((String) day).toLowerCase()):(Integer)day;
+    public void insertForecastExtended(int id, String date, int dayId, int tempMin, int tempMax, String description) throws SQLException, ParseException {
 
         String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s, %s, %s) values (?, ?,?,?,?,?)",
                 TABLE_NAME,COLUMN_ID,COLUMN_DATE_DAY,COLUMN_DAYS_ID,COLUMN_TEMP_MIN,COLUMN_TEMP_MAX,COLUMN_DESCRIPTION);
         PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
         preparedStmt.setInt(1,id);
-        preparedStmt.setDate(2,dateSql);
+        preparedStmt.setString(2,date);
         preparedStmt.setInt(3,dayId);
         preparedStmt.setInt(4,tempMin);
         preparedStmt.setInt(5,tempMax);
         preparedStmt.setString(6,description);
         preparedStmt.execute();
+    }
+
+    public int getNewId() throws SQLException {
+        int id;
+        String sqlSelect = String.format("Select * from %s",TABLE_NAME);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        ResultSet result=preparedStmt.executeQuery();
+        result.last();
+        id = result.getInt(COLUMN_ID)+1;
+        return id;
     }
 
     public int getIdByForecastExtendedArray(ForecastExtended[] fExtendedArray) throws SQLException {
@@ -88,7 +94,7 @@ public class ForecastExtendedDataSource {
         String description = "('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')";
         int count = 0;
         for(ForecastExtended fExtend:fExtendedArray){
-            datesValues[count]=fExtend.getSqlDate().toString();
+            datesValues[count]=fExtend.getDate();
             tempMinValues[count]=fExtend.getTempMin();
             tempMaxValues[count]=fExtend.getTempMax();
             descriptionValues[count]=fExtend.getDescription();
@@ -193,7 +199,7 @@ public class ForecastExtendedDataSource {
         int count= 0;
         while (result.next()){
             ForecastExtended fExtended = new ForecastExtendedBuilder()
-                    .date(result.getDate(COLUMN_DATE_DAY))
+                    .date(result.getString(COLUMN_DATE_DAY))
                     .day(result.getInt(COLUMN_DAYS_ID))
                     .tempMin(result.getInt(COLUMN_TEMP_MIN))
                     .tempMax(result.getInt(COLUMN_TEMP_MAX))

@@ -26,25 +26,29 @@ public class StateDataSource {
     private static final String COLUMN_STATE_AREA = "State_area";
     private static final String COLUMN_CAPITAL = "Capital";
     @Autowired
-    private DatabaseHelper dbHelper;
+    private DatabaseHelper databaseHelper;
     @Autowired
     private DataSourceUtils dataSourceUtil;
     @Autowired
-    CountryDataSource cData;
+    private CountryDataSource countryData;
 
     public void insertState(State state) throws SQLException {
         try {
             String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s, %s) values (?,?,?,?,?)",
                     TABLE_NAME, COLUMN_COUNTRIES_ID, COLUMN_STATE, COLUMN_STATE_SHORT, COLUMN_STATE_AREA, COLUMN_CAPITAL);
-            PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
 
-//            CountryDataSource cData = new CountryDataSource();
-            if (cData.getIdbyCountry(state.getCountry())!=0){
-                preparedStmt.setInt(1,cData.getIdbyCountry(state.getCountry()));
+            System.out.println(sqlInsert);
+            System.out.println(databaseHelper.hashCode());
+
+
+            PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlInsert);
+
+            if (countryData.getIdbyCountry(state.getCountry())!=0){
+                preparedStmt.setInt(1, countryData.getIdbyCountry(state.getCountry()));
             }else
             {
-                 cData.insertCountry(state.getCountry());
-                 preparedStmt.setInt(1,cData.getIdbyCountry(state.getCountry()));
+                 countryData.insertCountry(state.getCountry());
+                 preparedStmt.setInt(1, countryData.getIdbyCountry(state.getCountry()));
             }
             preparedStmt.setString(2, state.getName());
             preparedStmt.setString(3, state.getShortName());
@@ -63,7 +67,7 @@ public class StateDataSource {
         try {
             String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s, %s) values (?,?,?,?,?)",
                     TABLE_NAME, COLUMN_COUNTRIES_ID, COLUMN_STATE, COLUMN_STATE_SHORT, COLUMN_STATE_AREA, COLUMN_CAPITAL);
-            PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
+            PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlInsert);
             preparedStmt.setInt(1, Country_id);
             preparedStmt.setString(2, nameState);
             preparedStmt.setString(3, shortName);
@@ -161,13 +165,13 @@ public class StateDataSource {
 
     public ResultSet getAllStates() throws SQLException {
         String sqlSelect = String.format("Select * from %s", TABLE_NAME);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlSelect);
         return preparedStmt.executeQuery();
     }
 
     public ArrayList<State> getAllStatesObjects() throws SQLException, ClassNotFoundException {
         String sqlSelect = String.format("Select * from %s", TABLE_NAME);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlSelect);
         ResultSet result = preparedStmt.executeQuery();
         return fillStates(result);
     }
@@ -176,8 +180,8 @@ public class StateDataSource {
         State state;
         if (result.next()) {
             Country country;
-//            CountryDataSource cData = new CountryDataSource();
-            country = cData.getCountryByIdObject(result.getInt(COLUMN_COUNTRIES_ID));
+//            CountryDataSource countryData = new CountryDataSource();
+            country = countryData.getCountryByIdObject(result.getInt(COLUMN_COUNTRIES_ID));
             state = new StateBuilder()
                     .country(country)
                     .area(result.getDouble(COLUMN_STATE_AREA))
@@ -196,8 +200,8 @@ public class StateDataSource {
         Country country = null;
         while (result.next()) {
 //            if (country == null) {
-//                CountryDataSource cData = new CountryDataSource();
-                country = cData.getCountryByIdObject(result.getInt(COLUMN_COUNTRIES_ID));
+//                CountryDataSource countryData = new CountryDataSource();
+                country = countryData.getCountryByIdObject(result.getInt(COLUMN_COUNTRIES_ID));
 //            }
             State state = new StateBuilder()
                     .country(country)

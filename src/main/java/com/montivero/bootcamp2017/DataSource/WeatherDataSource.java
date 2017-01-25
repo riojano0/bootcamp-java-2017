@@ -59,12 +59,8 @@ public class WeatherDataSource {
 
     }
 
-    public void insertWeather(Weather weather) throws SQLException, ClassNotFoundException {
-        StateDataSource stateData = new StateDataSource();
-        ForecastTodayDataSource fTodayData = new ForecastTodayDataSource();
-        ForecastExtendedDataSource fExtendedData = new ForecastExtendedDataSource();
-        WindDataSource windData = new WindDataSource();
-        AtmosphereDataSource atmosphereData = new AtmosphereDataSource();
+    public void insertWeather(Weather weather) throws SQLException, ClassNotFoundException, ParseException {
+//
 
         String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s, %s, %s) values (?,?,?,?,?,?)",
                 TABLE_NAME,COLUMN_STATES_ID,COLUMN_FORECAST_TODAY_ID,COLUMN_FORECAST_EXTENDED_ID,
@@ -79,13 +75,12 @@ public class WeatherDataSource {
             preparedStmt.setInt(1,stateData.getIdbyState(weather.getState()));
         }
 
-
-        if (fTodayData.getIdByForecastToday(weather.getToday())!=0){
-            preparedStmt.setInt(2,fTodayData.getIdByForecastToday(weather.getToday()));
+        if (forecastTodayData.getIdByForecastToday(weather.getToday())!=0){
+            preparedStmt.setInt(2,forecastTodayData.getIdByForecastToday(weather.getToday()));
         }else
         {
-            fTodayData.insertForecastToday(weather.getToday());
-            preparedStmt.setInt(2,fTodayData.getIdByForecastToday(weather.getToday()));
+            forecastTodayData.insertForecastToday(weather.getToday());
+            preparedStmt.setInt(2,forecastTodayData.getIdByForecastToday(weather.getToday()));
         }
 
 
@@ -105,11 +100,16 @@ public class WeatherDataSource {
             preparedStmt.setInt(5,atmosphereData.getIdByAtmosphere(weather.getAtmosphere()));
         }
 
-//        preparedStmt.setInt(1,stateData.getIdbyState(weather.getState()));
-//        preparedStmt.setInt(2,fTodayData.getIdByForecastToday(weather.getToday()));
-        preparedStmt.setInt(3,fExtendedData.getIdByForecastExtendedArray(weather.getWeek()));
-//        preparedStmt.setInt(4,windData.getIdByWind(weather.getWind()));
-//        preparedStmt.setInt(5,atmosphereData.getIdByAtmosphere(weather.getAtmosphere()));
+        if(forecastExtendedData.getIdByForecastExtendedArray(weather.getWeek())!=0) {
+            preparedStmt.setInt(3, forecastExtendedData.getIdByForecastExtendedArray(weather.getWeek()));
+        }else{
+            int id = forecastExtendedData.getNewId();
+            for(ForecastExtended fExt: weather.getWeek() ) {
+                forecastExtendedData.insertForecastExtended(id,fExt.getDate(),fExt.getDayId(),fExt.getTempMin(),fExt.getTempMax(),fExt.getDescription());
+            }
+            preparedStmt.setInt(3, forecastExtendedData.getIdByForecastExtendedArray(weather.getWeek()));
+        }
+
         preparedStmt.setString(6,weather.getDescription());
 
         preparedStmt.execute();

@@ -10,6 +10,8 @@ public class Wind {
     private int speed;
     private int direction;
 
+    public Wind(){};
+
     public Wind(WindBuilder builder){
         this.speed=builder.speed;
         this.direction=builder.direction;

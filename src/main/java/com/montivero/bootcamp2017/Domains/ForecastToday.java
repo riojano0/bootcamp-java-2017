@@ -6,8 +6,10 @@ import com.montivero.bootcamp2017.utils.DateAdapter;
 import java.util.Date;
 
 public class ForecastToday {
-    private Date date;
+    private String date;
     private int temp;
+
+    public ForecastToday(){};
 
     public ForecastToday(ForecastTodayBuilder builder) {
         this.date = builder.date;
@@ -16,16 +18,12 @@ public class ForecastToday {
 
     @Override
     public String toString(){
-        return String.format("Forecast Today: \nDate: %s \nTemp: %s°C", DateAdapter.dateDeformat(date),temp);
+        return String.format("Forecast Today: \nDate: %s \nTemp: %s°C", date,temp);
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
-
-    public java.sql.Date getSqlDate(){ return DateAdapter.dateSql(date);}
-
-    public String getStringDate(){ return DateAdapter.dateDeformat(date);}
 
     public int getTemp() {
         return temp;

@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class ForecastExtended {
 
-    private Date date;
+    private String date;
     private int day;
     private int tempMin;
     private int tempMax;
@@ -26,6 +26,8 @@ public class ForecastExtended {
         days.put(7,"Saturday");
     }
 
+    public ForecastExtended(){};
+
     public ForecastExtended(ForecastExtendedBuilder builder) {
 
         this.date = builder.date;
@@ -38,28 +40,23 @@ public class ForecastExtended {
     @Override
     public String toString(){
         return String.format("Forecast Extended: \nDate: %s Day: %s Temp Min: %s°C Temp Max: %s°C Description: %s",
-                DateAdapter.dateDeformat(date),
-                dayToString(),
+                date,
+                getDayToString(),
                 tempMin,
                 tempMax,
                 description
                 );
     }
+    public int getDayId() {
+        return day;
+    }
 
-    public String dayToString(){
+    public String getDayToString(){
         return days.get(day);
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
-    }
-
-    public java.sql.Date getSqlDate(){ return DateAdapter.dateSql(date);}
-
-    public String getStringDate(){ return DateAdapter.dateDeformat(date);}
-
-    public int getDay() {
-        return day;
     }
 
     public int getTempMin() {

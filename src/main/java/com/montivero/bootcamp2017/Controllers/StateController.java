@@ -61,6 +61,24 @@ public class StateController {
         return new ResponseEntity<State>(state, HttpStatus.OK);
     }
 
+    @RequestMapping(value="/state/get/country/{name}", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<ArrayList<State>> stateGetAllByCountry(@PathVariable(value="name") String name){
+        ArrayList<State> states = new ArrayList<State>();
+        try {
+            for(State state:stateData.getAllStatesObjects()){
+                if (state.getCountry().getName().equals(name)){
+                    states.add(state);
+                }
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<ArrayList<State>>(states, HttpStatus.OK);
+    }
+
     @RequestMapping(value="/state/new", method= RequestMethod.POST)
     public ResponseEntity<String> stateAdd(@RequestBody State state){
         try {

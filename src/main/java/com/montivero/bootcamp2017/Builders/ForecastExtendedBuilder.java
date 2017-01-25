@@ -10,18 +10,14 @@ import java.util.Date;
  */
 public class ForecastExtendedBuilder {
 
-    public Date date = DateAdapter.dateFormat("21/06/2016");
+    public String date = "21/06/2016";
     public int day = 1;
     public int tempMin = 20;
     public int tempMax = 30;
     public String description = "Cloudy";
 
-    public ForecastExtendedBuilder date(Object date) {
-        if (date instanceof String)
-            date = DateAdapter.dateFormat((String) date);
-        if (date instanceof java.sql.Date)
-            date = DateAdapter.dateFormat((java.sql.Date) date);
-        this.date = (Date) date;
+    public ForecastExtendedBuilder date(String date) {
+        this.date =  date;
         return this;
     }
 

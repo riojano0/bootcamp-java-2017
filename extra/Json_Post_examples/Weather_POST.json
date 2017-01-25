@@ -1,0 +1,110 @@
+{
+    "state": {
+      "name": "Post Weather State",
+      "shortName": "POST",
+      "area": 100,
+      "capital": "Post Weather Capital",
+      "country": {
+        "name": "Post Weather Country",
+        "shortName2": "PC",
+        "shortName3": "DWC"
+      }
+    },
+    "description": "The First Post Inserted Weather",
+    "wind": {
+      "speed": 20,
+      "direction": 15
+    },
+    "atmosphere": {
+      "humidity": 10,
+      "pressure": 20.2,
+      "visibility": 200,
+      "rising": 15
+    },
+    "today": {
+      "date": "17/06/2016",
+      "temp": 45
+    },
+    "week": [
+      {
+        "date": "21-06-2001",
+        "tempMin": 20,
+        "tempMax": 30,
+        "description": "Cloudy",
+        "dayToString": "Sunday",
+        "dayId": 1
+      },
+      {
+        "date": "22-06-2001",
+        "tempMin": 20,
+        "tempMax": 30,
+        "description": "Sun",
+        "dayToString": "Monday",
+        "dayId": 2
+      },
+      {
+        "date": "23-06-2001",
+        "tempMin": 20,
+        "tempMax": 30,
+        "description": "Hell",
+        "dayToString": "Tuesday",
+        "dayId": 3
+      },
+      {
+        "date": "24-06-2001",
+        "tempMin": 20,
+        "tempMax": 30,
+        "description": "Nice",
+        "dayToString": "Wednesday",
+        "dayId": 4
+      },
+      {
+        "date": "25-06-2001",
+        "tempMin": 20,
+        "tempMax": 30,
+        "description": "Snow",
+        "dayToString": "Thursday",
+        "dayId": 5
+      },
+      {
+        "date": "26-06-2001",
+        "tempMin": 20,
+        "tempMax": 30,
+        "description": "Cloudy",
+        "dayToString": "Friday",
+        "dayId": 6
+      },
+      {
+        "date": "27-06-2001",
+        "tempMin": 20,
+        "tempMax": 30,
+        "description": "Cloudy",
+        "dayToString": "Saturday",
+        "dayId": 7
+      },
+      {
+        "date": "28-06-2001",
+        "tempMin": 20,
+        "tempMax": 30,
+        "description": "Rain",
+        "dayToString": "Sunday",
+        "dayId": 1
+      },
+      {
+        "date": "29-06-2001",
+        "tempMin": 20,
+        "tempMax": 30,
+        "description": "Tornado",
+        "dayToString": "Monday",
+        "dayId": 2
+      },
+      {
+        "date": "30-06-2001",
+        "tempMin": 20,
+        "tempMax": 30,
+        "description": "Cloudy",
+        "dayToString": "Tuesday",
+        "dayId": 3
+      }
+    ]
+}

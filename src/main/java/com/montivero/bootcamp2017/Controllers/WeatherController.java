@@ -1,6 +1,7 @@
 package com.montivero.bootcamp2017.Controllers;
 
 import com.montivero.bootcamp2017.DataSource.WeatherDataSource;
+import com.montivero.bootcamp2017.Domains.ForecastExtended;
 import com.montivero.bootcamp2017.Domains.Weather;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,11 +37,38 @@ public class WeatherController {
         return new ResponseEntity<ArrayList<Weather>>(weathers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "weather/today/state/{stateName}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<Weather> weatherTodayByState(@PathVariable(value = "stateName") String stateName) {
+//    @RequestMapping(value = "weather/state/{stateName}", method = RequestMethod.GET, produces = "application/json")
+//    public ResponseEntity<Weather> weatherTodayByState(@PathVariable(value = "stateName") String stateName) {
+//        Weather weather = null;
+//        try {
+//            weather = weatherData.getWeatherByStateNameObject(stateName);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        return new ResponseEntity<Weather>(weather, HttpStatus.OK);
+//    }
+
+    @RequestMapping(value = "weather/state/{stateName}", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<ArrayList<Object>> weatherTodayByState(@PathVariable(value = "stateName") String stateName, @RequestParam(value="date", required = false) String date) {
+        ArrayList<Object> aList = new ArrayList<Object>();
         Weather weather = null;
         try {
             weather = weatherData.getWeatherByStateNameObject(stateName);
+            if(date!=null){
+                aList.add(weather.getState());
+                for(ForecastExtended fExt: weather.getWeek()){
+                    if (fExt.getDate().equals(date)){
+                        aList.add(fExt);
+                    }
+                }
+              }
+            else{
+                aList.add(weather);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -48,21 +76,21 @@ public class WeatherController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<Weather>(weather, HttpStatus.OK);
+        return new ResponseEntity<ArrayList<Object>>(aList, HttpStatus.OK);
     }
 
     @RequestMapping(value = "weather/get/today", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<ArrayList<Object>> weatherTodayByState() {
         Weather weather = null;
-        ArrayList<Object> testArray = new ArrayList<Object>();
+        ArrayList<Object> todayArray = new ArrayList<Object>();
 
         try {
             weather = weatherData.getWeatherByIdObject(1);
-            testArray.add(weather.getState());
-            testArray.add(weather.getToday());
-            testArray.add(weather.getWind());
-            testArray.add(weather.getAtmosphere());
-            testArray.add(weather.getDescription());
+            todayArray.add(weather.getState());
+            todayArray.add(weather.getToday());
+            todayArray.add(weather.getWind());
+            todayArray.add(weather.getAtmosphere());
+            todayArray.add(weather.getDescription());
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -70,7 +98,7 @@ public class WeatherController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<ArrayList<Object>>(testArray, HttpStatus.OK);
+        return new ResponseEntity<ArrayList<Object>>(todayArray, HttpStatus.OK);
     }
 
     @RequestMapping(value = "weather/new", method = RequestMethod.POST, produces = "application/json")
@@ -83,8 +111,11 @@ public class WeatherController {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             return new ResponseEntity<String>("weather not Added", HttpStatus.BAD_REQUEST);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return new ResponseEntity<String>("weather Added", HttpStatus.CREATED);
     }
+
 
 }

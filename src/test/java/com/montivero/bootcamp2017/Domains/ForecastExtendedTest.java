@@ -38,23 +38,22 @@ public class ForecastExtendedTest {
     public void getDay(){
         fExtended = new ForecastExtendedBuilder().day(1).build();
 
-        assertEquals("Sunday",fExtended.dayToString());
-        assertEquals(1,fExtended.getDay());
+        assertEquals("Sunday",fExtended.getDayToString());
+        assertEquals(1,fExtended.getDayId());
 
         fExtended = new ForecastExtendedBuilder().day(6).build();
 
-        assertEquals("Friday",fExtended.dayToString());
-        assertEquals(6,fExtended.getDay());
+        assertEquals("Friday",fExtended.getDayToString());
+        assertEquals(6,fExtended.getDayId());
 
     }
 
     @Test
     public void getDates() throws ParseException {
-        Date date = DateAdapter.dateFormat("20/01/2000");
-        fExtended = new ForecastExtendedBuilder().date(date).build();
-        assertEquals(DateAdapter.dateFormat("20/01/2000"),fExtended.getDate());
-        assertEquals("20/01/2000",fExtended.getStringDate());
-        assertEquals("2000-01-20",fExtended.getSqlDate().toString());
+
+        fExtended = new ForecastExtendedBuilder().date("21/12/2018").build();
+        assertEquals("21/12/2018",fExtended.getDate());
+
     }
 
     @Test
@@ -73,10 +72,9 @@ public class ForecastExtendedTest {
 
     @Test
     public void testForecastExtended() throws ParseException {
-        Date date = DateAdapter.dateFormat("20/01/2000");
 
         fExtended = new ForecastExtendedBuilder()
-                .date(date)
+                .date("20/01/2000")
                 .day(1)
                 .tempMin(20)
                 .tempMax(30)
@@ -84,19 +82,16 @@ public class ForecastExtendedTest {
                 .build();
 
         System.out.println("Date format: "+fExtended.getDate());
-        System.out.println("Date deformat: "+DateAdapter.dateDeformat(fExtended.getDate()));
-        System.out.println("Date SqlFormat: "+DateAdapter.dateSql(fExtended.getDate()));
-        System.out.println("Day Value: "+fExtended.getDay());
-        System.out.println("Day String: "+fExtended.dayToString());
+        System.out.println("Day Value: "+fExtended.getDayId());
+        System.out.println("Day String: "+fExtended.getDayToString());
         System.out.println("Temp Min: "+fExtended.getTempMin());
         System.out.println("Temp Max: "+fExtended.getTempMax());
         System.out.println("Description: "+fExtended.getDescription());
 
-        assertEquals(DateAdapter.dateFormat("20/01/2000"),fExtended.getDate());
-        assertEquals("20/01/2000",fExtended.getStringDate());
-        assertEquals("2000-01-20",fExtended.getSqlDate().toString());
-        assertEquals(1,fExtended.getDay());
-        assertEquals("Sunday",fExtended.dayToString());
+
+        assertEquals("20/01/2000",fExtended.getDate());
+        assertEquals(1,fExtended.getDayId());
+        assertEquals("Sunday",fExtended.getDayToString());
         assertEquals(20,fExtended.getTempMin());
         assertEquals(30,fExtended.getTempMax());
         assertEquals("Cloudy",fExtended.getDescription());

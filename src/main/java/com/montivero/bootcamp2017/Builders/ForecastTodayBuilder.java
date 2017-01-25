@@ -9,16 +9,12 @@ import java.util.Date;
  * Created by Daniel on 14/01/2017.
  */
 public class ForecastTodayBuilder {
-    public Date date = DateAdapter.dateFormat("17/06/2017");
+    public String date = "17/06/2017";
     public int temp = 45;
 
-    public ForecastTodayBuilder date(Object date) {
-            if (date instanceof String)
-                date = DateAdapter.dateFormat((String) date);
-            if (date instanceof java.sql.Date)
-                date = DateAdapter.dateFormat((java.sql.Date) date);
-            this.date = (Date) date;
-            return this;
+    public ForecastTodayBuilder date(String date) {
+        this.date =  date;
+        return this;
     }
 
     public ForecastTodayBuilder temp(int temp){

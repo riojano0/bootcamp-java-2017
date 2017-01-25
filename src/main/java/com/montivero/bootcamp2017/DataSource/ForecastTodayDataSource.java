@@ -27,41 +27,25 @@ public class ForecastTodayDataSource {
     @Autowired
     private DataSourceUtils dataSourceUtils;
 
-    public void insertForecastToday(Date date, int temp) throws SQLException {
+    public void insertForecastToday(String date, int temp) throws SQLException {
         String sqlInsert = String.format("Insert into %s(%s,%s) values (?,?)",TABLE_NAME,COLUMN_DATE_DAY,COLUMN_TEMP);
         PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
-        preparedStmt.setDate(1, DateAdapter.dateSql(date));
+        preparedStmt.setString(1, date);
         preparedStmt.setInt(2,temp);
         preparedStmt.execute();
     }
 
-    public void insertForecastToday(java.sql.Date date, int temp) throws SQLException {
-        String sqlInsert = String.format("Insert into %s(%s,%s) values (?,?)",TABLE_NAME,COLUMN_DATE_DAY,COLUMN_TEMP);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
-        preparedStmt.setDate(1, date);
-        preparedStmt.setInt(2,temp);
-        preparedStmt.execute();
-
-    }
-
-    public void insertForecastToday(String date, int temp) throws SQLException, ParseException {
-        String sqlInsert = String.format("Insert into %s(%s,%s) values (?,?)",TABLE_NAME,COLUMN_DATE_DAY,COLUMN_TEMP);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
-        preparedStmt.setDate(1, DateAdapter.dateSql(date));
-        preparedStmt.setInt(2,temp);
-        preparedStmt.execute();
-    }
 
     public void insertForecastToday(ForecastToday fToday) throws SQLException {
         String sqlInsert = String.format("Insert into %s(%s,%s) values (?,?)",TABLE_NAME,COLUMN_DATE_DAY,COLUMN_TEMP);
         PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
-        preparedStmt.setDate(1, fToday.getSqlDate());
+        preparedStmt.setString(1, fToday.getDate());
         preparedStmt.setInt(2, fToday.getTemp());
         preparedStmt.execute();
     }
 
     public int getIdByForecastToday(ForecastToday fToday) throws SQLException, ClassNotFoundException {
-        ResultSet result = getForecastTodayByValues(fToday.getSqlDate(),fToday.getTemp());
+        ResultSet result = getForecastTodayByValues(fToday.getDate(),fToday.getTemp());
         int id;
         if(result.next()){
             id = result.getInt(1);
@@ -72,10 +56,10 @@ public class ForecastTodayDataSource {
 
     }
 
-    private ResultSet getForecastTodayByValues(java.sql.Date date, int temp) throws SQLException, ClassNotFoundException {
+    private ResultSet getForecastTodayByValues(String date, int temp) throws SQLException, ClassNotFoundException {
         String sqlScript = String.format("Select * From %s where %s = ? and %s = ?",TABLE_NAME,COLUMN_DATE_DAY,COLUMN_TEMP);
         PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlScript);
-        preparedStmt.setDate(1,date);
+        preparedStmt.setString(1,date);
         preparedStmt.setInt(2,temp);
         return preparedStmt.executeQuery();
     }
@@ -111,7 +95,7 @@ public class ForecastTodayDataSource {
         if(result.next()){
             fToday = new ForecastTodayBuilder()
                     .temp(result.getInt(COLUMN_TEMP))
-                    .date(result.getDate(COLUMN_DATE_DAY))
+                    .date(result.getString(COLUMN_DATE_DAY))
                     .build();
         }else{
             fToday=null;
@@ -124,7 +108,7 @@ public class ForecastTodayDataSource {
         while(result.next()){
             ForecastToday fToday = new ForecastTodayBuilder()
                     .temp(result.getInt(COLUMN_TEMP))
-                    .date(result.getDate(COLUMN_DATE_DAY))
+                    .date(result.getString(COLUMN_DATE_DAY))
                     .build();
 
             aForecastToday.add(fToday);

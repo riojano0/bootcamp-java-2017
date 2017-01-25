@@ -14,7 +14,7 @@ public class Weather {
     private ForecastToday today;
     private ForecastExtended[] week;
 
-
+    public Weather(){};
 
     public Weather(WeatherBuilder builder){
         this.state = builder.state;
