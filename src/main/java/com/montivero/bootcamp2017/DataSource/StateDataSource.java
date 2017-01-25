@@ -29,6 +29,8 @@ public class StateDataSource {
     private DatabaseHelper dbHelper;
     @Autowired
     private DataSourceUtils dataSourceUtil;
+    @Autowired
+    CountryDataSource cData;
 
     public void insertState(State state) throws SQLException {
         try {
@@ -36,8 +38,14 @@ public class StateDataSource {
                     TABLE_NAME, COLUMN_COUNTRIES_ID, COLUMN_STATE, COLUMN_STATE_SHORT, COLUMN_STATE_AREA, COLUMN_CAPITAL);
             PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
 
-            CountryDataSource cData = new CountryDataSource();
-            preparedStmt.setInt(1,cData.getIdbyCountry(state.getCountry()));
+//            CountryDataSource cData = new CountryDataSource();
+            if (cData.getIdbyCountry(state.getCountry())!=0){
+                preparedStmt.setInt(1,cData.getIdbyCountry(state.getCountry()));
+            }else
+            {
+                 cData.insertCountry(state.getCountry());
+                 preparedStmt.setInt(1,cData.getIdbyCountry(state.getCountry()));
+            }
             preparedStmt.setString(2, state.getName());
             preparedStmt.setString(3, state.getShortName());
             preparedStmt.setDouble(4, state.getArea());
@@ -168,8 +176,8 @@ public class StateDataSource {
         State state;
         if (result.next()) {
             Country country;
-            CountryDataSource cData = new CountryDataSource();
-            country = cData.getCountryByIdObject(result.getInt(2));
+//            CountryDataSource cData = new CountryDataSource();
+            country = cData.getCountryByIdObject(result.getInt(COLUMN_COUNTRIES_ID));
             state = new StateBuilder()
                     .country(country)
                     .area(result.getDouble(COLUMN_STATE_AREA))
@@ -187,10 +195,10 @@ public class StateDataSource {
         ArrayList<State> aStates = new ArrayList<State>();
         Country country = null;
         while (result.next()) {
-            if (country == null) {
-                CountryDataSource cData = new CountryDataSource();
-                country = cData.getCountryByIdObject(result.getInt(1));
-            }
+//            if (country == null) {
+//                CountryDataSource cData = new CountryDataSource();
+                country = cData.getCountryByIdObject(result.getInt(COLUMN_COUNTRIES_ID));
+//            }
             State state = new StateBuilder()
                     .country(country)
                     .area(result.getDouble(COLUMN_STATE_AREA))

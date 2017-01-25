@@ -12,7 +12,8 @@
 
     <context:component-scan base-package="com.montivero.bootcamp2017.Controllers" />
 
-    <!--<mvc:annotation-driven/>-->
+    <mvc:annotation-driven/>
+    <!--<mvc:resources mapping="/webapp/**" location="/WEB-INF/pages/" />-->
 
     <!-- Database Conection Bean  -->
     <bean id="databaseHelper"  class="com.montivero.bootcamp2017.Config.DatabaseHelper"/>
@@ -38,5 +39,6 @@
             <value>.jsp</value>
         </property>
     </bean>
+
 
 </beans>

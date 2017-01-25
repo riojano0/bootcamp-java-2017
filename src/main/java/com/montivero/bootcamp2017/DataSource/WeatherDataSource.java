@@ -151,11 +151,43 @@ public class WeatherDataSource {
     public ResultSet getWeatherByStateName(String stateName) throws SQLException {
         String tableForeign = "states";
         String valueForeign = "State";
-        String sqlSelect = String.format("Select W.* from %s W join %s W.%s on S.id where S.%s like ?",
+        String sqlSelect = String.format("Select W.* from %s W join %s S on W.%s=S.id where S.%s like ?",
                 TABLE_NAME,tableForeign,COLUMN_STATES_ID, valueForeign);
         PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
         preparedStmt.setString(1,stateName);
         return preparedStmt.executeQuery();
+    }
+
+    public Weather getWeatherByStateNameObject(String stateName) throws SQLException, ClassNotFoundException, ParseException {
+        String tableForeign = "states";
+        String valueForeign = "State";
+        String sqlSelect = String.format("Select W.* from %s W join %s S on W.%s=S.id where S.%s like ?",
+                TABLE_NAME,tableForeign,COLUMN_STATES_ID, valueForeign);
+        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        preparedStmt.setString(1,stateName);
+        System.out.println(stateName);
+        System.out.println(preparedStmt);
+        ResultSet result = preparedStmt.executeQuery();
+        Weather weather=null;
+        if(result.next()){
+            State state = stateData.getStateByIdObject(result.getInt(COLUMN_STATES_ID));
+            ForecastToday fToday = forecastTodayData.getForecastTodayByIdObject(result.getInt(COLUMN_FORECAST_TODAY_ID));
+            ForecastExtended[] fExtended = forecastExtendedData.getForecastExtendedByIdObjects(result.getInt(COLUMN_FORECAST_EXTENDED_ID));
+            Wind wind = windData.getWindByIdObject(result.getInt(COLUMN_WINDS_ID)) ;
+            Atmosphere atmosphere = atmosphereData.getAtmosphereByIdObject(result.getInt(COLUMN_ATMOSPHERES_ID));
+
+            weather = new WeatherBuilder()
+                    .state(state)
+                    .today(fToday)
+                    .week(fExtended)
+                    .wind(wind)
+                    .atmosphere(atmosphere)
+                    .description(result.getString(COLUMN_DESCRIPTION))
+                    .build();
+        }
+
+        return weather;
+
     }
 
     public ResultSet getWeatherByStateId(int stateId) throws SQLException {

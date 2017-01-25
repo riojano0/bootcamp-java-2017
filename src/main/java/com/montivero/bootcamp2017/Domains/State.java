@@ -4,11 +4,14 @@ import com.montivero.bootcamp2017.Builders.StateBuilder;
 
 public class State {
 
-    private Country country;
+
     private String name;
     private String shortName;
     private double area;
     private String capital;
+    private Country country;
+
+    public State (){};
 
     public State(StateBuilder builder) {
         this.country = builder.country;

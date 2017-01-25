@@ -8,11 +8,13 @@ import com.montivero.bootcamp2017.Builders.WeatherBuilder;
 public class Weather {
 
     private State state;
-    private ForecastToday today;
-    private ForecastExtended[] week;
+    private String description;
     private Wind wind;
     private Atmosphere atmosphere;
-    private String description;
+    private ForecastToday today;
+    private ForecastExtended[] week;
+
+
 
     public Weather(WeatherBuilder builder){
         this.state = builder.state;
