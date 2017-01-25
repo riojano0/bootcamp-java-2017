@@ -70,11 +70,46 @@ public class WeatherDataSource {
                 TABLE_NAME,COLUMN_STATES_ID,COLUMN_FORECAST_TODAY_ID,COLUMN_FORECAST_EXTENDED_ID,
                 COLUMN_WINDS_ID, COLUMN_ATMOSPHERES_ID, COLUMN_DESCRIPTION);
         PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
-        preparedStmt.setInt(1,stateData.getIdbyState(weather.getState()));
-        preparedStmt.setInt(2,fTodayData.getIdByForecastToday(weather.getToday()));
+
+        if (stateData.getIdbyState(weather.getState())!=0){
+            preparedStmt.setInt(1,stateData.getIdbyState(weather.getState()));
+        }else
+        {
+            stateData.insertState(weather.getState());
+            preparedStmt.setInt(1,stateData.getIdbyState(weather.getState()));
+        }
+
+
+        if (fTodayData.getIdByForecastToday(weather.getToday())!=0){
+            preparedStmt.setInt(2,fTodayData.getIdByForecastToday(weather.getToday()));
+        }else
+        {
+            fTodayData.insertForecastToday(weather.getToday());
+            preparedStmt.setInt(2,fTodayData.getIdByForecastToday(weather.getToday()));
+        }
+
+
+        if (windData.getIdByWind(weather.getWind())!=0){
+            preparedStmt.setInt(4,windData.getIdByWind(weather.getWind()));
+        }else
+        {
+            windData.insertWind(weather.getWind());
+            preparedStmt.setInt(4,windData.getIdByWind(weather.getWind()));
+        }
+
+        if (atmosphereData.getIdByAtmosphere(weather.getAtmosphere())!=0){
+            preparedStmt.setInt(5,atmosphereData.getIdByAtmosphere(weather.getAtmosphere()));
+        }else
+        {
+            atmosphereData.insertAtmosphere(weather.getAtmosphere());
+            preparedStmt.setInt(5,atmosphereData.getIdByAtmosphere(weather.getAtmosphere()));
+        }
+
+//        preparedStmt.setInt(1,stateData.getIdbyState(weather.getState()));
+//        preparedStmt.setInt(2,fTodayData.getIdByForecastToday(weather.getToday()));
         preparedStmt.setInt(3,fExtendedData.getIdByForecastExtendedArray(weather.getWeek()));
-        preparedStmt.setInt(4,windData.getIdByWind(weather.getWind()));
-        preparedStmt.setInt(5,atmosphereData.getIdByAtmosphere(weather.getAtmosphere()));
+//        preparedStmt.setInt(4,windData.getIdByWind(weather.getWind()));
+//        preparedStmt.setInt(5,atmosphereData.getIdByAtmosphere(weather.getAtmosphere()));
         preparedStmt.setString(6,weather.getDescription());
 
         preparedStmt.execute();
@@ -94,15 +129,9 @@ public class WeatherDataSource {
 
         Weather weather;
         if(result.next()){
-            StateDataSource stateData = new StateDataSource();
-            ForecastTodayDataSource fTodayData = new ForecastTodayDataSource();
-            ForecastExtendedDataSource fExtendedData = new ForecastExtendedDataSource();
-            WindDataSource windData = new WindDataSource();
-            AtmosphereDataSource atmosphereData = new AtmosphereDataSource();
-
             State state = stateData.getStateByIdObject(result.getInt(COLUMN_STATES_ID));
-            ForecastToday fToday = fTodayData.getForecastTodayByIdObject(result.getInt(COLUMN_FORECAST_TODAY_ID));
-            ForecastExtended[] fExtended = fExtendedData.getForecastExtendedByIdObjects(result.getInt(COLUMN_FORECAST_EXTENDED_ID));
+            ForecastToday fToday = forecastTodayData.getForecastTodayByIdObject(result.getInt(COLUMN_FORECAST_TODAY_ID));
+            ForecastExtended[] fExtended = forecastExtendedData.getForecastExtendedByIdObjects(result.getInt(COLUMN_FORECAST_EXTENDED_ID));
             Wind wind = windData.getWindByIdObject(result.getInt(COLUMN_WINDS_ID)) ;
             Atmosphere atmosphere = atmosphereData.getAtmosphereByIdObject(result.getInt(COLUMN_ATMOSPHERES_ID));
 
