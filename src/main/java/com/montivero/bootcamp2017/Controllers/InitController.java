@@ -29,6 +29,7 @@ public class InitController {
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView welcome() {
 
+
         return new ModelAndView("index");
     }
 

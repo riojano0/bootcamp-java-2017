@@ -4,7 +4,9 @@
 	      http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
 
-    <display-name>Counter Web Application</display-name>
+    <display-name>Weather App</display-name>
+
+
 
     <servlet>
         <servlet-name>rest-dispatcher</servlet-name>
@@ -19,10 +21,12 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/rest-dispatcher-servlet.xml</param-value>
-    </context-param>
+
+            <context-param>
+                <param-name>contextConfigLocation</param-name>
+                <param-value>/WEB-INF/rest-dispatcher-servlet.xml</param-value>
+            </context-param>
+
 
     <listener>
         <listener-class>
