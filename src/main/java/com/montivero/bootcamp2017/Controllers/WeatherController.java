@@ -107,7 +107,7 @@ public class WeatherController {
             weatherData.insertWeather(weather);
         } catch (SQLException e) {
             e.printStackTrace();
-            return new ResponseEntity<String>("weather not Added", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("weather not Added :"+weather.getWeek()[1].toString(), HttpStatus.BAD_REQUEST);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             return new ResponseEntity<String>("weather not Added", HttpStatus.BAD_REQUEST);

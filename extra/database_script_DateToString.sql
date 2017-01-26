@@ -1,4 +1,5 @@
-CREATE DATABASE Weather_db;
+
+  CREATE DATABASE Weather_db;
 
 USE Weather_db;
 
@@ -8,6 +9,7 @@ CREATE TABLE Countries (
    Country_code_2 varchar(2) NOT NULL,
    Country_code_3 varchar(3) NOT NULL,
    CONSTRAINT Countries_pk PRIMARY KEY (id)
+
 );
 
 CREATE TABLE States (
@@ -18,6 +20,8 @@ CREATE TABLE States (
    State_area int NOT NULL,
    Capital varchar(80) NOT NULL,
    CONSTRAINT States_pk PRIMARY KEY (id)
+      CONSTRAINT Country_fk FOREIGN KEY (Countries_id),
+   REFERENCES Countries(id)
 );
 
 CREATE TABLE Winds (
@@ -44,19 +48,21 @@ CREATE TABLE Days (
 
 CREATE TABLE forecast_today (
    id int NOT NULL AUTO_INCREMENT,
-   Date_day datetime NOT NULL,
+   Date_day varchar(30) NOT NULL,
    Temp int NOT NULL,
    CONSTRAINT forecast_today_pk PRIMARY KEY (id)
 );
 
 CREATE TABLE forecast_extended (
    id int NOT NULL,
-   date_day datetime NOT NULL,
+   date_day varchar(30) NOT NULL,
    Days_id int NOT NULL,
    Temp_min int NOT NULL,
    Temp_max int NOT NULL,
    Description varchar(80) NOT NULL,
-   CONSTRAINT forecast_extended_pk PRIMARY KEY (id,date_day)
+   CONSTRAINT forecast_extended_pk PRIMARY KEY (id,date_day),
+   CONSTRAINT day_fk FOREIGN KEY (Days_id)
+   REFERENCES Days(id)
 
 );
 
@@ -68,7 +74,17 @@ CREATE TABLE Weather (
    Winds_id int NOT NULL,
    Atmospheres_id int NOT NULL,
    Description varchar(80) NOT NULL,
-   CONSTRAINT Weather_pk PRIMARY KEY (id)
+   CONSTRAINT Weather_pk PRIMARY KEY (id),
+   CONSTRAINT State_fk FOREIGN KEY (States_id)
+   REFERENCES States(id),
+   CONSTRAINT forecast_today_fk FOREIGN KEY (forecast_today_id)
+   REFERENCES forecast_today(id),
+   CONSTRAINT forecast_extended_fk FOREIGN KEY (forecast_extended_id)
+   REFERENCES forecast_extended(id),
+   CONSTRAINT Winds_fk FOREIGN KEY (Winds_id)
+   REFERENCES Winds(id),
+   CONSTRAINT Atmospheres_fk FOREIGN KEY (Atmospheres_id)
+   REFERENCES Atmospheres(id)
 );
 
 /* Values for the Secondary Table Days */

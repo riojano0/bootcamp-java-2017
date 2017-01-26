@@ -22,7 +22,6 @@ public class WindDataSourceTest {
 
         Wind mockWind = Mockito.mock(Wind.class);
         Mockito.when(mockWindData.getIdByWind(mockWind)).thenReturn(20);
-
         assertEquals(20,mockWindData.getIdByWind(mockWind));
 
     }

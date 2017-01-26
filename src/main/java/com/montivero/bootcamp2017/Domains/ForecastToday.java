@@ -1,9 +1,6 @@
 package com.montivero.bootcamp2017.Domains;
 
 import com.montivero.bootcamp2017.Builders.ForecastTodayBuilder;
-import com.montivero.bootcamp2017.utils.DateAdapter;
-
-import java.util.Date;
 
 public class ForecastToday {
     private String date;

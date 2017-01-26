@@ -23,13 +23,13 @@ public class CountryDataSource {
     private static final String COLUMN_COUNTRY_CODE_2 = "Country_code_2";
     private static final String COLUMN_COUNTRY_CODE_3 = "Country_code_3";
     @Autowired
-    private DatabaseHelper dbHelper;
+    private DatabaseHelper databaseHelper;
 
     public void insertCountry(Country country) throws SQLException {
         try {
             String sqlInsert = String.format("Insert into %s(%s,%s, %s) values (?,?,?)",
                     TABLE_NAME, COLUMN_COUNTRY, COLUMN_COUNTRY_CODE_2, COLUMN_COUNTRY_CODE_3);
-            PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
+            PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlInsert);
             preparedStmt.setString(1, country.getName());
             preparedStmt.setString(2, country.getShortName2());
             preparedStmt.setString(3, country.getShortName3());
@@ -44,7 +44,7 @@ public class CountryDataSource {
 
     public  void insertCountry(String Country, String short_name2, String short_name3) throws SQLException {
         String sqlInsert = String.format("Insert into %s(%s,%s, %s) values (?,?,?)", TABLE_NAME, COLUMN_COUNTRY, COLUMN_COUNTRY_CODE_2, COLUMN_COUNTRY_CODE_3);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlInsert);
         preparedStmt.setString(1, Country);
         preparedStmt.setString(2, short_name2);
         preparedStmt.setString(3, short_name3);
@@ -53,7 +53,7 @@ public class CountryDataSource {
 
     public ArrayList<Country> getAllCountriesObjects() throws SQLException {
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlSelect);
         ResultSet result = preparedStmt.executeQuery();
         return fillCountries(result);
     }
@@ -71,7 +71,7 @@ public class CountryDataSource {
 
     public ResultSet getAllCountries() throws SQLException {
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlSelect);
         return preparedStmt.executeQuery();
     }
 

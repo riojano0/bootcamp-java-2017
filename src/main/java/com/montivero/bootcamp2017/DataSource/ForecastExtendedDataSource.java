@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.HashMap;
 
 
@@ -38,7 +37,7 @@ public class ForecastExtendedDataSource {
         days.put("saturday",7);
     }
     @Autowired
-    private DatabaseHelper dbHelper;
+    private DatabaseHelper databaseHelper;
     @Autowired
     private DataSourceUtils dataSourceUtils;
 
@@ -46,7 +45,7 @@ public class ForecastExtendedDataSource {
 
         String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s, %s, %s) values (?, ?,?,?,?,?)",
                 TABLE_NAME,COLUMN_ID,COLUMN_DATE_DAY,COLUMN_DAYS_ID,COLUMN_TEMP_MIN,COLUMN_TEMP_MAX,COLUMN_DESCRIPTION);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlInsert);
         preparedStmt.setInt(1,id);
         preparedStmt.setString(2,date);
         preparedStmt.setInt(3,dayId);
@@ -59,7 +58,7 @@ public class ForecastExtendedDataSource {
     public int getNewId() throws SQLException {
         int id;
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlSelect);
         ResultSet result=preparedStmt.executeQuery();
         result.last();
         id = result.getInt(COLUMN_ID)+1;
@@ -116,7 +115,7 @@ public class ForecastExtendedDataSource {
                                         COLUMN_DESCRIPTION,descriptionList);
 
 
-        PreparedStatement preparetSmtm = dbHelper.getCon().prepareStatement(sqlScript);
+        PreparedStatement preparetSmtm = databaseHelper.getCon().prepareStatement(sqlScript);
 
         return preparetSmtm.executeQuery();
 
@@ -156,7 +155,7 @@ public class ForecastExtendedDataSource {
         String dateFormat = "%Y-%m-%d";
         java.sql.Date dateSql = DateAdapter.dateSql(date);
         String sqlSelect = String.format("Select * from %s where Date_format(%s, ?)=?",TABLE_NAME,COLUMN_DATE_DAY);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlSelect);
         preparedStmt.setString(1,dateFormat);
         preparedStmt.setDate(2,dateSql);
 
@@ -168,7 +167,7 @@ public class ForecastExtendedDataSource {
         java.sql.Date dateSqlBeg = DateAdapter.dateSql(dateBeg);
         java.sql.Date dateSqlEnd = DateAdapter.dateSql(dateEnd);
         String sqlSelect = String.format("Select * from %s where Date_format(%s, ?) between ? and ?",TABLE_NAME,COLUMN_DATE_DAY);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlSelect);
         preparedStmt.setString(1,dateFormat);
         preparedStmt.setDate(2,dateSqlBeg);
         preparedStmt.setDate(3,dateSqlEnd);
@@ -180,7 +179,7 @@ public class ForecastExtendedDataSource {
         java.sql.Date dateSqlBeg = DateAdapter.dateSql(dateBeg);
         java.sql.Date dateSqlEnd = DateAdapter.dateSql(dateEnd);
         String sqlSelect = String.format("Select * from %s where Date_format(%s, ?) between ? and ?",TABLE_NAME,COLUMN_DATE_DAY);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlSelect);
         preparedStmt.setString(1,dateFormat);
         preparedStmt.setDate(2,dateSqlBeg);
         preparedStmt.setDate(3,dateSqlEnd);
@@ -190,7 +189,7 @@ public class ForecastExtendedDataSource {
 
     public ResultSet getAllForecastExtended() throws SQLException {
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlSelect);
         return preparedStmt.executeQuery();
     }
 

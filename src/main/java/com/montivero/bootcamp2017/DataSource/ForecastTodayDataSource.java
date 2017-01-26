@@ -4,7 +4,6 @@ import com.montivero.bootcamp2017.Builders.ForecastTodayBuilder;
 import com.montivero.bootcamp2017.Config.DatabaseHelper;
 import com.montivero.bootcamp2017.Domains.ForecastToday;
 import com.montivero.bootcamp2017.utils.DataSourceUtils;
-import com.montivero.bootcamp2017.utils.DateAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.PreparedStatement;
@@ -12,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by Daniel on 11/01/2017.
@@ -23,13 +21,13 @@ public class ForecastTodayDataSource {
     private static final String COLUMN_DATE_DAY = "Date_day";
     private static final String COLUMN_TEMP = "temp";
     @Autowired
-    private DatabaseHelper dbHelper;
+    private DatabaseHelper databaseHelper;
     @Autowired
     private DataSourceUtils dataSourceUtils;
 
     public void insertForecastToday(String date, int temp) throws SQLException {
         String sqlInsert = String.format("Insert into %s(%s,%s) values (?,?)",TABLE_NAME,COLUMN_DATE_DAY,COLUMN_TEMP);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlInsert);
         preparedStmt.setString(1, date);
         preparedStmt.setInt(2,temp);
         preparedStmt.execute();
@@ -38,7 +36,7 @@ public class ForecastTodayDataSource {
 
     public void insertForecastToday(ForecastToday fToday) throws SQLException {
         String sqlInsert = String.format("Insert into %s(%s,%s) values (?,?)",TABLE_NAME,COLUMN_DATE_DAY,COLUMN_TEMP);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlInsert);
         preparedStmt.setString(1, fToday.getDate());
         preparedStmt.setInt(2, fToday.getTemp());
         preparedStmt.execute();
@@ -58,7 +56,7 @@ public class ForecastTodayDataSource {
 
     private ResultSet getForecastTodayByValues(String date, int temp) throws SQLException, ClassNotFoundException {
         String sqlScript = String.format("Select * From %s where %s = ? and %s = ?",TABLE_NAME,COLUMN_DATE_DAY,COLUMN_TEMP);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlScript);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlScript);
         preparedStmt.setString(1,date);
         preparedStmt.setInt(2,temp);
         return preparedStmt.executeQuery();
@@ -79,13 +77,13 @@ public class ForecastTodayDataSource {
 
     public ResultSet getAllForecastToday() throws SQLException {
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlSelect);
         return preparedStmt.executeQuery();
     }
 
     public ArrayList<ForecastToday> getAllForecastTodayObjects() throws SQLException, ParseException {
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlSelect);
         ResultSet result = preparedStmt.executeQuery();
         return fillForecastTodayArray(result);
     }

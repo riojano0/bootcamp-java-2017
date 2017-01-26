@@ -16,7 +16,12 @@
     <!--<mvc:resources mapping="/webapp/**" location="/WEB-INF/pages/" />-->
 
     <!-- Database Conection Bean  -->
-    <bean id="databaseHelper"  class="com.montivero.bootcamp2017.Config.DatabaseHelper"/>
+    <bean id="databaseHelper"  class="com.montivero.bootcamp2017.Config.DatabaseHelper">
+        <property name="jdbc_driver" value="com.mysql.jdbc.Driver"/>
+        <property name="db_url" value="jdbc:mysql://localhost/Weather_db?useSSL=false"/>
+        <property name="user" value="Bootcamp"/>
+        <property name="pass" value="123456"/>
+    </bean>
 
     <!-- Database Tables Bean  -->
     <bean id="windData" class="com.montivero.bootcamp2017.DataSource.WindDataSource"/>

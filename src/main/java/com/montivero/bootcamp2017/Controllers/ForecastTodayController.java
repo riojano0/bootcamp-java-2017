@@ -2,7 +2,6 @@ package com.montivero.bootcamp2017.Controllers;
 
 import com.montivero.bootcamp2017.DataSource.ForecastTodayDataSource;
 import com.montivero.bootcamp2017.Domains.ForecastToday;
-import com.montivero.bootcamp2017.Domains.Weather;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

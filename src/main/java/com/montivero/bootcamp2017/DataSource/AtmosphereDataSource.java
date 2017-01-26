@@ -23,12 +23,12 @@ public class AtmosphereDataSource {
     private static final String COLUMN_RISING = "rising";
 
     @Autowired
-    private DatabaseHelper dbHelper;
+    private DatabaseHelper databaseHelper;
 
     public void insertAtmosphere(int humidity,double pressure, double visibility, int rising) throws SQLException {
         String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s) values (?,?,?,?)",
                 TABLE_NAME, COLUMN_HUMIDITY, COLUMN_PRESSURE, COLUMN_VISIBILITY, COLUMN_RISING);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlInsert);
         preparedStmt.setInt(1, humidity);
         preparedStmt.setDouble(2, pressure);
         preparedStmt.setDouble(3, visibility);
@@ -39,7 +39,7 @@ public class AtmosphereDataSource {
     public void insertAtmosphere(Atmosphere atmosphere) throws SQLException {
         String sqlInsert = String.format("Insert into %s(%s,%s, %s, %s) values (?,?,?,?)",
                 TABLE_NAME, COLUMN_HUMIDITY, COLUMN_PRESSURE, COLUMN_VISIBILITY, COLUMN_RISING);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlInsert);
         preparedStmt.setInt(1, atmosphere.getHumidity());
         preparedStmt.setDouble(2, atmosphere.getPressure());
         preparedStmt.setDouble(3, atmosphere.getVisibility());
@@ -65,7 +65,7 @@ public class AtmosphereDataSource {
     private ResultSet getAtmosphereByValues(int humidity, double pressure, int rising, double visibility) throws SQLException {
         String sqlScript = String.format("Select * from %s where %s = ? and %s = ? and %s = ? and %s = ?",
                 TABLE_NAME, COLUMN_HUMIDITY, COLUMN_PRESSURE, COLUMN_RISING, COLUMN_VISIBILITY);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlScript);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlScript);
         preparedStmt.setInt(1, humidity);
         preparedStmt.setDouble(2,pressure);
         preparedStmt.setInt(3, rising);
@@ -75,15 +75,15 @@ public class AtmosphereDataSource {
 
     public ResultSet getAtmosphereById(int id) throws SQLException {
         String sqlSelect = String.format("Select * from %s where %s = ?",TABLE_NAME,COLUMN_ID);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlSelect);
         preparedStmt.setInt(1,id);
         return preparedStmt.executeQuery();
     }
 
     public Atmosphere getAtmosphereByIdObject(int id) throws SQLException{
         String sqlSelect = String.format("Select * from %s where %s = ?",TABLE_NAME,COLUMN_ID);
-        System.out.println(dbHelper.getCon());
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        System.out.println(databaseHelper.getCon());
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlSelect);
         preparedStmt.setInt(1,id);
         ResultSet result = preparedStmt.executeQuery();
         return fillAtmosphere(result);
@@ -91,13 +91,13 @@ public class AtmosphereDataSource {
 
     public ResultSet getAllAtmospheres() throws SQLException {
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlSelect);
         return preparedStmt.executeQuery();
     }
 
     public ArrayList<Atmosphere> getAllAtmospheresObjects() throws SQLException{
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlSelect);
         ResultSet result = preparedStmt.executeQuery();
         return fillAtmospheres(result);
     }

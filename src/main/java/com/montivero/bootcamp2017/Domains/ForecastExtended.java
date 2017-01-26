@@ -1,15 +1,13 @@
 package com.montivero.bootcamp2017.Domains;
 
 import com.montivero.bootcamp2017.Builders.ForecastExtendedBuilder;
-import com.montivero.bootcamp2017.utils.DateAdapter;
 
-import java.util.Date;
 import java.util.HashMap;
 
 public class ForecastExtended {
 
     private String date;
-    private int day;
+    private int dayId;
     private int tempMin;
     private int tempMax;
     private String description;
@@ -31,7 +29,7 @@ public class ForecastExtended {
     public ForecastExtended(ForecastExtendedBuilder builder) {
 
         this.date = builder.date;
-        this.day = builder.day;
+        this.dayId = builder.day;
         this.tempMin = builder.tempMin;
         this.tempMax = builder.tempMax;
         this.description = builder.description;
@@ -48,11 +46,11 @@ public class ForecastExtended {
                 );
     }
     public int getDayId() {
-        return day;
+        return dayId;
     }
 
     public String getDayToString(){
-        return days.get(day);
+        return days.get(dayId);
     }
 
     public String getDate() {

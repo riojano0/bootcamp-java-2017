@@ -21,12 +21,12 @@ public class WindDataSource {
     private static final String COLUMN_SPEED = "Speed";
     private static final String COLUMN_DIRECTION = "Direction";
     @Autowired
-    private DatabaseHelper dbHelper;
-//    private Connection con = dbHelper.getCon();
+    private DatabaseHelper databaseHelper;
+//    private Connection con = databaseHelper.getCon();
     public void insertWind(Wind w) throws SQLException {
 
         String sqlInsert = String.format("Insert into %s(%s,%s) values (?,?)",TABLE_NAME,COLUMN_SPEED,COLUMN_DIRECTION);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlInsert);
         preparedStmt.setInt(1,w.getSpeed());
         preparedStmt.setInt(2,w.getDirection());
         preparedStmt.execute();
@@ -35,7 +35,7 @@ public class WindDataSource {
 
     public  void insertWind(int speed, int direction) throws SQLException {
         String sqlInsert = String.format("Insert into %s(%s,%s) values (?,?)",TABLE_NAME,COLUMN_SPEED,COLUMN_DIRECTION);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlInsert);
         preparedStmt.setInt(1,speed);
         preparedStmt.setInt(2,direction);
         preparedStmt.execute();
@@ -56,7 +56,7 @@ public class WindDataSource {
     private ResultSet getWindByValues(int speed, int direcion) throws SQLException {
         String sqlScript = String.format("Select * from %s where %s = ? and %s = ?",
                 TABLE_NAME,COLUMN_SPEED,COLUMN_DIRECTION);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlScript);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlScript);
         preparedStmt.setInt(1,speed);
         preparedStmt.setInt(2,direcion);
         return preparedStmt.executeQuery();
@@ -65,7 +65,7 @@ public class WindDataSource {
 
     public void deleteWindById(int id) throws SQLException {
         String sqlInsert = String.format("delete from %s where  %s=?",TABLE_NAME, COLUMN_ID);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlInsert);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlInsert);
         preparedStmt.setInt(1,id);
         preparedStmt.execute();
         System.out.println(String.format("Delete Winds with the id: %s from the database",id));
@@ -74,7 +74,7 @@ public class WindDataSource {
     public ArrayList<Wind> getAllWindsObjects() throws SQLException {
         ArrayList<Wind> aWind = new ArrayList<Wind>();
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlSelect);
         ResultSet result = preparedStmt.executeQuery();
         while(result.next()){
             Wind w = new WindBuilder()
@@ -89,7 +89,7 @@ public class WindDataSource {
 
     public ResultSet getAllWinds() throws SQLException {
         String sqlSelect = String.format("Select * from %s",TABLE_NAME);
-        PreparedStatement preparedStmt = dbHelper.getCon().prepareStatement(sqlSelect);
+        PreparedStatement preparedStmt = databaseHelper.getCon().prepareStatement(sqlSelect);
         return preparedStmt.executeQuery();
     }
 
