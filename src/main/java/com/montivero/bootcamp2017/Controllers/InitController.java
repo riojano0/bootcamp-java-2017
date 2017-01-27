@@ -14,7 +14,13 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class InitController {
 
-//    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView welcome() {
+
+        return new ModelAndView("index");
+    }
+
+//        @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
 //    public String welcome() {
 //
 //        String welcome="<h2>Welcome</h2> <Strong> GET </strong>: </br>  /state/get/all </br>  /state/get/id/{id} </br> /state/get/name/{name} </br> " +
@@ -25,12 +31,5 @@ public class InitController {
 //
 //        return welcome;
 //    }
-
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView welcome() {
-
-
-        return new ModelAndView("index");
-    }
 
 }
