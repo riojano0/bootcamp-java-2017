@@ -1,6 +1,6 @@
 # bootcamp-java-2017
 Daniel Ezequiel Montivero
-###Bootcamp-Globant
+###Bootcamp-Globant - Assignment 02
 
 ####WeatherApp
  
