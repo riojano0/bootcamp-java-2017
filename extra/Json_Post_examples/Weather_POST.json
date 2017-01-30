@@ -1,110 +1,53 @@
-{
+  {
     "state": {
-      "name": "Post Weather State",
-      "shortName": "POST",
-      "area": 100,
-      "capital": "Post Weather Capital",
+      "name": "Post For State001",
       "country": {
-        "name": "Post Weather Country",
-        "shortName2": "PC",
-        "shortName3": "DWC"
-      }
+        "name": "Post ForState Country1",
+        "shortName3": "DWC",
+        "shortName2": "PC"
+      },
+      "shortName": "POST",
+      "capital": "Post ForState Capital",
+      "area": 100
     },
-    "description": "The First Post Inserted Weather",
-    "wind": {
-      "speed": 20,
-      "direction": 15
-    },
+    "description": "Cloudy",
     "atmosphere": {
-      "humidity": 10,
-      "pressure": 20.2,
-      "visibility": 200,
-      "rising": 15
+      "pressure": 3,
+      "rising": 9,
+      "visibility": 25,
+      "humidity": 10
     },
     "today": {
-      "date": "17/06/2016",
+      "date": "25-06-2018",
       "temp": 45
+    },
+    "wind": {
+      "direction": 33,
+      "speed": 35
     },
     "week": [
       {
-        "date": "21-06-2001",
-        "tempMin": 20,
-        "tempMax": 30,
-        "description": "Cloudy",
-        "dayToString": "Sunday",
-        "dayId": 1
+        "date": "29-02-2018",
+        "description": "XXX",
+        "dayId": 1,
+        "tempMax": 33,
+        "tempMin": 66
       },
       {
-        "date": "22-06-2001",
-        "tempMin": 20,
-        "tempMax": 30,
-        "description": "Sun",
-        "dayToString": "Monday",
-        "dayId": 2
-      },
+
+        "date": "30-02-2018",
+        "description": "ZZZ",
+        "dayId": 2,
+        "tempMax": 22,
+        "tempMin": 44
+      }
       {
-        "date": "23-06-2001",
-        "tempMin": 20,
-        "tempMax": 30,
-        "description": "Hell",
-        "dayToString": "Tuesday",
-        "dayId": 3
-      },
-      {
-        "date": "24-06-2001",
-        "tempMin": 20,
-        "tempMax": 30,
-        "description": "Nice",
-        "dayToString": "Wednesday",
-        "dayId": 4
-      },
-      {
-        "date": "25-06-2001",
-        "tempMin": 20,
-        "tempMax": 30,
-        "description": "Snow",
-        "dayToString": "Thursday",
-        "dayId": 5
-      },
-      {
-        "date": "26-06-2001",
-        "tempMin": 20,
-        "tempMax": 30,
-        "description": "Cloudy",
-        "dayToString": "Friday",
-        "dayId": 6
-      },
-      {
-        "date": "27-06-2001",
-        "tempMin": 20,
-        "tempMax": 30,
-        "description": "Cloudy",
-        "dayToString": "Saturday",
-        "dayId": 7
-      },
-      {
-        "date": "28-06-2001",
-        "tempMin": 20,
-        "tempMax": 30,
-        "description": "Rain",
-        "dayToString": "Sunday",
-        "dayId": 1
-      },
-      {
-        "date": "29-06-2001",
-        "tempMin": 20,
-        "tempMax": 30,
-        "description": "Tornado",
-        "dayToString": "Monday",
-        "dayId": 2
-      },
-      {
-        "date": "30-06-2001",
-        "tempMin": 20,
-        "tempMax": 30,
-        "description": "Cloudy",
-        "dayToString": "Tuesday",
-        "dayId": 3
+
+        "date": "31-02-2018",
+        "description": "ZZZ",
+        "dayId": 2,
+        "tempMax": 22,
+        "tempMin": 44
       }
     ]
-}
+  }

@@ -1,0 +1,40 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/data/jpa
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+    http://cxf.apache.org/jaxrs
+    http://cxf.apache.org/schemas/jaxrs.xsd
+    http://cxf.apache.org/jaxws
+    http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <import resource="classpath:spring-config.xml"/>
+
+    <jaxrs:server id="services" address="/">
+        <jaxrs:serviceBeans>
+            <bean class="com.montivero.bootcamp2017.controllers.InitController"/>
+            <bean class="com.montivero.bootcamp2017.controllers.CountryController"/>
+            <bean class="com.montivero.bootcamp2017.controllers.StateController"/>
+            <bean class="com.montivero.bootcamp2017.controllers.WeatherController"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+        <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+
+
+    <!--<jaxws:client id="TestService"-->
+                  <!--serviceClass="com.montivero.bootcamp2017.services.TestInterfacerface"-->
+                  <!--address="http://services.groupkt.com/country/get/all" />-->
+
+    <!--<jaxws:client id="testApi"-->
+                  <!--serviceClass="com.montivero.bootcamp2017.services.TestControllerler"-->
+                  <!--address="http://services.groupkt.com/state/get/IND/all" />-->
+
+
+</beans>
+
