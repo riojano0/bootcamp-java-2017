@@ -12,6 +12,10 @@
     http://cxf.apache.org/jaxws
     http://cxf.apache.org/schemas/jaxws.xsd">
 
+    <!-- these are included in the dependency jar -->
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+
     <import resource="classpath:spring-config.xml"/>
 
     <jaxrs:server id="services" address="/">
@@ -27,13 +31,17 @@
     </jaxrs:server>
 
 
-    <!--<jaxws:client id="TestService"-->
-                  <!--serviceClass="com.montivero.bootcamp2017.services.TestInterfacerface"-->
-                  <!--address="http://services.groupkt.com/country/get/all" />-->
+    <!-- CUANDO DESCOMENTO EL CLIENTE directamente el Tomcat no levanta -->
 
-    <!--<jaxws:client id="testApi"-->
-                  <!--serviceClass="com.montivero.bootcamp2017.services.TestControllerler"-->
-                  <!--address="http://services.groupkt.com/state/get/IND/all" />-->
+    <!--<jaxrs:client id="TestInterface"-->
+                  <!--serviceClass="com.montivero.bootcamp2017.services.TestInteface"-->
+                  <!--address="http://services.groupkt.com/state/get/IND/all">-->
+        <!--<jaxrs:providers>-->
+            <!--<bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider">-->
+            <!--</bean>-->
+        <!--</jaxrs:providers>-->
+    <!--</jaxrs:client>-->
+
 
 
 </beans>

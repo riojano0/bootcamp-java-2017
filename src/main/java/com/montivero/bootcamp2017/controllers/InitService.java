@@ -1,5 +1,7 @@
 package com.montivero.bootcamp2017.controllers;
 
+import org.springframework.http.ResponseEntity;
+
 import javax.jws.WebService;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -11,10 +13,10 @@ public interface InitService {
     @GET
     @Path("/")
     @Produces("application/json")
-    public String hello();
+    String hello();
 
     @GET
     @Path("/t")
     @Produces("application/json")
-    public String t();
+    ResponseEntity<String> t();
 }

@@ -30,4 +30,17 @@ public interface CountryService {
     @Consumes("application/json")
     String saveCountry(@RequestBody Country country);
 
+    //TEST //
+
+    @GET
+    @Path("/test")
+    @Produces("application/json")
+    List<Country> getAllCountryWebService();
+
+    @GET
+    @Path("/test/{ShortName3}")
+    @Produces("application/json")
+    Country getCountryByNameWebService(@PathParam("ShortName3") String shortName3);
+
+
 }

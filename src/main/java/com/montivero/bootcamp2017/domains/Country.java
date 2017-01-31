@@ -42,9 +42,9 @@ public class Country{
         return String.format("Country: %s  Alpha2: %s  Alpha3: %s", name, shortName2, shortName3);
     }
 
-    public Long getId() {
-        return id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
 
     public void setId(long id) {
         this.id = id;

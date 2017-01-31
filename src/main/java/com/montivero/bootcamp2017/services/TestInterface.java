@@ -9,14 +9,7 @@ import javax.ws.rs.Produces;
 
 //@WebService(targetNamespace = "http://services.groupkt.com/state/get/IND/all")
 @WebService
-@Produces("application/json")
+@Consumes("application/json")
 public interface TestInterface {
-
-    @GET
-    @Consumes("application/json")
-    @Produces("application/json")
-    @Path("/")
-    public String test();
-
 
 }

@@ -36,7 +36,7 @@
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
-        <!-- spring based scanning for entity classes-->
+
         <property name="packagesToScan" value="com.montivero.bootcamp2017"/>
     </bean>
 
