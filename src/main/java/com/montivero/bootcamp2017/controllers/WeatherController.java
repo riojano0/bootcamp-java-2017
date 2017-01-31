@@ -6,13 +6,13 @@ import com.montivero.bootcamp2017.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @Path("/weather")
-public class WeatherController implements WeatherService{
+public class WeatherController{
 
     @Autowired
     private AtmosphereRepository atmosphereRepository;
@@ -29,11 +29,17 @@ public class WeatherController implements WeatherService{
     @Autowired
     private WeatherRepository weatherRepository;
 
+    @GET
+    @Path("/")
+    @Produces("application/json")
     public List<Weather> getAllWeather(){
         return weatherRepository.findAll();
     }
 
-    public List<Object> getWeatherForName(String name, String date){
+    @GET
+    @Path("/get/state/{name}")
+    @Produces("application/json")
+    public List<Object> getWeatherForName(@PathParam("name") String name,@QueryParam("date") String date){
         List<Object> outList= new ArrayList<Object>();
         if (date==null)
             outList.add(weatherRepository.findByStateName(name));
@@ -47,6 +53,10 @@ public class WeatherController implements WeatherService{
         return outList;
     }
 
+    @POST
+    @Path("/saveWeather")
+    @Produces("application/json")
+    @Consumes("application/json")
     public String saveWeather(Weather weather){
         try {
             if (windRepository.findBySpeedAndDirection(weather.getWind().getSpeed(), weather.getWind().getDirection()).isEmpty())

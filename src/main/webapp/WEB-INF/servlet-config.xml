@@ -1,38 +1,21 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xmlns:jaxrs="http://cxf.apache.org/jaxrs"
-       xmlns:jaxws="http://cxf.apache.org/jaxws"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://www.springframework.org/schema/data/jpa
-    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
-    http://cxf.apache.org/jaxrs
-    http://cxf.apache.org/schemas/jaxrs.xsd
-    http://cxf.apache.org/jaxws
-    http://cxf.apache.org/schemas/jaxws.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://cxf.apache.org/jaxrs
+        http://cxf.apache.org/schemas/jaxrs.xsd
+        http://cxf.apache.org/core
+        http://cxf.apache.org/schemas/core.xsd
+        ">
 
     <!-- these are included in the dependency jar -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
-
     <import resource="classpath:spring-config.xml"/>
-
-    <jaxrs:server id="services" address="/">
-        <jaxrs:serviceBeans>
-            <bean class="com.montivero.bootcamp2017.controllers.InitController"/>
-            <bean class="com.montivero.bootcamp2017.controllers.CountryController"/>
-            <bean class="com.montivero.bootcamp2017.controllers.StateController"/>
-            <bean class="com.montivero.bootcamp2017.controllers.WeatherController"/>
-        </jaxrs:serviceBeans>
-        <jaxrs:providers>
-        <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
-        </jaxrs:providers>
-    </jaxrs:server>
 
 
     <!-- CUANDO DESCOMENTO EL CLIENTE directamente el Tomcat no levanta -->
-
     <!--<jaxrs:client id="TestInterface"-->
                   <!--serviceClass="com.montivero.bootcamp2017.services.TestInteface"-->
                   <!--address="http://services.groupkt.com/state/get/IND/all">-->

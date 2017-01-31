@@ -7,29 +7,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.ws.rs.*;
 import java.util.List;
 
-/**
- * Created by Daniel on 29/01/2017.
- */
+
 @Controller
-public class StateController implements StateService {
+@Path("/state")
+public class StateController {
 
     @Autowired
     private StateRepository stateRepository;
     @Autowired
     private CountryRepository countryRepository;
 
-
+    @GET
+    @Path("/")
+    @Produces("application/json")
     public List<State> getAllStates(){
 
         return stateRepository.findAll();
     }
 
-    public State getStateById(long id) {
+    @GET
+    @Path("get/id/{id}")
+    @Produces("application/json")
+    public State getStateById(@PathParam("id") long id) {
+
+
         return stateRepository.findOne(id);
     }
 
+    @POST
+    @Path("/saveState")
+    @Consumes("application/json")
     public String SaveState(@RequestBody State state){
 
         try{
@@ -47,7 +57,10 @@ public class StateController implements StateService {
         }
     }
 
-    public List<State> getAllStatesByCountry(String name) {
+    @GET
+    @Path("/get/all/{country}")
+    @Produces("application/json")
+    public List<State> getAllStatesByCountry(@PathParam("country") String name) {
         return stateRepository.findAllByCountryNameIgnoreCase(name);
     }
 

@@ -1,24 +1,20 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-
-       xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:context="http://www.springframework.org/schema/context"
-
-
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://www.springframework.org/schema/data/jpa
-    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
-
-    http://cxf.apache.org/jaxws
-    http://cxf.apache.org/schemas/jaxws.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+     xmlns:context="http://www.springframework.org/schema/context"
+     xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/data/jpa
+     http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context.xsd
+     http://cxf.apache.org/jaxrs
+     http://cxf.apache.org/schemas/jaxrs.xsd
+     ">
 
     <jpa:repositories base-package="com.montivero.bootcamp2017"/>
     <context:component-scan base-package="com.montivero.bootcamp2017"/>
-
-    <!--<bean id="employeeRepository" class="com.jpa.clone.EmployeeRepository" lazy-init="true"/>-->
-
-    <!--<bean id="countryRepository" class="com.jpa.clone.CountryRepository"/>-->
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
@@ -42,6 +38,17 @@
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
 
+    <jaxrs:server id="services" address="/">
+        <jaxrs:serviceBeans>
+            <bean class="com.montivero.bootcamp2017.controllers.InitController"/>
+            <bean class="com.montivero.bootcamp2017.controllers.CountryController"/>
+            <bean class="com.montivero.bootcamp2017.controllers.StateController"/>
+            <bean class="com.montivero.bootcamp2017.controllers.WeatherController"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:server>
 
 
 </beans>
