@@ -4,9 +4,6 @@ import com.montivero.bootcamp2017.builders.AtmosphereBuilder;
 
 import javax.persistence.*;
 
-/**
- * Created by Daniel on 29/01/2017.
- */
 @Entity
 @Table(name="atmospheres")
 public class Atmosphere {
@@ -73,5 +70,14 @@ public class Atmosphere {
 
     public void setRising(int rising) {
         this.rising = rising;
+    }
+
+    @Override
+    public String toString(){
+        return String.format("Atmosphere: \nHumidity: %s \nPressure: %s \nVisibility: %s \nRising: %s",
+                humidity,
+                pressure,
+                visibility,
+                rising);
     }
 }

@@ -39,7 +39,7 @@ public class Country{
 
     @Override
     public String toString() {
-        return String.format("Country: %s  Alpha2: %s  Alpha3: %s", name, shortName2, shortName3);
+        return String.format("Country: %s  ShortName2: %s  ShortName3: %s", name, shortName2, shortName3);
     }
 
 //    public Long getId() {
@@ -73,4 +73,6 @@ public class Country{
     public void setShortName3(String shortName3) {
         this.shortName3 = shortName3;
     }
+
+
 }

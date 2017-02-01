@@ -49,4 +49,9 @@ public class ForecastToday {
     public void setTemp(int temp) {
         this.temp = temp;
     }
+
+    @Override
+    public String toString(){
+        return String.format("Forecast Today: \nDate: %s \nTemp: %s°C", date,temp);
+    }
 }

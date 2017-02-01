@@ -1,8 +1,10 @@
 package com.montivero.bootcamp2017.controllers;
 
+import com.montivero.bootcamp2017.adapters.WeatherJsonAdapter;
 import com.montivero.bootcamp2017.domains.ForecastExtended;
 import com.montivero.bootcamp2017.domains.Weather;
 import com.montivero.bootcamp2017.repositories.*;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -108,6 +110,19 @@ public class WeatherController{
             return "Save Failed";
         }
 
+    }
+
+    @GET
+    @Path("/test")
+    @Produces("application/json")
+    public Weather getWeatherJsonTest(){
+        try{
+        WeatherJsonAdapter wAdapt = new WeatherJsonAdapter();
+        return wAdapt.getWeather();
+        }catch (JSONException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

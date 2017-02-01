@@ -1,12 +1,17 @@
 package com.montivero.bootcamp2017.controllers;
+
+import com.montivero.bootcamp2017.adapters.CountryJsonAdapter;
+import com.montivero.bootcamp2017.builders.CountryBuilder;
 import com.montivero.bootcamp2017.domains.Country;
-import com.montivero.bootcamp2017.adapters.CountryAdapter;
 import com.montivero.bootcamp2017.repositories.CountryRepository;
+import com.sun.jersey.api.client.Client;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-
 import javax.ws.rs.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -53,19 +58,50 @@ public class CountryController{
     @Path("/test")
     @Produces("application/json")
     public List<Country> getAllCountryWebService() {
-        CountryAdapter countryAdapter = new CountryAdapter("http://services.groupkt.com/country/get/all");
-            return  countryAdapter.getCountries();
 
+        CountryJsonAdapter countryJsonAdapter = new CountryJsonAdapter("http://services.groupkt.com/country/get/all");
+
+            return  countryJsonAdapter.getCountries();
     }
+
+    @GET
+    @Path("/test2")
+    @Produces("application/json")
+    public List<Country> test2() {
+
+        Client c = Client.create();
+        String response = c.resource("http://services.groupkt.com/country/get/all")
+                .accept("application/json; charset=utf-8")
+                .get(String.class);
+
+        JSONObject json = new JSONObject(response);
+        JSONArray jsonArray = json.getJSONObject("RestResponse").getJSONArray("result");
+
+        List<Country> countries = new ArrayList<Country>();
+        for(int i=0;i<jsonArray.length();i++){
+            countries.add(new CountryBuilder()
+                    .name(jsonArray.getJSONObject(i).get("name").toString())
+                    .shortName2(jsonArray.getJSONObject(i).get("alpha2_code").toString())
+                    .shortName3(jsonArray.getJSONObject(i).get("alpha3_code").toString())
+                    .build()
+                    );
+        }
+
+
+//        return response;
+        return countries;
+    }
+
+
 
     @GET
     @Path("/test/{shortName3}")
     @Produces("application/json")
     public Country getCountryByNameWebService(@PathParam("shortName3") String shortName3) {
-        CountryAdapter countryAdapter = new CountryAdapter(
+        CountryJsonAdapter countryJsonAdapter = new CountryJsonAdapter(
                 String.format("http://services.groupkt.com/country/get/iso3code/%s",shortName3));
 
-        return countryAdapter.getCountry();
+        return countryJsonAdapter.getCountry();
     }
 
 

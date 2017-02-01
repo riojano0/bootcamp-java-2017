@@ -1,7 +1,5 @@
 package com.montivero.bootcamp2017.controllers;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import javax.ws.rs.GET;
@@ -19,12 +17,6 @@ public class InitController {
         return "Init Controller Run";
     }
 
-    @GET
-    @Path("/t")
-    @Produces("application/json")
-    public ResponseEntity<String> t(){
-        return  new ResponseEntity<String>("BBBB", HttpStatus.OK);
-    }
 
 
 }

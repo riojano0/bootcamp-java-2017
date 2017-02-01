@@ -19,19 +19,18 @@ import java.util.List;
 /**
  * Created by Daniel on 31/01/2017.
  */
-public class CountryAdapter {
+public class CountryJsonAdapter {
 
     private JSONObject response;
     private JSONArray jsonArray;
 
-    public CountryAdapter(String url) {
+    public CountryJsonAdapter(String url) {
         try{
         InputStream is = new URL(url).openStream();
         BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
         String message = IOUtils.toString(rd);
         JSONObject json = new JSONObject(message);
         this.response = (JSONObject) json.get("RestResponse");
-//        this.jsonArray = (JSONArray) json2.get("result");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -47,9 +46,9 @@ public class CountryAdapter {
             response.getJSONObject("result").get("name");
 
             c = new CountryBuilder()
-                    .name(response.getJSONObject("result").get("name").toString())
-                    .shortName2(response.getJSONObject("result").get("alpha2_code").toString())
-                    .shortName3(response.getJSONObject("result").get("alpha3_code").toString())
+                    .name(response.getJSONObject("result").getString("name"))
+                    .shortName2(response.getJSONObject("result").getString("alpha2_code"))
+                    .shortName3(response.getJSONObject("result").getString("alpha3_code"))
                     .build();
             return c;
         }catch (Exception E){
@@ -64,9 +63,9 @@ public class CountryAdapter {
             this.jsonArray = (JSONArray) response.get("result");
             for(int i =0;this.jsonArray.length()>i;i++ ){
                 Country c = new CountryBuilder()
-                        .name(jsonArray.getJSONObject(i).get("name").toString())
-                        .shortName2(jsonArray.getJSONObject(i).get("alpha2_code").toString())
-                        .shortName3(jsonArray.getJSONObject(i).get("alpha3_code").toString())
+                        .name(jsonArray.getJSONObject(i).getString("name"))
+                        .shortName2(jsonArray.getJSONObject(i).getString("alpha2_code"))
+                        .shortName3(jsonArray.getJSONObject(i).getString("alpha3_code"))
                         .build();
                 countries.add(c);
             }

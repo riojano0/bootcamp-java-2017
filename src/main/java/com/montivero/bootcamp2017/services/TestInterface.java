@@ -1,20 +1,12 @@
 package com.montivero.bootcamp2017.services;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 
-
-@Produces("application/json")
-@Consumes("application/json")
-@Path("/sampleService")
 public interface TestInterface {
 
-    @POST
-    @Consumes("application/json")
+    @GET
     @Produces("application/json")
-    @Path("/saveForm")
-    public String saveFrom(String signupForm);
+    @Path("/state/get/IND/all")
+    public String allCountries(String s);
 
 }

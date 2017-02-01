@@ -54,4 +54,9 @@ public class Wind {
     public void setDirection(int direction) {
         this.direction = direction;
     }
+
+    @Override
+    public String toString(){
+        return String.format("Wind - Speed: %s  Direction: %s", speed,direction);
+    }
 }

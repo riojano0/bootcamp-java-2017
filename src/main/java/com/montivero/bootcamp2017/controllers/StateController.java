@@ -58,10 +58,11 @@ public class StateController {
     }
 
     @GET
-    @Path("/get/all/{country}")
+    @Path("/get/all/{name}")
     @Produces("application/json")
-    public List<State> getAllStatesByCountry(@PathParam("country") String name) {
-        return stateRepository.findAllByCountryNameIgnoreCase(name);
+    public List<State> getAllStatesByCountry(@PathParam("name") String name) {
+//        return stateRepository.findAllByCountryNameIgnoreCase(name);
+        return stateRepository.findAllByCountry_ShortName3(name);
     }
 
 }
