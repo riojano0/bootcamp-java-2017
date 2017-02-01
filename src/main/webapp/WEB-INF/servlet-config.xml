@@ -22,14 +22,14 @@
 
 
     <!-- CUANDO DESCOMENTO EL CLIENTE directamente el Tomcat no levanta -->
-    <!--<jaxrs:client id="TestInterface"-->
-                  <!--serviceClass="com.montivero.bootcamp2017.services.TestInteface"-->
-                  <!--address="http://services.groupkt.com/">-->
-        <!--<jaxrs:providers>-->
-            <!--<bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider">-->
-            <!--</bean>-->
-        <!--</jaxrs:providers>-->
-    <!--</jaxrs:client>-->
+    <jaxrs:client id="CountryServiceInterface"
+                  serviceClass="com.montivero.bootcamp2017.services.CountryServiceInterface"
+                  address="http://services.groupkt.com/">
+        <jaxrs:providers>
+            <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider">
+            </bean>
+        </jaxrs:providers>
+    </jaxrs:client>
 
 </beans>
 

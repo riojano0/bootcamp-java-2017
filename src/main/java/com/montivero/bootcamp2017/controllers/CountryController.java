@@ -86,13 +86,8 @@ public class CountryController{
                     .build()
                     );
         }
-
-
-//        return response;
         return countries;
     }
-
-
 
     @GET
     @Path("/test/{shortName3}")
