@@ -7,7 +7,7 @@ Daniel Ezequiel Montivero
     or
     mvn tomcat:run (with the plugin dont work index page)
     
-####Post Request
+####Post Body
     Examples for Post json
     /extra/Json_Post_examples
     
@@ -18,30 +18,24 @@ Daniel Ezequiel Montivero
      
      -COUNTRY-
       @GET 
-     country/ : Get All Countries
+     country/get/all : Get All Countries
      country/id/{id}  : Get Country by ID
-     country/name/{name} : Get Country by Name
-     
-      ***@GET for Test Json***
-     country/test  : Get All Countries for Json Online
-     country/test/{shortName3}  : Get Country by ShortName Json Online
-     
+     country/name/{name} : Get Country by ShortName3
+          
       @POST
       country/saveCountry  : Save country
       
       -STATE-
        @GET
-      state/ : Get All States 
-      state/get/id/{id} : Get State by ID
-      state/get/all/{country} : Get All States by Country
-      
+      state/get/all/{countryShortName} : Get All States by Country ShortName3 
+      state/get/{country}/{state} : Get State by countryShortName3 and State ShortName
+       
        @POST
       state/saveState : Save State
       
       -WEATHER-
        @GET
-      weather/ : Get All weathers
-      weather/get/state/{name} : Get weather for State (and optional query Param "date)
+      weather/get/{country}/{state} : Get weather for Country(FullName) and state(FullName)
       
        @POST
       weather/saveWeather : Save Weather

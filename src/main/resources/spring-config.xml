@@ -1,0 +1,108 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xmlns:jaxrs-client="http://cxf.apache.org/jaxrs-client"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd​
+        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+        http://cxf.apache.org/jaxrs-client http://cxf.apache.org/schemas/jaxrs-client.xsd">
+
+    <context:annotation-config />
+    <jpa:repositories base-package="com.montivero.bootcamp2017.repositories"/>
+
+    <context:component-scan base-package="com.montivero.bootcamp2017" />
+
+    <mvc:annotation-driven />
+    <!--<tx:annotation-driven />-->
+
+    <!-- JPA DATABASE -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost/weather_db"/>
+        <property name="username" value="Bootcamp"/>
+        <property name="password" value="123456"/>
+    </bean>
+
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="showSql" value="true"/>
+        <property name="generateDdl" value="true"/>
+        <property name="database" value="MYSQL"/>
+    </bean>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+
+        <property name="packagesToScan" value="com.montivero.bootcamp2017"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
+    <!-- // -->
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/>
+
+    <!--JAXRS servers -->
+    <jaxrs:server id="services" address="/">
+        <jaxrs:serviceBeans>
+            <bean class="com.montivero.bootcamp2017.controllers.InitController"/>
+            <bean class="com.montivero.bootcamp2017.controllers.CountryController"/>
+            <bean class="com.montivero.bootcamp2017.controllers.StateController"/>
+            <bean class="com.montivero.bootcamp2017.controllers.WeatherController"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+
+    <!-- JAXRS CLient -->
+    <jaxrs-client:client id="countryServiceRest"
+                  serviceClass="com.montivero.bootcamp2017.services.CountryServiceRest"
+                  address="http://services.groupkt.com/country"
+                  inheritHeaders="true">
+        <jaxrs-client:providers>
+            <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+        </jaxrs-client:providers>
+        <jaxrs-client:headers>
+            <entry key="Accept" value="application/json"/>
+        </jaxrs-client:headers>
+    </jaxrs-client:client>
+
+    <jaxrs-client:client id="stateServiceRest"
+                         serviceClass="com.montivero.bootcamp2017.services.StateServiceRest"
+                         address="http://services.groupkt.com/state/"
+                         inheritHeaders="true">
+        <jaxrs-client:providers>
+            <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+        </jaxrs-client:providers>
+        <jaxrs-client:headers>
+            <entry key="Accept" value="application/json"/>
+        </jaxrs-client:headers>
+    </jaxrs-client:client>
+
+    <jaxrs-client:client id="weatherServiceRest"
+                         serviceClass="com.montivero.bootcamp2017.services.WeatherServiceRest"
+                         address="https://query.yahooapis.com/v1/public/yql"
+                         inheritHeaders="true">
+        <jaxrs-client:providers>
+            <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+        </jaxrs-client:providers>
+        <jaxrs-client:headers>
+            <entry key="Accept" value="application/json"/>
+        </jaxrs-client:headers>
+    </jaxrs-client:client>
+
+
+
+</beans>
