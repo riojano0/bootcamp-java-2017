@@ -1,11 +1,11 @@
 {
-      "name": "Post For State",
-      "shortName": "POST",
-      "area": 100,
-      "capital": "Post ForState Capital",
+      "name": "Mordor",
+      "shortName": "Mord",
+      "area": 4891,
+      "capital": "The Eye",
       "country": {
-        "name": "Post ForState Country",
-        "shortName2": "PC",
-        "shortName3": "DWC"
+        "name": "Middle Earth",
+        "shortName2": "ME",
+        "shortName3": "MEH"
 		}
 }

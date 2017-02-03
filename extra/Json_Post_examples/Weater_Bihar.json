@@ -1,0 +1,100 @@
+{
+  "state": {
+    "name": "Bihar",
+    "shortName": "BR",
+    "area": 99200,
+    "capital": "Patna",
+    "country": {
+      "name": "India",
+      "shortName2": "IN",
+      "shortName3": "IND"
+    }
+  },
+  "description": "Yahoo! Weather for Bihar, IN",
+  "wind": {
+    "speed": 7,
+    "direction": 293
+  },
+  "atmosphere": {
+    "humidity": 90,
+    "pressure": 1011,
+    "visibility": 16,
+    "rising": 0
+  },
+  "today": {
+    "date": "Fri, 03 Feb 2017",
+    "temp": 55
+  },
+  "week": [
+    {
+      "date": "03 Feb 2017",
+      "dayId": 6,
+      "tempMin": 53,
+      "tempMax": 76,
+      "description": "Sunny"
+    },
+    {
+      "date": "04 Feb 2017",
+      "dayId": 7,
+      "tempMin": 53,
+      "tempMax": 78,
+      "description": "Mostly Cloudy"
+    },
+    {
+      "date": "05 Feb 2017",
+      "dayId": 1,
+      "tempMin": 54,
+      "tempMax": 79,
+      "description": "Mostly Sunny"
+    },
+    {
+      "date": "06 Feb 2017",
+      "dayId": 2,
+      "tempMin": 57,
+      "tempMax": 80,
+      "description": "Mostly Sunny"
+    },
+    {
+      "date": "07 Feb 2017",
+      "dayId": 3,
+      "tempMin": 60,
+      "tempMax": 81,
+      "description": "Sunny"
+    },
+    {
+      "date": "08 Feb 2017",
+      "dayId": 4,
+      "tempMin": 55,
+      "tempMax": 75,
+      "description": "Sunny"
+    },
+    {
+      "date": "09 Feb 2017",
+      "dayId": 5,
+      "tempMin": 50,
+      "tempMax": 72,
+      "description": "Sunny"
+    },
+    {
+      "date": "10 Feb 2017",
+      "dayId": 6,
+      "tempMin": 57,
+      "tempMax": 71,
+      "description": "Partly Cloudy"
+    },
+    {
+      "date": "11 Feb 2017",
+      "dayId": 7,
+      "tempMin": 52,
+      "tempMax": 73,
+      "description": "Sunny"
+    },
+    {
+      "date": "12 Feb 2017",
+      "dayId": 1,
+      "tempMin": 53,
+      "tempMax": 75,
+      "description": "Sunny"
+    }
+  ]
+}
