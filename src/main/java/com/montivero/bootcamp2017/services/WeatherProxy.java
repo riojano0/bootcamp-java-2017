@@ -30,10 +30,9 @@ public class WeatherProxy {
     private WeatherRepository weatherRepository;
 
     public Weather getWeather(String countryName, String stateName){
-        if(weatherAdapter.getWeather(countryName,stateName)!=null){
-            return weatherAdapter.getWeather(countryName,stateName);
-        }
-        else{
+        if (weatherAdapter.getWeather(countryName, stateName) != null) {
+            return weatherAdapter.getWeather(countryName, stateName);
+        } else {
             return weatherRepository.findByStateName(stateName);
         }
     }

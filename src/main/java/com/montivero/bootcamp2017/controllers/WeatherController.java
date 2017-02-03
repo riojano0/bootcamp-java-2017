@@ -1,6 +1,5 @@
 package com.montivero.bootcamp2017.controllers;
 
-
 import com.montivero.bootcamp2017.domains.Weather;
 import com.montivero.bootcamp2017.services.WeatherProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ public class WeatherController{
     private WeatherProxy weatherProxy;
 
     @GET
-    @Path("/{country}/{state}")
+    @Path("get/{country}/{state}")
     @Produces("application/json")
     public Weather getWeather(@PathParam("country") String countryName, @PathParam("state") String stateName){
         return weatherProxy.getWeather(countryName,stateName);

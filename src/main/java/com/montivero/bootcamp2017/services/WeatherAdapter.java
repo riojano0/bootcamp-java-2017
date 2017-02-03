@@ -107,7 +107,6 @@ public class WeatherAdapter {
                             .build())
                     .week(forecastExtendedList)
                     .state(state)
-//                    .state(new StateBuilder().country(country).build())
                     .description(weatherJson.get(0).get("description").textValue())
                     .build();
 
@@ -123,6 +122,5 @@ public class WeatherAdapter {
             return null;
             }
         }
-
 
     }
