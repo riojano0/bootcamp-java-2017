@@ -3,8 +3,11 @@ package com.montivero.bootcamp2017.services;
 import com.montivero.bootcamp2017.domains.Country;
 import com.montivero.bootcamp2017.repositories.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import javax.xml.ws.Response;
 import java.util.List;
 
 @Component
@@ -18,24 +21,27 @@ public class CountryProxy {
 
     public List<Country> getAllCountries(){
 
-        if(countryAdapter.getCountries().isEmpty() || countryAdapter.getCountries() == null ){
+        List<Country> countries = countryAdapter.getCountries();
+        if(countries.isEmpty()){
             return countryRepository.findAll();
         }
         else{
-            return countryAdapter.getCountries();
+            return countries;
         }
     }
 
     public Country getCountryByShortName3(String shortName3){
-        if(countryAdapter.getCountryShortName3(shortName3) == null ){
+        Country country = countryAdapter.getCountryShortName3(shortName3);
+        if(country == null ){
             return countryRepository.findByShortName3(shortName3);
         }
         else{
-            return countryAdapter.getCountryShortName3(shortName3);
+            return country;
         }
     }
 
     public Country getCountryById(long id){
+
         try {
             return countryAdapter.getCountries().get((int) id);
         }catch (IndexOutOfBoundsException e){

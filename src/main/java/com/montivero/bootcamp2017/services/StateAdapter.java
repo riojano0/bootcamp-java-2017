@@ -59,7 +59,7 @@ public class StateAdapter {
             JsonNode actualObj = mapper.readTree(stateServiceRest.getStateByCountryAndShortName(CountryShortName,stateShortName));
             JsonNode stateJson = actualObj.get("RestResponse").get("result");
 
-            Country c= countryProxy.getCountryByShortName3(stateJson.get("country").textValue());
+            Country c = countryProxy.getCountryByShortName3(stateJson.get("country").textValue());
 
             s = new StateBuilder()
                     .name(stateJson.get("name").textValue())

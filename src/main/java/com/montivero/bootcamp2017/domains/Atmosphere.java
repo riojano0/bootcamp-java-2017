@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Atmosphere {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int humidity;
     private double pressure;

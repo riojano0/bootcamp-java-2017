@@ -1,5 +1,6 @@
 package com.montivero.bootcamp2017.services;
 
+import com.montivero.bootcamp2017.domains.Country;
 import com.montivero.bootcamp2017.domains.State;
 import com.montivero.bootcamp2017.repositories.CountryRepository;
 import com.montivero.bootcamp2017.repositories.StateRepository;
@@ -23,16 +24,18 @@ public class StateProxy {
 
 
     public List<State> getStatesByCountry(String countryShortName){
-        if (stateAdapter.getStatesByCountry(countryShortName).isEmpty() || stateAdapter.getStatesByCountry(countryShortName) == null ) {
+        List<State> states =  stateAdapter.getStatesByCountry(countryShortName);
+        if (states.isEmpty()) {
             return stateRepository.findAllByCountry_ShortName3(countryShortName);
         }else{
-            return stateAdapter.getStatesByCountry(countryShortName);
+            return states;
         }
     }
 
     public State getStateByCountryAndShortName(String countryShortName,String stateShortName){
-        if(stateAdapter.getStateByCountryAndShortName(countryShortName,stateShortName)!=null)
-            return stateAdapter.getStateByCountryAndShortName(countryShortName,stateShortName);
+        State state = stateAdapter.getStateByCountryAndShortName(countryShortName,stateShortName);
+        if(state !=null)
+            return state;
         else
             try {
                 return stateRepository.findOneByCountry_ShortName3AndShortName(countryShortName,stateShortName);
@@ -44,10 +47,10 @@ public class StateProxy {
 
     public String save(State state){
         try{
-            if(countryRepository.findByName(state.getCountry().getName())==null) {
+            Country country = countryRepository.findByName(state.getCountry().getName());
+            if(country==null) {
                 countryRepository.save(state.getCountry());
             }
-
 
             state.setCountry(countryRepository.findByName(state.getCountry().getName()));
             stateRepository.save(state);
@@ -55,7 +58,7 @@ public class StateProxy {
         return "Added";
         }
         catch (Exception E){
-            E.toString();
+            E.printStackTrace();
             return "Fail to added "+state.getCountry().toString() + "\n" + state.toString();
 
         }

@@ -19,7 +19,7 @@
         <logback.version>1.0.13</logback.version>
         <jcl-over-slf4j.version>1.7.5</jcl-over-slf4j.version>
         <common-lang3.version>3.0</common-lang3.version>
-        <mysql-connector.version>5.1.6</mysql-connector.version>
+        <mysql-connector.version>5.1.40</mysql-connector.version>
         <mockito.version>1.9.5</mockito.version>
         <jackson.version>2.7.5</jackson.version>
         <hibernate-entitymanager.version>5.1.0.Final</hibernate-entitymanager.version>
